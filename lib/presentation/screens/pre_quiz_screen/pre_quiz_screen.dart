@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:survey/presentation/pre_quiz_screen/widget/title.dart';
+
+import 'package:survey/presentation/screens/pre_quiz_screen/widget/title.dart';
 
 
 class PreQuizScreen extends StatelessWidget {
@@ -16,7 +17,6 @@ class PreQuizScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             // ignore: prefer_const_literals_to_create_immutables
             children: [
-
               //kinda appbar
               TitleWidget(
                 title: title,
