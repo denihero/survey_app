@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:survey/presentation/main_page.dart';
 import 'package:survey/presentation/screens/favourite_screen/favourite_screen.dart';
-import 'package:survey/presentation/screens/home_screen/home_screen.dart';
 import 'package:survey/presentation/screens/pre_quiz_screen/pre_quiz_screen.dart';
 import 'package:survey/presentation/screens/profile_screen/profile_screen.dart';
 import 'package:survey/presentation/screens/quiz_screen/quiz_screen.dart';
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const HomeScreen(),
+        '/': (context) => const MainPage(),
         '/favourite': (context) => const FavouriteScreen(),
         '/profile': (context) => const ProfileScreen(),
         '/quiz': (context) => const QuizScreen(),
