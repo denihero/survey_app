@@ -17,6 +17,7 @@ class PreQuizScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             // ignore: prefer_const_literals_to_create_immutables
             children: [
+
               //kinda appbar
               TitleWidget(
                 title: title,

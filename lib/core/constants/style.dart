@@ -5,7 +5,7 @@ import 'package:survey/core/constants/color.dart';
 TextStyle Monsterats_700_18_FONT_SIZE_BLACK = GoogleFonts.montserrat(
   textStyle: const TextStyle(
     fontWeight: FontWeight.w700,
-    fontSize: 18,
+    fontSize: 24,
     letterSpacing: 1,
     color: BLACK
   )
