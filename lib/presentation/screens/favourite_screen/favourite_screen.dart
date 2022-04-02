@@ -8,8 +8,7 @@ class FavouriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    return SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 25),
           child: Column(
@@ -53,8 +52,7 @@ class FavouriteScreen extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
+        )
     );
   }
 }
