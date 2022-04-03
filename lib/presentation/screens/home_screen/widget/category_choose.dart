@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:survey/core/constants/color.dart';
-import 'package:survey/core/constants/style.dart';
 import 'package:survey/presentation/screens/home_screen/widget/choice_chip.dart';
 
 class CategoryChoose extends StatefulWidget {
@@ -14,8 +12,6 @@ class _CategoryChooseState extends State<CategoryChoose> {
   final _choices = [
     'Work','Food','Job','Mood','Sport','Programming'
   ];
-  int? _choiceIndex;
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
