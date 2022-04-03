@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:survey/core/constants/color.dart';
 
-class Search extends StatelessWidget {
-  const Search({Key? key}) : super(key: key);
+class SearchWidget extends StatelessWidget {
+  const SearchWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
