@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:survey/core/constants/color.dart';
+import 'color.dart';
 
 TextStyle Monsterats_700_18_FONT_SIZE_BLACK = GoogleFonts.montserrat(
   textStyle: const TextStyle(
