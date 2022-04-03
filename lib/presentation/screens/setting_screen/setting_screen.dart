@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:survey/core/constants/color.dart';
 import 'package:survey/core/constants/style.dart';
-import 'package:survey/presentation/screens/profile_screen/widgets/profileicon.dart';
 import 'package:survey/presentation/screens/setting_screen/widgets/profile_edit_icon.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -47,7 +46,7 @@ class SettingScreen extends StatelessWidget {
               ),
               Text(
                 "Username",
-                style: Monsterats_500_13_FONT_SIZE_BLACK,
+                style: Monsterats_500_15_FONT_SIZE_BLACK,
               ),
               const SizedBox(
                 height: 40,
@@ -58,7 +57,7 @@ class SettingScreen extends StatelessWidget {
               ),
               Text(
                 "baibaitur@gmail.com",
-                style: Monsterats_500_13_FONT_SIZE_BLACK,
+                style: Monsterats_500_15_FONT_SIZE_BLACK,
               ),
               const Expanded(child: SizedBox()),
               Row(
