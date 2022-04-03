@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:survey/core/constants/color.dart';
-import 'package:survey/core/constants/style.dart';
-import 'package:survey/presentation/screens/home_screen/widget/appbar_search.dart';
+
+import '../../../../core/constants/color.dart';
+import '../../../../core/constants/style.dart';
+import 'appbar_search.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppbar({Key? key}) : super(key: key);

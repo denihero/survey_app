@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:survey/presentation/screens/pre_quiz_screen/widget/title.dart';
+import 'widget/title.dart';
 
 
 class PreQuizScreen extends StatelessWidget {
