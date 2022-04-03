@@ -19,8 +19,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        brightness: Brightness.light,
       ),
       initialRoute: '/',
       routes: {
@@ -30,10 +32,10 @@ class MyApp extends StatelessWidget {
         '/quiz': (context) => const QuizScreen(),
         '/setting': (context) => const SettingScreen(),
         '/user_survey': (context) => const UserSurveyScreen(),
-        '/pre_quiz': (context) => const PreQuizScreen(title: 'Basic of programming', description: 'It\'all about programming')
+        '/pre_quiz': (context) => const PreQuizScreen(
+            title: 'Basic of programming',
+            description: 'It\'all about programming')
       },
     );
   }
 }
-
-

@@ -34,7 +34,9 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     const Expanded(child: SizedBox()),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, "/setting");
+                      },
                       child: const Icon(
                         Icons.settings,
                         color: ORANGE,
