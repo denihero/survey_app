@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'package:survey/presentation/screens/favourite_screen/favourite_screen.dart';
-import 'package:survey/presentation/screens/home_screen/home_screen.dart';
-import 'package:survey/presentation/screens/home_screen/widget/appBar/bottom_appbar_widget.dart';
-import 'package:survey/presentation/screens/profile_screen/profile_screen.dart';
-
+import 'package:survey/presentation/screens/favourite/favourite_screen.dart';
+import 'package:survey/presentation/screens/home/home_screen.dart';
+import 'package:survey/presentation/screens/home/widget/appBar/bottom_appbar_widget.dart';
+import 'package:survey/presentation/screens/profile/profile_screen.dart';
 
 
 class MainPage extends StatefulWidget {
@@ -15,7 +13,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<MainPage> {
-
   final _widgetOptions = <Widget>[
     const HomeScreen(),
     const FavouriteScreen(),
@@ -34,9 +31,7 @@ class _HomeScreenState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: IndexedStack(index: _selectedIndex, children: _widgetOptions),
-        bottomNavigationBar: BottomWidget(
-            selectedIndex: _selectedIndex,
-            onTap: _onItemTapped)
-    );
+        bottomNavigationBar:
+            BottomWidget(selectedIndex: _selectedIndex, onTap: _onItemTapped));
   }
 }
