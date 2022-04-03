@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:survey/presentation/screens/home_screen/user_survey_card.dart';
+import 'package:survey/presentation/screens/home_screen/widget/user_survey_card.dart';
 
 class UserSurveyWidget extends StatefulWidget {
   const UserSurveyWidget({Key? key,}) : super(key: key);

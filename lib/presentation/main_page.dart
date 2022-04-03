@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:survey/presentation/screens/favourite_screen/favourite_screen.dart';
 import 'package:survey/presentation/screens/home_screen/home_screen.dart';
-import 'package:survey/presentation/screens/home_screen/widget/bottom_appbar.dart';
+import 'package:survey/presentation/screens/home_screen/widget/appBar/bottom_appbar_widget.dart';
 import 'package:survey/presentation/screens/profile_screen/profile_screen.dart';
 
 
@@ -34,7 +34,7 @@ class _HomeScreenState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: IndexedStack(index: _selectedIndex, children: _widgetOptions),
-        bottomNavigationBar: Bottom(
+        bottomNavigationBar: BottomWidget(
             selectedIndex: _selectedIndex,
             onTap: _onItemTapped)
     );

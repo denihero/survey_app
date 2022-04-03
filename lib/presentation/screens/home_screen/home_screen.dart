@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:survey/presentation/screens/home_screen/widget/appBar/appbar_widget.dart';
+import 'package:survey/presentation/screens/home_screen/widget/appBar/appbar.dart';
+import 'package:survey/presentation/screens/home_screen/widget/category_choose_widget.dart';
+import 'package:survey/presentation/screens/home_screen/widget/user_survey_widget.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -7,8 +9,21 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        appBar: CustomAppbar(),
-        body: Text('HomeScreen'));
+    return SafeArea(
+      child: Scaffold(
+          appBar: const CustomAppbarWidget(),
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Padding(
+                    padding: EdgeInsets.only(left: 15,top: 10),
+                    child:CategoryChooseWidget()
+                ),
+                UserSurveyWidget(),
+              ],
+            ),
+          )),
+    );
   }
 }
