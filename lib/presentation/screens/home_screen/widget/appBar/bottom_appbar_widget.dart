@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:survey/core/constants/color.dart';
 
 
-class Bottom extends StatelessWidget {
-  const Bottom({Key? key,required this.selectedIndex, required this.onTap}) : super(key: key);
+class BottomWidget extends StatelessWidget {
+  const BottomWidget({Key? key,required this.selectedIndex, required this.onTap}) : super(key: key);
   final int selectedIndex;
   final ValueChanged<int> onTap;
 

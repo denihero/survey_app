@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:survey/core/constants/color.dart';
 import 'package:survey/core/constants/style.dart';
-import 'package:survey/presentation/screens/home_screen/widget/appbar_search.dart';
+import 'package:survey/presentation/screens/home_screen/widget/appBar/appbar_search_widget.dart';
 
-class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppbar({Key? key}) : super(key: key);
+class CustomAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppbarWidget({Key? key}) : super(key: key);
 
   @override
   PreferredSizeWidget build(BuildContext context) {
@@ -16,7 +16,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
             child: Text('Survey App',style: Monsterats_700_18_FONT_SIZE_BLACK,),
           ),
           const SizedBox(height: 25,),
-          const Search()
+          const SearchWidget()
         ],
       ),
       backgroundColor: WHITE,

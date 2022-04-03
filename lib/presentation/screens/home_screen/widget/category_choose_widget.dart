@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:survey/presentation/screens/home_screen/widget/choice_chip.dart';
+import 'package:survey/presentation/screens/home_screen/widget/choice_chip_widget.dart';
 
-class CategoryChoose extends StatefulWidget {
-  const CategoryChoose({Key? key,}) : super(key: key);
+class CategoryChooseWidget extends StatefulWidget {
+  const CategoryChooseWidget({Key? key,}) : super(key: key);
   @override
-  State<CategoryChoose> createState() => _CategoryChooseState();
+  State<CategoryChooseWidget> createState() => _CategoryChooseState();
 }
 
-class _CategoryChooseState extends State<CategoryChoose> {
+class _CategoryChooseState extends State<CategoryChooseWidget> {
 
   final _choices = [
     'Work','Food','Job','Mood','Sport','Programming'

@@ -15,12 +15,12 @@ class InfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 6,
-      margin: EdgeInsets.only(bottom: 15),
+      margin: const EdgeInsets.only(bottom: 15),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
       child: ListTile(
-        leading: FittedBox(child: Placeholder()),
+        leading: const FittedBox(child: Placeholder()),
         title: Text(title),
         subtitle: Text(subtitle),
         trailing: Icon(
