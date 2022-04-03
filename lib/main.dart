@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'presentation/main_page.dart';
+import 'package:survey/presentation/main_page.dart';
+import 'package:survey/presentation/screens/finish_survey_screen/finish_survey_screen.dart';
+import 'package:survey/presentation/screens/home_screen/home_screen.dart';
+import 'package:survey/presentation/screens/user_result_screen/users_result_screen.dart';
+import 'package:survey/presentation/screens/usert_attempt_screen/users_attempt_screen.dart';
 import 'presentation/screens/favourite_screen/favourite_screen.dart';
 import 'presentation/screens/pre_quiz_screen/pre_quiz_screen.dart';
 import 'presentation/screens/profile_screen/profile_screen.dart';
@@ -33,7 +37,10 @@ class MyApp extends StatelessWidget {
         '/user_survey': (context) => const UserSurveyScreen(),
         '/pre_quiz': (context) => const PreQuizScreen(
             title: 'Basic of programming',
-            description: 'It\'all about programming')
+            description: 'It\'all about programming'),
+        '/finish_survey': (context) => const FinishSurveyScreen(),
+        '/user_attempt': (context) => const UserAttemptScreen(),
+        '/user_result': (context) => const UserResultScreen()
       },
     );
   }
