@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:survey/core/constants/color.dart';
 import 'package:survey/core/constants/style.dart';
 import 'package:survey/presentation/screens/profile_screen/widgets/profileicon.dart';
 import 'package:survey/presentation/screens/setting_screen/widgets/profile_edit_icon.dart';
@@ -9,11 +10,11 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: WHITE,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: WHITE,
         iconTheme: const IconThemeData(
-          color: Colors.black, //change your color here
+          color: BLACK, //change your color here
         ),
         leading: Padding(
           padding: const EdgeInsets.only(left: 35),
@@ -30,7 +31,7 @@ class SettingScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Container(
-          color: Colors.white,
+          color: WHITE,
           width: double.infinity,
           padding: const EdgeInsets.only(left: 35, top: 45),
           child: Column(
