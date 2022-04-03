@@ -11,10 +11,10 @@ TextStyle Monsterats_700_18_FONT_SIZE_BLACK = GoogleFonts.montserrat(
   )
 );
 
-TextStyle Monsterats_600_9_FONT_SIZE_BLACK = GoogleFonts.montserrat(
+TextStyle Monsterats_600_13_FONT_SIZE_BLACK = GoogleFonts.montserrat(
     textStyle: const TextStyle(
         fontWeight: FontWeight.w600,
-        fontSize: 9,
+        fontSize: 13,
         letterSpacing: 1,
         color: BLACK
     )
