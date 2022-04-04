@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 
 import '../../../../core/constants/color.dart';
-=======
-import 'package:survey/core/constants/color.dart';
->>>>>>> 6ae20db9bba80b0090e85f761776bc76fc48e0eb
 
 
 class Bottom extends StatelessWidget {

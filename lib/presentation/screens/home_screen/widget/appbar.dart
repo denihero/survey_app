@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/color.dart';
 import '../../../../core/constants/style.dart';
-import 'appbar_search.dart';
+import 'appbar_with_search.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppbar({Key? key}) : super(key: key);
