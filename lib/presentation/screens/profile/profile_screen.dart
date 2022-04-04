@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../core/constants/color.dart';
 import '../../../core/constants/style.dart';
 import 'widgets/profilecard.dart';
@@ -33,15 +32,11 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                     const Expanded(child: SizedBox()),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, "/setting");
-                      },
-                      child: const Icon(
-                        Icons.settings,
-                        color: ORANGE,
-                        size: 30,
-                      ),
+                     IconButton(
+                      icon: const Icon(Icons.settings, size: 30,),
+                      color: ORANGE, onPressed: () {
+                       Navigator.of(context).pushNamed('/setting');
+                    },
                     ),
                   ],
                 ),

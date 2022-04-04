@@ -16,8 +16,9 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
     return SizedBox(
       height: MediaQuery.of(context).size.height,
       child: ListView.builder(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           scrollDirection: Axis.vertical,
-          itemCount: 8,
+          itemCount: 10,
           itemBuilder: (context, index) {
             return const UserSurveyCard(title: 'Adam Sendler', count: 12);
           }),

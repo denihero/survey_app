@@ -60,20 +60,23 @@ class SettingScreen extends StatelessWidget {
                 style: Monsterats_500_15_FONT_SIZE_BLACK,
               ),
               const Expanded(child: SizedBox()),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.logout,
-                    size: 30,
-                  ),
-                  const SizedBox(
-                    width: 7,
-                  ),
-                  Text(
-                    "Logout",
-                    style: Monsterats_600_18_FONT_SIZE_BLACK,
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.logout,
+                      size: 30,
+                    ),
+                    const SizedBox(
+                      width: 7,
+                    ),
+                    Text(
+                      "Logout",
+                      style: Monsterats_600_18_FONT_SIZE_BLACK,
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 7,

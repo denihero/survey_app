@@ -52,7 +52,7 @@ class PreQuizScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 50,
+                    height: 450,
                   ),
 
                   //button

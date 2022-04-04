@@ -16,7 +16,7 @@ class _UserSurveyCardState extends State<UserSurveyCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).pushNamed('/user_survey'),
+      onTap: () => Navigator.of(context).pushNamed('/user_survey',),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
         child: Card(
@@ -36,7 +36,7 @@ class _UserSurveyCardState extends State<UserSurveyCard> {
               style: Monsterats_500_15_FONT_SIZE_BLACK,
             ),
             trailing: IconButton(
-              icon: const Icon(Icons.favorite),
+              icon: const Icon(Icons.favorite,size: 30,),
               color: isSaved! ? Colors.black : Colors.grey,
               onPressed: () {
                 setState(() {

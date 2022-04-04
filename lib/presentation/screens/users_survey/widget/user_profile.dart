@@ -40,8 +40,6 @@ class UserProfileWidget extends StatelessWidget {
           trailing: SizedBox(
             width: 5,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
                 Text('.', style: TextStyle(fontSize: 17, color: WHITE)),
                 Text('.', style: TextStyle(fontSize: 17, color: WHITE)),

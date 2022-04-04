@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: const [
                 Padding(
-                    padding: EdgeInsets.only(left: 15, top: 10),
+                    padding: EdgeInsets.only(left: 15, top: 10,bottom: 40),
                     child: CategoryChooseWidget()),
                 UserSurveyWidget(),
               ],

@@ -8,7 +8,7 @@ class FollowButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: 80,
+        width: MediaQuery.of(context).size.width * 0.2,
         height: 31,
         child: ElevatedButton(
             style: ButtonStyle(

@@ -31,6 +31,9 @@ class UserAttemptScreen extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(
+              height: 30,
+            ),
             const UserTileWidget(),
             const UserTileWidget(),
             const UserTileWidget(),

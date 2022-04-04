@@ -1,9 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:survey/presentation/screens/favourite/favourite_screen.dart';
 import 'package:survey/presentation/screens/home/home_screen.dart';
 import 'package:survey/presentation/screens/home/widget/appBar/bottom_appbar_widget.dart';
 import 'package:survey/presentation/screens/profile/profile_screen.dart';
-
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -13,13 +13,14 @@ class MainPage extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<MainPage> {
-  final _widgetOptions = <Widget>[
+
+  final _screens = <Widget>[
     const HomeScreen(),
     const FavouriteScreen(),
     const ProfileScreen()
   ];
 
-  late int _selectedIndex = 0;
+  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -30,8 +31,13 @@ class _HomeScreenState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: IndexedStack(index: _selectedIndex, children: _widgetOptions),
-        bottomNavigationBar:
-            BottomWidget(selectedIndex: _selectedIndex, onTap: _onItemTapped));
+        body:IndexedStack(
+          children: [
+            _screens[_selectedIndex]],
+        ),
+        bottomNavigationBar: BottomWidget(
+            onTap: _onItemTapped, index: _selectedIndex,
+        ));
   }
+
 }

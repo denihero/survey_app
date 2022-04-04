@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:survey/core/constants/style.dart';
-import 'package:survey/presentation/screens/favourite/favourite_screen.dart';
 import 'package:survey/presentation/screens/finish_survey/widget/author_tile.dart';
 import 'package:survey/presentation/screens/finish_survey/widget/user_survey_profile.dart';
-import 'package:survey/presentation/screens/home/home_screen.dart';
-import 'package:survey/presentation/screens/home/widget/appBar/bottom_appbar_widget.dart';
-import 'package:survey/presentation/screens/profile/profile_screen.dart';
 
 class FinishSurveyScreen extends StatefulWidget {
   const FinishSurveyScreen({Key? key}) : super(key: key);
@@ -15,19 +11,6 @@ class FinishSurveyScreen extends StatefulWidget {
 }
 
 class _FinishSurveyScreenState extends State<FinishSurveyScreen> {
-  final _widgetOptions = <Widget>[
-    const HomeScreen(),
-    const FavouriteScreen(),
-    const ProfileScreen()
-  ];
-
-  late int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,13 +52,9 @@ class _FinishSurveyScreenState extends State<FinishSurveyScreen> {
             const SizedBox(
               height: 30,
             ),
-            AuthorTileWidget(),
-            AuthorTileWidget(),
+            const AuthorTileWidget(),
+            const AuthorTileWidget(),
           ],
-        ),
-        bottomNavigationBar: BottomWidget(
-          selectedIndex: _selectedIndex,
-          onTap: _onItemTapped,
         ),
       ),
     );

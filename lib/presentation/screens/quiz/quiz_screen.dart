@@ -38,14 +38,14 @@ class QuizScreen extends StatelessWidget {
                   style: Monsterats_500_16_FONT_SIZE_BLACK,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Flexible(
                 flex: 15,
                 // height: 380,
                 child: ListView(
-                  children: [
+                  children: const [
                     Question(
                       question: "Hello",
                     ),
@@ -53,7 +53,7 @@ class QuizScreen extends StatelessWidget {
                       question: "Good",
                     ),
                     Question(
-                      is_chosen: true,
+                      isChosen: true,
                       question: "Right One",
                     ),
                     Question(
@@ -97,10 +97,10 @@ class QuizScreen extends StatelessWidget {
 }
 
 class Question extends StatelessWidget {
-  Question({Key? key, this.is_chosen = false, required this.question})
+  const Question({Key? key, this.isChosen = false, required this.question})
       : super(key: key);
-  bool is_chosen;
-  String question;
+  final bool isChosen;
+  final String question;
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +116,7 @@ class Question extends StatelessWidget {
           onTap: () {},
           child: Icon(
             Icons.circle,
-            color: is_chosen ? ORANGE : Colors.white,
+            color: isChosen ? ORANGE : Colors.white,
             size: 44,
           ),
         ),

@@ -4,6 +4,7 @@ import 'package:survey/logic/bloc/auth_bloc.dart';
 import 'package:survey/presentation/main_page.dart';
 import 'package:survey/presentation/screens/favourite/favourite_screen.dart';
 import 'package:survey/presentation/screens/finish_survey/finish_survey_screen.dart';
+import 'package:survey/presentation/screens/home/home_screen.dart';
 import 'package:survey/presentation/screens/login_screen/login_screen.dart';
 import 'package:survey/presentation/screens/pre_quiz/pre_quiz_screen.dart';
 import 'package:survey/presentation/screens/profile/profile_screen.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => const MainPage(),
+          '/home': (context) => const HomeScreen(),
           '/favourite': (context) => const FavouriteScreen(),
           '/profile': (context) => const ProfileScreen(),
           '/quiz': (context) => const QuizScreen(),
