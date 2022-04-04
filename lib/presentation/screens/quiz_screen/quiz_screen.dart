@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:survey/core/constants/color.dart';
-import 'package:survey/core/constants/style.dart';
+import '../../../core/constants/color.dart';
+import '../../../core/constants/style.dart';
 
 import '../pre_quiz_screen/widget/title.dart';
 

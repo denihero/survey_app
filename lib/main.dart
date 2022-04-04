@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'presentation/screens/login_screen/login_screen.dart';
+import 'logic/bloc/auth_bloc.dart';
 import 'presentation/main_page.dart';
 import 'presentation/screens/favourite_screen/favourite_screen.dart';
 import 'presentation/screens/pre_quiz_screen/pre_quiz_screen.dart';
@@ -17,24 +20,32 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        brightness: Brightness.light,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          brightness: Brightness.light,
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const MainPage(),
+          '/login': (context) => LoginScreen(),
+          '/favourite': (context) => const FavouriteScreen(),
+          '/profile': (context) => const ProfileScreen(),
+          '/quiz': (context) => QuizScreen(),
+          '/setting': (context) => const SettingScreen(),
+          '/user_survey': (context) => const UserSurveyScreen(),
+          '/pre_quiz': (context) => const PreQuizScreen(
+              title: 'Basic of programming',
+              description: 'It\'all about programming')
+        },
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const MainPage(),
-        '/favourite': (context) => const FavouriteScreen(),
-        '/profile': (context) => const ProfileScreen(),
-        '/quiz': (context) => QuizScreen(),
-        '/setting': (context) => const SettingScreen(),
-        '/user_survey': (context) => const UserSurveyScreen(),
-        '/pre_quiz': (context) => const PreQuizScreen(
-            title: 'Basic of programming',
-            description: 'It\'all about programming')
-      },
     );
   }
 }

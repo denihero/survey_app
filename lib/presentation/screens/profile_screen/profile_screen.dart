@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../../core/constants/color.dart';
 import '../../../core/constants/style.dart';
-import '../favourite_screen/widget/card.dart';
 import 'widgets/profilecard.dart';
 import 'widgets/profileicon.dart';
 
