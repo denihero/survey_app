@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD:lib/presentation/screens/home_screen/widget/appbar_search.dart
 
 import '../../../../core/constants/color.dart';
+=======
+import 'package:survey/core/constants/color.dart';
+>>>>>>> 6ae20db9bba80b0090e85f761776bc76fc48e0eb:lib/presentation/screens/home_screen/widget/appBar/appbar_search_widget.dart
 
-class Search extends StatelessWidget {
-  const Search({Key? key}) : super(key: key);
+
+class SearchWidget extends StatelessWidget {
+  const SearchWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

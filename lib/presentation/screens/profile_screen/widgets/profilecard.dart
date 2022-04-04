@@ -25,11 +25,11 @@ class ProfileCard extends StatelessWidget {
           leading: const FittedBox(child: Placeholder()),
           title: Text(
             title,
-            style: Monsterats_500_13_FONT_SIZE_BLACK.copyWith(fontSize: 14.3),
+            style: Monsterats_500_15_FONT_SIZE_BLACK.copyWith(fontSize: 14.3),
           ),
           subtitle: Text(
             subtitle,
-            style: Monsterats_500_13_FONT_SIZE_BLACK,
+            style: Monsterats_500_15_FONT_SIZE_BLACK,
           ),
         ),
       ),

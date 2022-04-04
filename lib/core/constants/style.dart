@@ -11,26 +11,26 @@ TextStyle Monsterats_700_18_FONT_SIZE_BLACK = GoogleFonts.montserrat(
   )
 );
 
-TextStyle Monsterats_600_9_FONT_SIZE_BLACK = GoogleFonts.montserrat(
+TextStyle Monsterats_600_13_FONT_SIZE_BLACK = GoogleFonts.montserrat(
     textStyle: const TextStyle(
         fontWeight: FontWeight.w600,
-        fontSize: 9,
+        fontSize: 13,
         letterSpacing: 1,
         color: BLACK
     )
 );
 
-TextStyle Monsterats_500_13_FONT_SIZE_BLACK = GoogleFonts.montserrat(
+TextStyle Monsterats_500_15_FONT_SIZE_BLACK = GoogleFonts.montserrat(
     textStyle: const TextStyle(
         fontWeight: FontWeight.w500,
-        fontSize: 13,
+        fontSize: 15,
         letterSpacing: 1,
         color: BLACK
     )
 );
 TextStyle Monsterats_500_16_FONT_SIZE_BLACK = GoogleFonts.montserrat(
     textStyle: const TextStyle(
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w400,
         fontSize: 16,
         letterSpacing: 1,
         color: BLACK
