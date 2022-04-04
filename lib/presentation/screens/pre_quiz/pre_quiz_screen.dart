@@ -56,19 +56,24 @@ class PreQuizScreen extends StatelessWidget {
                   ),
 
                   //button
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 25),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Colors.deepOrangeAccent,
-                        borderRadius: BorderRadius.circular(9)),
-                    child: const Center(
-                      child: Text(
-                        "Start",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w700),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed('/quiz');
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 25),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: Colors.deepOrangeAccent,
+                          borderRadius: BorderRadius.circular(9)),
+                      child: const Center(
+                        child: Text(
+                          "Start",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700),
+                        ),
                       ),
                     ),
                   )
