@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:survey/core/constants/color.dart';
 
+
 class SearchWidget extends StatelessWidget {
   const SearchWidget({Key? key}) : super(key: key);
 
@@ -11,11 +12,13 @@ class SearchWidget extends StatelessWidget {
       child: TextFormField(
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(32)),
-              borderSide: BorderSide(color: Colors.transparent)),
+            borderRadius: BorderRadius.all(Radius.circular(32)),
+            borderSide: BorderSide(color: Colors.transparent)
+          ),
           focusedBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(32)),
-              borderSide: BorderSide(color: Colors.transparent)),
+              borderSide: BorderSide(color: Colors.transparent)
+          ),
           filled: true,
           fillColor: Colors.grey.withOpacity(0.5),
           suffixIcon: Padding(
@@ -25,9 +28,9 @@ class SearchWidget extends StatelessWidget {
                 backgroundColor: BLUE,
                 child: IconButton(
                   icon: const Icon(Icons.search),
-                  color: WHITE,
-                  onPressed: () {},
-                )),
+                  color: WHITE,onPressed: () {}
+                  ,)
+            ),
           ),
           labelText: "Search",
           border: InputBorder.none,
