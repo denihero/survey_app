@@ -11,7 +11,6 @@ class BottomWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(21), topRight: Radius.circular(21)),
