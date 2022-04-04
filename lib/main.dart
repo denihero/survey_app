@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const MainPage(),
         '/favourite': (context) => const FavouriteScreen(),
         '/profile': (context) => const ProfileScreen(),
-        '/quiz': (context) => QuizScreen(),
+        '/quiz': (context) => const QuizScreen(),
         '/setting': (context) => const SettingScreen(),
         '/user_survey': (context) => const UserSurveyScreen(),
         '/pre_quiz': (context) => const PreQuizScreen(
