@@ -52,13 +52,13 @@ class PreQuizScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 450,
+                    height: 400,
                   ),
 
                   //button
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed('/quiz');
+                      Navigator.of(context,rootNavigator: true).pushNamed('/quiz');
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 25),

@@ -10,6 +10,14 @@ class UserResultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: BackButton(
+            onPressed: () => Navigator.pop(context),
+            color: BLACK,
+          ),
+        ),
         body: Center(
           child: SingleChildScrollView(
             child: Column(

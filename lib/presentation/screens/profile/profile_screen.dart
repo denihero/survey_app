@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:survey/presentation/screens/setting/setting_screen.dart';
 import '../../../core/constants/color.dart';
 import '../../../core/constants/style.dart';
 import 'widgets/profilecard.dart';
@@ -20,7 +21,7 @@ class ProfileScreen extends StatelessWidget {
               Container(
                 child: Row(
                   children: [
-                    Expanded(
+                    const Expanded(
                       child: SizedBox(),
                     ),
                     Container(
@@ -35,7 +36,7 @@ class ProfileScreen extends StatelessWidget {
                      IconButton(
                       icon: const Icon(Icons.settings, size: 30,),
                       color: ORANGE, onPressed: () {
-                       Navigator.of(context).pushNamed('/setting');
+                       Navigator.of(context, rootNavigator: true).pushNamed('/setting');
                     },
                     ),
                   ],
