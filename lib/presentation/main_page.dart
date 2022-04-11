@@ -19,7 +19,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<MainPage> {
-
   final _screens = <Widget>[
     const HomeScreen(),
     const FavouriteScreen(),
@@ -29,39 +28,44 @@ class _HomeScreenState extends State<MainPage> {
   int _currentIndex = 0;
 
   void _onTap(index) {
-   setState(() {
-     _currentIndex = index;
-   });
-    }
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body:Navigator(
+        body: Navigator(
           onGenerateRoute: (setting) {
-            if(setting.name == '/'){
-              return MaterialPageRoute(builder: (_) => IndexedStack(
-                children: _screens,
-                index: _currentIndex,
-              ));
-            }else if(setting.name == '/favourite'){
+            if (setting.name == '/') {
+              return MaterialPageRoute(
+                  builder: (_) => IndexedStack(
+                        children: _screens,
+                        index: _currentIndex,
+                      ));
+            } else if (setting.name == '/favourite') {
               return MaterialPageRoute(builder: (_) => const FavouriteScreen());
-            }else if(setting.name == '/user_survey'){
-              return MaterialPageRoute(builder: (_) => const UserSurveyScreen());
-            }else if(setting.name == '/favourite'){
+            } else if (setting.name == '/user_survey') {
+              return MaterialPageRoute(
+                  builder: (_) => const UserSurveyScreen());
+            } else if (setting.name == '/favourite') {
               return MaterialPageRoute(builder: (_) => const FavouriteScreen());
-            }else if(setting.name == '/pre_quiz'){
-              return MaterialPageRoute(builder: (_) => const PreQuizScreen(
-                  title: 'Why people lie',
-                  description: 'This is just a test')
-              );
-              }else if(setting.name == '/user_attempt'){
-              return MaterialPageRoute(builder: (_) => const UserAttemptScreen());
-            }else if(setting.name == '/user_result'){
-              return MaterialPageRoute(builder: (_) => const UserResultScreen());
-            }else if(setting.name == '/finish_survey'){
-              return MaterialPageRoute(builder: (_) => const FinishSurveyScreen());
-            }else if(setting.name == '/profile'){
+            } else if (setting.name == '/pre_quiz') {
+              return MaterialPageRoute(
+                  builder: (_) => const PreQuizScreen(
+                      title: 'Why people lie',
+                      description: 'This is just a test'));
+            } else if (setting.name == '/user_attempt') {
+              return MaterialPageRoute(
+                  builder: (_) => const UserAttemptScreen());
+            } else if (setting.name == '/user_result') {
+              return MaterialPageRoute(
+                  builder: (_) => const UserResultScreen());
+            } else if (setting.name == '/finish_survey') {
+              return MaterialPageRoute(
+                  builder: (_) => const FinishSurveyScreen());
+            } else if (setting.name == '/profile') {
               return MaterialPageRoute(builder: (_) => const ProfileScreen());
             }
           },
@@ -112,8 +116,6 @@ class _HomeScreenState extends State<MainPage> {
               onTap: _onTap,
             ),
           ),
-        )
-    );
+        ));
   }
-
 }
