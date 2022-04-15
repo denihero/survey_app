@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/core/constants/color.dart';
 import 'package:survey/core/constants/style.dart';
+import 'package:survey/logic/bloc/auth_bloc.dart';
+import 'package:survey/presentation/screens/login_screen/login_screen.dart';
 import 'package:survey/presentation/screens/setting/widgets/profile_edit_icon.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -41,23 +44,15 @@ class SettingScreen extends StatelessWidget {
                 height: 40,
               ),
               Text(
-                "Name",
-                style: Monsterats_600_18_FONT_SIZE_BLACK,
-              ),
-              Text(
-                "Username",
-                style: Monsterats_500_15_FONT_SIZE_BLACK,
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              Text(
                 "email",
                 style: Monsterats_600_18_FONT_SIZE_BLACK,
               ),
               Text(
-                "baibaitur@gmail.com",
+                BlocProvider.of<AuthBloc>(context).email,
                 style: Monsterats_500_15_FONT_SIZE_BLACK,
+              ),
+              const SizedBox(
+                height: 40,
               ),
               const Expanded(child: SizedBox()),
               Padding(
@@ -71,9 +66,15 @@ class SettingScreen extends StatelessWidget {
                     const SizedBox(
                       width: 7,
                     ),
-                    Text(
-                      "Logout",
-                      style: Monsterats_600_18_FONT_SIZE_BLACK,
+                    GestureDetector(
+                      onTap: () {
+                        BlocProvider.of<AuthBloc>(context).add(AuthLogout());
+                        Navigator.of(context).pushNamed("/login");
+                      },
+                      child: Text(
+                        "Logout",
+                        style: Monsterats_600_18_FONT_SIZE_BLACK,
+                      ),
                     ),
                   ],
                 ),

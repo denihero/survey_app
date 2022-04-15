@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/logic/bloc/auth_bloc.dart';
 import 'package:survey/presentation/navigation/routes.dart';
 import 'package:survey/presentation/screens/setting/setting_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -16,15 +17,14 @@ class MyApp extends StatelessWidget {
     return BlocProvider<AuthBloc>(
       create: (context) => AuthBloc(),
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          brightness: Brightness.light,
-        ),
-        initialRoute: '/login',
-        routes: App.route
-      ),
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            brightness: Brightness.light,
+          ),
+          initialRoute: '/login',
+          routes: App.route),
     );
   }
 }

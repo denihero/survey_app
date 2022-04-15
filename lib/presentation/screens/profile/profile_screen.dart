@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/presentation/screens/setting/setting_screen.dart';
 import '../../../core/constants/color.dart';
 import '../../../core/constants/style.dart';
+import '../../../logic/bloc/auth_bloc.dart';
 import 'widgets/profilecard.dart';
 import 'widgets/profileicon.dart';
 
@@ -33,11 +35,16 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                     const Expanded(child: SizedBox()),
-                     IconButton(
-                      icon: const Icon(Icons.settings, size: 30,),
-                      color: ORANGE, onPressed: () {
-                       Navigator.of(context, rootNavigator: true).pushNamed('/setting');
-                    },
+                    IconButton(
+                      icon: const Icon(
+                        Icons.settings,
+                        size: 30,
+                      ),
+                      color: ORANGE,
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true)
+                            .pushNamed('/setting');
+                      },
                     ),
                   ],
                 ),
@@ -50,9 +57,11 @@ class ProfileScreen extends StatelessWidget {
                 height: 44,
               ),
               Center(
-                  child: Text(
-                "Username",
-                style: Monsterats_600_18_FONT_SIZE_BLACK,
+                  child: Flexible(
+                child: Text(
+                  BlocProvider.of<AuthBloc>(context).email,
+                  style: Monsterats_600_18_FONT_SIZE_BLACK,
+                ),
               )),
               SizedBox(
                 height: 60,
