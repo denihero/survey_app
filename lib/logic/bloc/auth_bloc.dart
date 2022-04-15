@@ -19,6 +19,10 @@ class AuthLogin extends AuthEvent {
   AuthLogin(String username, String password) : super(username, password);
 }
 
+class AuthLogout extends AuthEvent {
+  AuthLogout() : super("", "");
+}
+
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
     on<AuthLogin>((event, emit) async {
@@ -30,6 +34,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthError());
       }
     });
+    on<AuthLogout>(
+      (event, emit) => emit(
+        AuthInitial(),
+      ),
+    );
   }
 
   @override

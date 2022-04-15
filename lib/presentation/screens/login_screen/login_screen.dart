@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:survey/presentation/screens/home/home_screen.dart';
 import '../../../logic/bloc/auth_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -9,23 +10,20 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Login"),
-      ),
       body: Container(
         padding: const EdgeInsets.all(15),
         child: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
-            if (state is AuthInitial) {
+            if (state is AuthInitial || state is AuthError) {
               return LoginInitialWidget(
                   usernameController: usernameController,
                   passwordController: passwordController);
             } else if (state is AuthSuccess) {
-              return const Text("Success");
-            } else if (state is AuthError) {
-              return const Text("Error");
+              return const HomeScreen();
+            } else if (state is AuthLoading) {
+              return const Center(child: CircularProgressIndicator());
             }
-            return const CircularProgressIndicator();
+            return Text("");
           },
         ),
       ),
@@ -45,6 +43,13 @@ class LoginInitialWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool check(String name, String password) {
+      if (name.isEmpty || password.length < 6) {
+        return false;
+      }
+      return true;
+    }
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,9 +71,16 @@ class LoginInitialWidget extends StatelessWidget {
           children: [
             TextButton(
               onPressed: () async {
-                BlocProvider.of<AuthBloc>(context).add(
-                  AuthLogin(usernameController.text, passwordController.text),
-                );
+                check(usernameController.text, passwordController.text)
+                    ? BlocProvider.of<AuthBloc>(context).add(
+                        AuthLogin(
+                            usernameController.text, passwordController.text),
+                      )
+                    : ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Entered invalid data!"),
+                        ),
+                      );
               },
               child: const Text("Login"),
             ),

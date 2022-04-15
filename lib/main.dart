@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           brightness: Brightness.light,
         ),
-        initialRoute: '/',
+        initialRoute: '/login',
         routes: App.route
       ),
     );
