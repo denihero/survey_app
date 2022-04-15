@@ -53,7 +53,7 @@ class ProfileScreen extends StatelessWidget {
                 height: 27,
               ),
               ProfileIcon(),
-              SizedBox(
+              const SizedBox(
                 height: 44,
               ),
               Center(
@@ -63,29 +63,29 @@ class ProfileScreen extends StatelessWidget {
                   style: Monsterats_600_18_FONT_SIZE_BLACK,
                 ),
               )),
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
               Text(
                 "Your Survey:",
                 style: Monsterats_600_18_FONT_SIZE_BLACK,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 39,
               ),
               Expanded(
                 child: ListView(
                   children: [
-                    ProfileCard(
+                    const ProfileCard(
                         title: "Math for high school",
                         subtitle: "0/35 questions"),
-                    ProfileCard(
+                    const ProfileCard(
                         title: "Math for high school",
                         subtitle: "0/35 questions"),
-                    ProfileCard(
+                    const ProfileCard(
                         title: "Math for high school",
                         subtitle: "0/35 questions"),
-                    ProfileCard(
+                    const ProfileCard(
                         title: "Math for high school",
                         subtitle: "0/35 questions"),
                   ],

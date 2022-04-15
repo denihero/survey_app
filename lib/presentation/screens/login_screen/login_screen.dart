@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:survey/logic/bloc/login_api.dart';
+import 'package:survey/logic/cubit/categories_cubit.dart';
 import 'package:survey/presentation/main_page.dart';
 import 'package:survey/presentation/screens/home/home_screen.dart';
 import '../../../logic/bloc/auth_bloc.dart';
@@ -13,12 +15,15 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
         builder: (context, state) {
-          if (state is AuthInitial || state is AuthError||state is AuthRegisterSuccess) {
+          if (state is AuthInitial ||
+              state is AuthError ||
+              state is AuthRegisterSuccess) {
             return LoginInitialWidget(
               usernameController: usernameController,
               passwordController: passwordController,
             );
           } else if (state is AuthSuccess) {
+            BlocProvider.of<CategoriesCubit>(context).get_category();
             return const MainPage();
           }
           return const CircularProgressIndicator();
@@ -155,7 +160,8 @@ class RegisterInitialWidget extends StatelessWidget {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      content: const Text("Check your email for confirmation code"),
+                      content:
+                          const Text("Check your email for confirmation code"),
                       actions: [
                         TextButton(
                           onPressed: () {

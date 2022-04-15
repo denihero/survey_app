@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:survey/logic/bloc/login_api.dart';
 import 'package:survey/presentation/screens/home/widget/appBar/appbar.dart';
 import 'package:survey/presentation/screens/home/widget/category_choose_widget.dart';
 import 'package:survey/presentation/screens/home/widget/user_survey_widget.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+
+class HomeScreen extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class HomeScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: const [
                 Padding(
-                    padding: EdgeInsets.only(left: 15, top: 10,bottom: 40),
+                    padding: EdgeInsets.only(left: 15, top: 10, bottom: 40),
                     child: CategoryChooseWidget()),
                 UserSurveyWidget(),
               ],

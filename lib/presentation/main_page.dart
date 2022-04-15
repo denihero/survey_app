@@ -21,7 +21,7 @@ class MainPage extends StatefulWidget {
 
 class _HomeScreenState extends State<MainPage> {
   final _screens = <Widget>[
-    const HomeScreen(),
+    HomeScreen(),
     const FavouriteScreen(),
     const ProfileScreen()
   ];

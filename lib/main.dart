@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/logic/bloc/auth_bloc.dart';
+import 'package:survey/logic/bloc/login_api.dart';
+import 'package:survey/logic/cubit/categories_cubit.dart';
 import 'package:survey/presentation/navigation/routes.dart';
 import 'package:survey/presentation/screens/setting/setting_screen.dart';
 
@@ -14,8 +16,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AuthBloc>(
-      create: (context) => AuthBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(),
+        ),
+        BlocProvider<CategoriesCubit>(
+          create: (context) => CategoriesCubit(),
+        ),
+      ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
