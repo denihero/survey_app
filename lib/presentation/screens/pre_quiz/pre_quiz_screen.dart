@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:survey/logic/cubit/current_survey_cubit.dart';
 
+import '../quiz/quiz_screen.dart';
 import 'widget/title.dart';
 
 class PreQuizScreen extends StatelessWidget {
-  const PreQuizScreen(
-      {Key? key, required this.title, required this.description})
-      : super(key: key);
-  final String title;
-  final String description;
+  PreQuizScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final survey = BlocProvider.of<SurveyCurrentCubit>(context).state;
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -20,14 +20,14 @@ class PreQuizScreen extends StatelessWidget {
             children: [
               //kinda appbar
               TitleWidget(
-                title: title,
+                title: survey?.title ?? "",
                 icon: Icons.home,
               ),
               const SizedBox(
                 height: 50,
               ),
               Text(
-                title,
+                survey?.title ?? "",
                 // ignore: unnecessary_const
                 style: const TextStyle(
                   color: Colors.black,
@@ -44,7 +44,7 @@ class PreQuizScreen extends StatelessWidget {
               Expanded(
                 child: ListView(children: [
                   Text(
-                    description,
+                    "Description",
                     style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w400,
@@ -58,7 +58,10 @@ class PreQuizScreen extends StatelessWidget {
                   //button
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context,rootNavigator: true).pushNamed('/quiz');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => QuizScreen()),
+                      );
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 25),

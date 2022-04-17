@@ -31,9 +31,7 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return UserSurveyCard(
-                  title: surveys[index].title!,
-                  count: surveys[index].questions!.length,
-                  image: surveys[index].image ?? "",
+                  survey: surveys[index],
                 );
               });
         }

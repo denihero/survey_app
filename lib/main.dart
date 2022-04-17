@@ -7,6 +7,8 @@ import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/navigation/routes.dart';
 import 'package:survey/presentation/screens/setting/setting_screen.dart';
 
+import 'logic/cubit/current_survey_cubit.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -27,6 +29,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<SurveyCubit>(
           create: (context) => SurveyCubit(),
+        ),
+        BlocProvider<SurveyCurrentCubit>(
+          create: (context) => SurveyCurrentCubit(),
         ),
       ],
       child: MaterialApp(

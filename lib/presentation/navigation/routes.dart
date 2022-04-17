@@ -15,7 +15,7 @@ import 'package:survey/presentation/screens/usert_attempt/users_attempt_screen.d
 
 import '../main_page.dart';
 
-class App{
+class App {
   static final route = <String, WidgetBuilder>{
     '/': (context) => const MainPage(),
     '/home': (context) => HomeScreen(),
@@ -24,9 +24,7 @@ class App{
     '/quiz': (context) => const QuizScreen(),
     '/setting': (context) => const SettingScreen(),
     '/user_survey': (context) => const UserSurveyScreen(),
-    '/pre_quiz': (context) => const PreQuizScreen(
-        title: 'Basic of programming',
-        description: 'It\'all about programming'),
+    '/pre_quiz': (context) => PreQuizScreen(),
     '/finish_survey': (context) => const FinishSurveyScreen(),
     '/user_attempt': (context) => const UserAttemptScreen(),
     '/user_result': (context) => const UserResultScreen(),

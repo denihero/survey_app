@@ -1,98 +1,184 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/core/constants/color.dart';
 import 'package:survey/core/constants/style.dart';
+import 'package:survey/logic/cubit/current_survey_cubit.dart';
+import 'package:survey/logic/cubit/survey_cubit.dart';
+import 'package:survey/presentation/main_page.dart';
 import 'package:survey/presentation/screens/pre_quiz/widget/title.dart';
 
-class QuizScreen extends StatelessWidget {
+class QuizScreen extends StatefulWidget {
   const QuizScreen({Key? key, this.title = "Something"}) : super(key: key);
   final String title;
+
+  @override
+  State<QuizScreen> createState() => _QuizScreenState();
+}
+
+class _QuizScreenState extends State<QuizScreen> {
+  int current_question = 0;
+
+  void go_next() {
+    setState(() {
+      current_question += 1;
+    });
+  }
+
+  void go_back() {
+    if (current_question >= 0) {
+      setState(() {
+        current_question -= 1;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //kinda appbar
-              TitleWidget(
-                title: title,
-                icon: Icons.home,
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              Text(
-                "7/10 Question",
-                style:
-                    Monsterats_800_15_FONT_SIZE_ORANGE.copyWith(color: ORANGE),
-                overflow: TextOverflow.ellipsis,
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              Flexible(
-                child: Text(
-                  "Hello Guys",
-                  style: Monsterats_500_16_FONT_SIZE_BLACK,
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Flexible(
-                flex: 15,
-                // height: 380,
-                child: ListView(
-                  children: const [
-                    Question(
-                      question: "Hello",
-                    ),
-                    Question(
-                      question: "Good",
-                    ),
-                    Question(
-                      isChosen: true,
-                      question: "Right One",
-                    ),
-                    Question(
-                      question: "Very Good",
-                    ),
-                  ],
-                ),
-              ),
-              const Expanded(
-                child: SizedBox(),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: Icon(
-                        Icons.arrow_back,
-                        size: 40,
+    final max =
+        BlocProvider.of<SurveyCurrentCubit>(context).state?.questions?.length;
+
+    return SafeArea(
+      child: Container(
+        // height: 500,
+        padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 25),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //kinda appbar
+            question(index: current_question),
+            current_question <= max! - 1
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: go_back,
+                        child: const Card(
+                          child: Padding(
+                            padding: EdgeInsets.all(4.0),
+                            child: Icon(
+                              Icons.arrow_back,
+                              size: 40,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: Icon(
-                        Icons.arrow_forward,
-                        size: 40,
-                      ),
-                    ),
+                      GestureDetector(
+                        onTap: go_next,
+                        child: const Card(
+                          child: Padding(
+                            padding: EdgeInsets.all(4.0),
+                            child: Icon(
+                              Icons.arrow_forward,
+                              size: 40,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   )
-                ],
-              )
-            ],
-          ),
+                : const Text(""),
+          ],
         ),
       ),
     );
+  }
+}
+
+class question extends StatelessWidget {
+  final int index;
+
+  const question({required this.index, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final survey = BlocProvider.of<SurveyCurrentCubit>(context).state;
+    final max = survey!.questions?.length;
+    // if (index <= max! - 1) {
+    //   showDialog(
+    //       context: context,
+    //       builder: (context) {
+    //         return AlertDialog(
+    //           title: const Text("Thank you for your participation"),
+    //           actions: [
+    //             TextButton(
+    //               onPressed: () {
+    //                 Navigator.of(context).pushNamed("/home");
+    //               },
+    //               child: const Text("Go to home screen"),
+    //             ),
+    //           ],
+    //         );
+    //       });
+    // }
+    return index <= max! - 1
+        ? Expanded(
+            child: Column(
+              children: [
+                TitleWidget(
+                  title: survey.title ?? "",
+                  icon: Icons.home,
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                Text(
+                  "${index + 1}/${survey.questions?.length} Question",
+                  style: Monsterats_800_15_FONT_SIZE_ORANGE.copyWith(
+                      color: ORANGE),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                Flexible(
+                  child: Text(
+                    survey.questions?[index].text ?? "",
+                    style: Monsterats_500_16_FONT_SIZE_BLACK,
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Flexible(
+                  flex: 15,
+                  // height: 380,
+                  child: ListView(
+                    children: survey.questions![index].choices
+                            ?.map(
+                              (e) => Question(question: e.text ?? ""),
+                            )
+                            .toList() ??
+                        <Question>[],
+                  ),
+                ),
+                const Expanded(
+                  child: SizedBox(),
+                ),
+              ],
+            ),
+          )
+        : Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Center(
+                  child: Text("That is it,Thank you for participation"),
+                ),
+                TextButton(
+                    onPressed: () {
+                      // Navigator.of(context).
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MainPage(
+                                  is_begin: true,
+                                )),
+                      );
+                    },
+                    child: const Text("Go back to Home Screen"))
+              ],
+            ),
+          );
   }
 }
 

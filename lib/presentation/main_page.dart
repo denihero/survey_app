@@ -13,7 +13,8 @@ import 'package:survey/presentation/screens/users_survey/user_survey_screen.dart
 import 'package:survey/presentation/screens/usert_attempt/users_attempt_screen.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage({Key? key, this.is_begin = false}) : super(key: key);
+  final bool is_begin;
 
   @override
   State<MainPage> createState() => _HomeScreenState();
@@ -53,10 +54,7 @@ class _HomeScreenState extends State<MainPage> {
             } else if (setting.name == '/favourite') {
               return MaterialPageRoute(builder: (_) => const FavouriteScreen());
             } else if (setting.name == '/pre_quiz') {
-              return MaterialPageRoute(
-                  builder: (_) => const PreQuizScreen(
-                      title: 'Why people lie',
-                      description: 'This is just a test'));
+              return MaterialPageRoute(builder: (_) => PreQuizScreen());
             } else if (setting.name == '/user_attempt') {
               return MaterialPageRoute(
                   builder: (_) => const UserAttemptScreen());
@@ -70,55 +68,62 @@ class _HomeScreenState extends State<MainPage> {
               return MaterialPageRoute(builder: (_) => const ProfileScreen());
             } else if (setting.name == '/login') {
               return MaterialPageRoute(builder: (_) => LoginScreen());
+            } else if (setting.name == "/quiz") {
+              return MaterialPageRoute(builder: (_) => QuizScreen());
             }
           },
         ),
-        bottomNavigationBar: Container(
-          height: 70,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(21), topRight: Radius.circular(21)),
-            boxShadow: [
-              BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(21), topRight: Radius.circular(21)),
-            child: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              selectedIconTheme: const IconThemeData(color: BLUE),
-              unselectedItemColor: BLACK,
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                    size: 35,
-                  ),
-                  label: '',
+        bottomNavigationBar: !widget.is_begin
+            ? Container(
+                height: 70,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(21),
+                      topRight: Radius.circular(21)),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+                  ],
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.favorite,
-                    size: 35,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(21),
+                      topRight: Radius.circular(21)),
+                  child: BottomNavigationBar(
+                    type: BottomNavigationBarType.fixed,
+                    showSelectedLabels: false,
+                    showUnselectedLabels: false,
+                    selectedIconTheme: const IconThemeData(color: BLUE),
+                    unselectedItemColor: BLACK,
+                    items: const <BottomNavigationBarItem>[
+                      BottomNavigationBarItem(
+                        icon: Icon(
+                          Icons.home,
+                          size: 35,
+                        ),
+                        label: '',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(
+                          Icons.favorite,
+                          size: 35,
+                        ),
+                        label: '',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(
+                          Icons.person_sharp,
+                          size: 35,
+                        ),
+                        label: '',
+                      ),
+                    ],
+                    currentIndex: _currentIndex,
+                    selectedItemColor: BLUE,
+                    onTap: _onTap,
                   ),
-                  label: '',
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.person_sharp,
-                    size: 35,
-                  ),
-                  label: '',
-                ),
-              ],
-              currentIndex: _currentIndex,
-              selectedItemColor: BLUE,
-              onTap: _onTap,
-            ),
-          ),
-        ));
+              )
+            : null);
   }
 }
