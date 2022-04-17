@@ -54,18 +54,18 @@ Future<List<Surveys>> get_surveys() async {
   var response = await http.get(
     Uri.parse("http://45.32.114.90:8002/surveys/"),
   );
-  print(response.body.toString());
+  // print(response.body.toString());
   if (response.statusCode >= 400) {
     throw UnimplementedError();
   }
   int length = jsonDecode(response.body.toString())["count"];
-  print(length);
+  // print(length);
   for (var i = 1; i <= length; i++) {
     var response = await http.get(
       Uri.parse("http://45.32.114.90:8002/surveys/$i/"),
     );
-    print(i);
-    print(jsonDecode(response.body.toString()));
+    // print(i);
+    // print(jsonDecode(response.body.toString()));
     ls.add(
       Surveys.fromJson(
         jsonDecode(response.body.toString()),
