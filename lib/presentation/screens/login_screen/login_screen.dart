@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/logic/bloc/login_api.dart';
 import 'package:survey/logic/cubit/categories_cubit.dart';
+import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/main_page.dart';
 import 'package:survey/presentation/screens/home/home_screen.dart';
 import '../../../logic/bloc/auth_bloc.dart';
@@ -24,19 +25,21 @@ class LoginScreen extends StatelessWidget {
             );
           } else if (state is AuthSuccess) {
             BlocProvider.of<CategoriesCubit>(context).get_category();
+            BlocProvider.of<SurveyCubit>(context).fetch_surveys();
+
             return const MainPage();
           }
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         },
-        buildWhen: (context, state) {
-          if (state is AuthSuccess) return true;
-          return state is AuthError || state is AuthLoading ? false : true;
-        },
+        // buildWhen: (context, state) {
+        //   if (state is AuthSuccess) return true;
+        //   return state is AuthError ? false : true;
+        // },
         listener: (context, state) {
           state is AuthError
               ? ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text("Invalid email or password"),
+                    content: Text("Invalid email or password or Error"),
                   ),
                 )
               : null;

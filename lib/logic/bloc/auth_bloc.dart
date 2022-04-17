@@ -35,20 +35,28 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
     on<AuthLogin>((event, emit) async {
       emit(AuthLoading());
-      var r = await login(event.username, event.password);
-      if (r) {
-        email = event.username;
-        emit(AuthSuccess(email));
-      } else if (r == false) {
+      try {
+        var r = await login(event.username, event.password);
+        if (r) {
+          email = event.username;
+          emit(AuthSuccess(email));
+        } else if (r == false) {
+          emit(AuthError());
+        }
+      } catch (_) {
         emit(AuthError());
       }
     });
     on<AuthRegister>((event, emit) async {
-      emit(AuthLoading());
-      var r = await register(event.username, event.password);
-      if (r) {
-        emit(AuthRegisterSuccess());
-      } else if (r == false) {
+      try {
+        emit(AuthLoading());
+        var r = await register(event.username, event.password);
+        if (r) {
+          emit(AuthRegisterSuccess());
+        } else if (r == false) {
+          emit(AuthError());
+        }
+      } catch (_) {
         emit(AuthError());
       }
     });

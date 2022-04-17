@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/logic/cubit/categories_cubit.dart';
 import 'package:survey/presentation/screens/home/widget/choice_chip_widget.dart';
 
-import '../../../../logic/bloc/login_api.dart';
 
 class CategoryChooseWidget extends StatefulWidget {
   const CategoryChooseWidget({
@@ -18,7 +17,7 @@ class _CategoryChooseState extends State<CategoryChooseWidget> {
   @override
   Widget build(BuildContext context) {
     print(_choices);
-    return BlocBuilder<CategoriesCubit, Categoriess>(
+    return BlocBuilder<CategoriesCubit, Cat>(
       builder: (context, state) {
       _choices = state.categories;
         return SizedBox(

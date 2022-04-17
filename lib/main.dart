@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/logic/bloc/auth_bloc.dart';
 import 'package:survey/logic/bloc/login_api.dart';
 import 'package:survey/logic/cubit/categories_cubit.dart';
+import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/navigation/routes.dart';
 import 'package:survey/presentation/screens/setting/setting_screen.dart';
 
@@ -23,6 +24,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<CategoriesCubit>(
           create: (context) => CategoriesCubit(),
+        ),
+        BlocProvider<SurveyCubit>(
+          create: (context) => SurveyCubit(),
         ),
       ],
       child: MaterialApp(

@@ -1,6 +1,10 @@
 part of 'categories_cubit.dart';
 
-class Categoriess extends Equatable  {
+abstract class Cat extends Equatable {
+  final List<String> categories=[];
+}
+
+class Categoriess extends Cat {
   final List<String> categories;
   Categoriess(this.categories);
 
@@ -8,3 +12,14 @@ class Categoriess extends Equatable  {
   List<Object> get props => [categories];
 }
 
+class CategoriesInitial extends Cat {
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+}
+
+class CategoriesError extends Cat {
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+}
