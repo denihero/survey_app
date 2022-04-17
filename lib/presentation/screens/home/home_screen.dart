@@ -4,9 +4,7 @@ import 'package:survey/presentation/screens/home/widget/appBar/appbar.dart';
 import 'package:survey/presentation/screens/home/widget/category_choose_widget.dart';
 import 'package:survey/presentation/screens/home/widget/user_survey_widget.dart';
 
-
-class HomeScreen extends StatelessWidget{
-
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

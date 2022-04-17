@@ -23,21 +23,19 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
           );
         if (state is SurveyCompleted) {
           final surveys = BlocProvider.of<SurveyCubit>(context).state.surveys;
-          return SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: ListView.builder(
-                keyboardDismissBehavior:
-                    ScrollViewKeyboardDismissBehavior.onDrag,
-                scrollDirection: Axis.vertical,
-                itemCount: surveys.length,
-                itemBuilder: (context, index) {
-                  return UserSurveyCard(
-                    title: surveys[index].title!,
-                    count: surveys[index].questions!.length,
-                    image: surveys[index].image??"",
-                  );
-                }),
-          );
+          return ListView.builder(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              // scrollDirection: Axis.vertical,
+              physics: BouncingScrollPhysics(),
+              itemCount: surveys.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return UserSurveyCard(
+                  title: surveys[index].title!,
+                  count: surveys[index].questions!.length,
+                  image: surveys[index].image ?? "",
+                );
+              });
         }
         return const Center(child: CircularProgressIndicator());
       },
