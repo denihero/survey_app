@@ -3,6 +3,7 @@ import 'dart:ffi';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import 'login_api.dart';
 
@@ -30,26 +31,31 @@ class AuthRegister extends AuthEvent {
   AuthRegister(String username, String password) : super(username, password);
 }
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
+class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
   var email = "";
   AuthBloc() : super(AuthInitial()) {
     on<AuthLogin>((event, emit) async {
-      emit(AuthLoading());
+      if (state.email != "") {
+        emit(
+          AuthSuccess(state.email),
+        );
+      }
+      emit(const AuthLoading(""));
       try {
         var r = await login(event.username, event.password);
         if (r) {
           email = event.username;
           emit(AuthSuccess(email));
         } else if (r == false) {
-          emit(AuthError());
+          emit(const AuthError());
         }
       } catch (_) {
-        emit(AuthError());
+        emit(const AuthError());
       }
     });
     on<AuthRegister>((event, emit) async {
       try {
-        emit(AuthLoading());
+        emit(AuthLoading(""));
         var r = await register(event.username, event.password);
         if (r) {
           emit(AuthRegisterSuccess());
@@ -60,16 +66,32 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthError());
       }
     });
-    on<AuthLogout>(
-      (event, emit) => emit(
+    on<AuthLogout>((event, emit) {
+      emit(AuthLoading(""));
+      emit(
         AuthInitial(),
-      ),
-    );
+      );
+    });
   }
 
   @override
   void onChange(Change<AuthState> change) {
     print(change);
     super.onChange(change);
+  }
+
+  @override
+  void onTransition(Transition<AuthEvent, AuthState> transition) {
+    print(transition);
+  }
+
+  @override
+  AuthState fromJson(Map<String, dynamic> json) {
+    return state.fromMap(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(AuthState state) {
+    return state.toMap();
   }
 }

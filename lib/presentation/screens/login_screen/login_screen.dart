@@ -16,6 +16,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
         builder: (context, state) {
+          print(state);
           if (state is AuthInitial ||
               state is AuthError ||
               state is AuthRegisterSuccess) {
@@ -23,10 +24,9 @@ class LoginScreen extends StatelessWidget {
               usernameController: usernameController,
               passwordController: passwordController,
             );
-          } else if (state is AuthSuccess) {
+          } else if (state is AuthSuccess || state.email != "") {
             BlocProvider.of<CategoriesCubit>(context).get_category();
             BlocProvider.of<SurveyCubit>(context).fetch_surveys();
-
             return const MainPage();
           }
           return const Center(child: CircularProgressIndicator());
@@ -158,6 +158,23 @@ class RegisterInitialWidget extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
+            if (state is AuthError) {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      content: const Text("Some error Occured"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed("/login");
+                          },
+                          child: const Center(child: Text("OK")),
+                        ),
+                      ],
+                    );
+                  });
+            }
             if (state is AuthRegisterSuccess) {
               showDialog(
                   context: context,
@@ -177,49 +194,58 @@ class RegisterInitialWidget extends StatelessWidget {
                   });
             }
           },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              TextFormField(
-                controller: usernameController,
-                autofocus: true,
-                decoration: const InputDecoration(
-                  hintText: "Email",
-                ),
-              ),
-              TextFormField(
-                controller: passwordController,
-                decoration: const InputDecoration(
-                  hintText: "Password",
-                ),
-              ),
-              TextFormField(
-                controller: passwordRepeatController,
-                decoration: const InputDecoration(
-                  hintText: "Confirm password",
-                ),
-              ),
-              Center(
-                child: TextButton(
-                  child: const Text("Register"),
-                  onPressed: () {
-                    final email = usernameController.text;
-                    final password = passwordController.text;
-                    final repeat = passwordRepeatController.text;
-                    check(email, password, repeat)
-                        ? BlocProvider.of<AuthBloc>(context).add(
-                            AuthRegister(email, password),
-                          )
-                        : ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Entered invalid data!"),
-                            ),
-                          );
-                  },
-                ),
-              )
-            ],
+          child: BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              if (state is AuthLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  TextFormField(
+                    controller: usernameController,
+                    autofocus: true,
+                    decoration: const InputDecoration(
+                      hintText: "Email",
+                    ),
+                  ),
+                  TextFormField(
+                    controller: passwordController,
+                    decoration: const InputDecoration(
+                      hintText: "Password",
+                    ),
+                  ),
+                  TextFormField(
+                    controller: passwordRepeatController,
+                    decoration: const InputDecoration(
+                      hintText: "Confirm password",
+                    ),
+                  ),
+                  Center(
+                    child: TextButton(
+                      child: const Text("Register"),
+                      onPressed: () {
+                        final email = usernameController.text;
+                        final password = passwordController.text;
+                        final repeat = passwordRepeatController.text;
+                        check(email, password, repeat)
+                            ? BlocProvider.of<AuthBloc>(context).add(
+                                AuthRegister(email, password),
+                              )
+                            : ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Entered invalid data!"),
+                                ),
+                              );
+                      },
+                    ),
+                  )
+                ],
+              );
+            },
           ),
         ),
       ),
