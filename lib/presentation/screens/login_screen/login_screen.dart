@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
             );
           } else if (state is AuthSuccess || state.email != "") {
             BlocProvider.of<CategoriesCubit>(context).get_category();
-            BlocProvider.of<SurveyCubit>(context).fetch_surveys();
+            BlocProvider.of<SurveyCubit>(context).fetch_surveys_stream();
             return const MainPage();
           }
           return const Center(child: CircularProgressIndicator());

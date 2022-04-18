@@ -27,12 +27,12 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               // scrollDirection: Axis.vertical,
               physics: BouncingScrollPhysics(),
-              itemCount: surveys.length,
+              itemCount: surveys.length+1,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return UserSurveyCard(
+                return index<surveys.length?UserSurveyCard(
                   survey: surveys[index],
-                );
+                ):const Center(child: CircularProgressIndicator(),);
               });
         }
         return const Center(child: CircularProgressIndicator());

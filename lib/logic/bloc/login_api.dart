@@ -75,6 +75,31 @@ Future<List<Surveys>> get_surveys() async {
   return ls;
 }
 
+
+Stream<Surveys> get_surveys_stream() async* {
+  var response = await http.get(
+    Uri.parse("http://45.32.114.90:8002/surveys/"),
+  );
+  // print(response.body.toString());
+  if (response.statusCode >= 400) {
+    throw UnimplementedError();
+  }
+  int length = jsonDecode(response.body.toString())["count"];
+  // print(length);
+  for (var i = 1; i <= length; i++) {
+    var response = await http.get(
+      Uri.parse("http://45.32.114.90:8002/surveys/$i/"),
+    );
+    // print(i);
+    // print(jsonDecode(response.body.toString()));
+    yield Surveys.fromJson(
+      jsonDecode(response.body.toString()),
+    );
+  }
+  return;
+}
+
+
 void main(List<String> args) async {
   print(await get_surveys());
 }
