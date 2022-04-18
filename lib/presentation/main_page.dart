@@ -3,7 +3,7 @@ import 'package:survey/core/constants/color.dart';
 import 'package:survey/presentation/screens/favourite/favourite_screen.dart';
 import 'package:survey/presentation/screens/finish_survey/finish_survey_screen.dart';
 import 'package:survey/presentation/screens/home/home_screen.dart';
-import 'package:survey/presentation/screens/login_screen/login_screen.dart';
+import 'package:survey/presentation/screens/login/login_screen.dart';
 import 'package:survey/presentation/screens/pre_quiz/pre_quiz_screen.dart';
 import 'package:survey/presentation/screens/profile/profile_screen.dart';
 import 'package:survey/presentation/screens/quiz/quiz_screen.dart';

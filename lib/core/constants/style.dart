@@ -93,3 +93,15 @@ TextStyle Monsterats_600_24_FONT_SIZE_BLACK = GoogleFonts.montserrat(
         fontSize: 24,
         letterSpacing: 1,
         color: BLACK));
+TextStyle Monsterats_600_28_FONT_SIZE_BLACK = GoogleFonts.montserrat(
+    textStyle: const TextStyle(
+        fontWeight: FontWeight.w600,
+        fontSize: 28,
+        letterSpacing: 1,
+        color: BLACK));
+TextStyle Monsterats_600_18_FONT_SIZE_GREY = GoogleFonts.montserrat(
+    textStyle: TextStyle(
+        fontWeight: FontWeight.w600,
+        fontSize: 14,
+        letterSpacing: 1,
+        color: Colors.grey.shade500));

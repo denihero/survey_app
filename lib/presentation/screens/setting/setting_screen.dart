@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/core/constants/color.dart';
 import 'package:survey/core/constants/style.dart';
 import 'package:survey/logic/bloc/auth_bloc.dart';
-import 'package:survey/presentation/screens/login_screen/login_screen.dart';
 import 'package:survey/presentation/screens/setting/widgets/profile_edit_icon.dart';
 
 class SettingScreen extends StatelessWidget {
