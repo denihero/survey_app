@@ -86,30 +86,13 @@ class _QuizScreenState extends State<QuizScreen> {
 
 class question extends StatelessWidget {
   final int index;
-
-  const question({required this.index, Key? key}) : super(key: key);
+  int chosen_index = -1;
+  question({required this.index, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final survey = BlocProvider.of<SurveyCurrentCubit>(context).state;
     final max = survey!.questions?.length;
-    // if (index <= max! - 1) {
-    //   showDialog(
-    //       context: context,
-    //       builder: (context) {
-    //         return AlertDialog(
-    //           title: const Text("Thank you for your participation"),
-    //           actions: [
-    //             TextButton(
-    //               onPressed: () {
-    //                 Navigator.of(context).pushNamed("/home");
-    //               },
-    //               child: const Text("Go to home screen"),
-    //             ),
-    //           ],
-    //         );
-    //       });
-    // }
     return index <= max! - 1
         ? Expanded(
             child: Column(
@@ -145,7 +128,10 @@ class question extends StatelessWidget {
                   child: ListView(
                     children: survey.questions![index].choices
                             ?.map(
-                              (e) => Question(question: e.text ?? ""),
+                              (e) => Question(
+                                question: e.text ?? "",
+                                isChosen: e.id == chosen_index,
+                              ),
                             )
                             .toList() ??
                         <Question>[],
@@ -167,13 +153,15 @@ class question extends StatelessWidget {
                 TextButton(
                     onPressed: () {
                       // Navigator.of(context).
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MainPage(
-                                  is_begin: true,
-                                )),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => const MainPage(
+                      //             is_begin: true,
+                      //           )),
+                      // );
+                      Navigator.of(context)
+                          .pushNamedAndRemoveUntil('/', (route) => false);
                     },
                     child: const Text("Go back to Home Screen"))
               ],
