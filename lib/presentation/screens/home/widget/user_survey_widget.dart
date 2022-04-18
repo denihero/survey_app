@@ -17,27 +17,22 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
   Widget build(BuildContext context) {
     return BlocBuilder<SurveyCubit, SurveyState>(
       builder: (context, state) {
-        if (state is SurveyError) {
+        if (state is SurveyError)
           return const Center(
             child: Text("Error..."),
           );
-        }
         if (state is SurveyCompleted) {
           final surveys = BlocProvider.of<SurveyCubit>(context).state.surveys;
           return ListView.builder(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               // scrollDirection: Axis.vertical,
               physics: BouncingScrollPhysics(),
-              itemCount: surveys.length + 1,
+              itemCount: surveys.length+1,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return index < surveys.length
-                    ? UserSurveyCard(
-                        survey: surveys[index],
-                      )
-                    : const Center(
-                        child: CircularProgressIndicator(),
-                      );
+                return index<surveys.length?UserSurveyCard(
+                  survey: surveys[index],
+                ):const Center(child: CircularProgressIndicator(),);
               });
         }
         return const Center(child: CircularProgressIndicator());

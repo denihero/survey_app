@@ -1,7 +1,7 @@
 part of 'categories_cubit.dart';
 
 abstract class Cat extends Equatable {
-  final List<String> categories = [];
+  final List<String> categories=[];
 }
 
 class Categoriess extends Cat {

@@ -11,6 +11,7 @@ class FinishSurveyScreen extends StatefulWidget {
 }
 
 class _FinishSurveyScreenState extends State<FinishSurveyScreen> {
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
