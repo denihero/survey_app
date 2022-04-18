@@ -18,18 +18,17 @@ class SurveyCubit extends Cubit<SurveyState> {
       emit(SurveyError());
     }
   }
-
-  fetch_surveys_stream() async {
-    await get_surveys_stream().fold(
-      Surveys(title: "Hello"),
-      ((previous, element) {
-        print("Fetching");
-        emit(SurveyCompleted(surveys: [
-          ...state.surveys,
-          ...[element]
-        ]));
-        return;
-      }),
-    );
+  fetch_surveys_stream()async{
+      await get_surveys_stream().fold(
+        Surveys(title: "Hello"),
+        ((previous, element) {
+          print("Fetching");
+          emit(SurveyCompleted(surveys: [
+            ...state.surveys,
+            ...[element]
+          ]));
+          return;
+        }),
+      );
   }
 }
