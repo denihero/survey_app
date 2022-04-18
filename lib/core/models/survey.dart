@@ -87,7 +87,7 @@ class Questions {
       };
 }
 
-class Choice {
+class Choice extends Equatable{
   Choice({
     this.id,
     this.text,
@@ -109,4 +109,8 @@ class Choice {
         "text": text,
         "question": question,
       };
+
+    @override
+  // TODO: implement props
+  List<Object?> get props => [id,text,question];
 }
