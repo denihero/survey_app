@@ -25,10 +25,14 @@ class TitleWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           child: IconButton(
-            icon: Icon(icon, size: 35,),
-            color: Colors.black, onPressed: () {
+            icon: Icon(
+              icon,
+              size: 35,
+            ),
+            color: Colors.black,
+            onPressed: () {
               Navigator.pop(context);
-          },
+            },
           ),
         ),
         const SizedBox(

@@ -1,4 +1,3 @@
-
 class Categories {
   final List<String> categories;
 

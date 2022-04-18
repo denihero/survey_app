@@ -15,21 +15,21 @@ class _UserSurveyScreenState extends State<UserSurveyScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          appBar: const CustomAppbarWidget(),
-          body: SingleChildScrollView(
-            child: Column(
-              children: const [
-                Padding(
-                  padding: EdgeInsets.only(top: 15),
-                  child: Center(child: UserProfileWidget()),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 60),
-                  child: UserSurvey(),
-                )
-              ],
+      appBar: const CustomAppbarWidget(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: const [
+            Padding(
+              padding: EdgeInsets.only(top: 15),
+              child: Center(child: UserProfileWidget()),
             ),
-          ),
-        ));
+            Padding(
+              padding: EdgeInsets.only(top: 60),
+              child: UserSurvey(),
+            )
+          ],
+        ),
+      ),
+    ));
   }
 }

@@ -75,7 +75,6 @@ Future<List<Surveys>> get_surveys() async {
   return ls;
 }
 
-
 Stream<Surveys> get_surveys_stream() async* {
   var response = await http.get(
     Uri.parse("http://45.32.114.90:8002/surveys/"),
@@ -98,7 +97,6 @@ Stream<Surveys> get_surveys_stream() async* {
   }
   return;
 }
-
 
 void main(List<String> args) async {
   print(await get_surveys());

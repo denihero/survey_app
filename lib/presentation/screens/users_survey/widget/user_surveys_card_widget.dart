@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:survey/core/constants/style.dart';
 
-
-
 class UserSurveysCard extends StatelessWidget {
-  const   UserSurveysCard({Key? key}) : super(key: key);
+  const UserSurveysCard({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -12,7 +10,7 @@ class UserSurveysCard extends StatelessWidget {
       child: Container(
         height: 100,
         margin: const EdgeInsets.symmetric(vertical: 5),
-        padding: const EdgeInsets.symmetric( horizontal: 25),
+        padding: const EdgeInsets.symmetric(horizontal: 25),
         child: Card(
           elevation: 6,
           margin: const EdgeInsets.only(bottom: 10),
@@ -21,8 +19,7 @@ class UserSurveysCard extends StatelessWidget {
           ),
           child: ListTile(
             leading: const FittedBox(
-              alignment: Alignment.bottomLeft,
-                child: Placeholder()),
+                alignment: Alignment.bottomLeft, child: Placeholder()),
             title: Padding(
               padding: const EdgeInsets.only(top: 15),
               child: Text(
