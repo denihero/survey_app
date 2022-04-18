@@ -95,7 +95,7 @@ class question extends StatefulWidget {
 }
 
 class _questionState extends State<question> {
-  int chosen_index = 0;
+  List<int> chosen_index = List<int>.filled(20, 0);
 
   @override
   Widget build(BuildContext context) {
@@ -138,15 +138,15 @@ class _questionState extends State<question> {
                             ?.map(
                               (e) => GestureDetector(
                                 onTap: () {
-                                  BlocProvider.of<SurveyCurrentCubit>(context)
-                                      .answers[e] = chosen_index+1;
                                   setState(() {
-                                    chosen_index = e.id ?? 0;
+                                    chosen_index[widget.index] = e.id ?? 0;
                                   });
+                                  BlocProvider.of<SurveyCurrentCubit>(context)
+                                      .answers[survey.questions![widget.index]] = chosen_index[widget.index];
                                 },
                                 child: Question(
                                   question: e.text ?? "",
-                                  isChosen: chosen_index == e.id,
+                                  isChosen: chosen_index[widget.index] == e.id,
                                 ),
                               ),
                             )

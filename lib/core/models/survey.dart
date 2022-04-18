@@ -58,7 +58,7 @@ class Surveys extends Equatable {
       [title, createdAt, updatedAt, author, category, image];
 }
 
-class Questions {
+class Questions extends Equatable {
   Questions({
     this.id,
     this.text,
@@ -85,9 +85,12 @@ class Questions {
         "survey": survey,
         "choices": List<dynamic>.from(choices!.map((x) => x.toJson())),
       };
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id];
 }
 
-class Choice extends Equatable{
+class Choice extends Equatable {
   Choice({
     this.id,
     this.text,
@@ -110,7 +113,7 @@ class Choice extends Equatable{
         "question": question,
       };
 
-    @override
+  @override
   // TODO: implement props
-  List<Object?> get props => [id,text,question];
+  List<Object?> get props => [id, text, question];
 }

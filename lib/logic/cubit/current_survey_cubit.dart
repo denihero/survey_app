@@ -5,7 +5,7 @@ import 'package:survey/core/models/survey.dart';
 import 'package:survey/logic/bloc/login_api.dart';
 
 class SurveyCurrentCubit extends Cubit<Surveys?> {
-  Map<Choice, int> answers = {};
+  Map<Questions, int> answers = {};
   SurveyCurrentCubit() : super(null);
   void set_current(Surveys s) {
     emit(s);
@@ -13,13 +13,14 @@ class SurveyCurrentCubit extends Cubit<Surveys?> {
 
   post_submissions(String email, int survey) async {
     List<int> final_answers = <int>[];
+    print(answers);
     answers.forEach((key, value) {
       final_answers.add(value);
     });
     final sub = Submission(
         participation_email: email, survey: survey, answer: final_answers);
     await post_sumbissions(sub);
-    answers = <Choice, int>{};
+    answers = <Questions, int>{};
     emit(null);
   }
 }
