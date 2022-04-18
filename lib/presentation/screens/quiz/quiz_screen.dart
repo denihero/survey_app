@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/core/constants/color.dart';
 import 'package:survey/core/constants/style.dart';
+import 'package:survey/logic/bloc/auth_bloc.dart';
 import 'package:survey/logic/cubit/current_survey_cubit.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/main_page.dart';
@@ -25,7 +26,7 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   void go_back() {
-    if (current_question >= 0) {
+    if (current_question > 0) {
       setState(() {
         current_question -= 1;
       });
@@ -84,16 +85,23 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 }
 
-class question extends StatelessWidget {
+class question extends StatefulWidget {
   final int index;
-  int chosen_index = -1;
+  // int chosen_index = -1;
   question({required this.index, Key? key}) : super(key: key);
+
+  @override
+  State<question> createState() => _questionState();
+}
+
+class _questionState extends State<question> {
+  int chosen_index = 0;
 
   @override
   Widget build(BuildContext context) {
     final survey = BlocProvider.of<SurveyCurrentCubit>(context).state;
     final max = survey!.questions?.length;
-    return index <= max! - 1
+    return widget.index <= max! - 1
         ? Expanded(
             child: Column(
               children: [
@@ -105,7 +113,7 @@ class question extends StatelessWidget {
                   height: 50,
                 ),
                 Text(
-                  "${index + 1}/${survey.questions?.length} Question",
+                  "${widget.index + 1}/${survey.questions?.length} Question",
                   style: Monsterats_800_15_FONT_SIZE_ORANGE.copyWith(
                       color: ORANGE),
                   overflow: TextOverflow.ellipsis,
@@ -115,7 +123,7 @@ class question extends StatelessWidget {
                 ),
                 Flexible(
                   child: Text(
-                    survey.questions?[index].text ?? "",
+                    survey.questions?[widget.index].text ?? "",
                     style: Monsterats_500_16_FONT_SIZE_BLACK,
                   ),
                 ),
@@ -126,11 +134,20 @@ class question extends StatelessWidget {
                   flex: 15,
                   // height: 380,
                   child: ListView(
-                    children: survey.questions![index].choices
+                    children: survey.questions![widget.index].choices
                             ?.map(
-                              (e) => Question(
-                                question: e.text ?? "",
-                                isChosen: e.id == chosen_index,
+                              (e) => GestureDetector(
+                                onTap: () {
+                                  BlocProvider.of<SurveyCurrentCubit>(context)
+                                      .answers[e] = chosen_index+1;
+                                  setState(() {
+                                    chosen_index = e.id ?? 0;
+                                  });
+                                },
+                                child: Question(
+                                  question: e.text ?? "",
+                                  isChosen: chosen_index == e.id,
+                                ),
                               ),
                             )
                             .toList() ??
@@ -151,19 +168,23 @@ class question extends StatelessWidget {
                   child: Text("That is it,Thank you for participation"),
                 ),
                 TextButton(
-                    onPressed: () {
-                      // Navigator.of(context).
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => const MainPage(
-                      //             is_begin: true,
-                      //           )),
-                      // );
-                      Navigator.of(context)
-                          .pushNamedAndRemoveUntil('/', (route) => false);
-                    },
-                    child: const Text("Go back to Home Screen"))
+                  onPressed: () {
+                    String email =
+                        BlocProvider.of<AuthBloc>(context).state.email;
+                    var survey =
+                        BlocProvider.of<SurveyCurrentCubit>(context).state;
+                    int survey_index = BlocProvider.of<SurveyCubit>(context)
+                            .state
+                            .surveys
+                            .indexOf(survey!) +
+                        1;
+                    BlocProvider.of<SurveyCurrentCubit>(context)
+                        .post_submissions(email, survey_index);
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil('/', (route) => false);
+                  },
+                  child: const Text("Go back to Home Screen"),
+                ),
               ],
             ),
           );
@@ -187,7 +208,6 @@ class Question extends StatelessWidget {
       ),
       child: ListTile(
         leading: GestureDetector(
-          onTap: () {},
           child: Icon(
             Icons.circle,
             color: isChosen ? ORANGE : Colors.white,

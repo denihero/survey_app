@@ -48,7 +48,7 @@ class SettingScreen extends StatelessWidget {
                 style: Monsterats_600_18_FONT_SIZE_BLACK,
               ),
               Text(
-                BlocProvider.of<AuthBloc>(context).email,
+                BlocProvider.of<AuthBloc>(context).state.email,
                 style: Monsterats_500_15_FONT_SIZE_BLACK,
               ),
               const SizedBox(

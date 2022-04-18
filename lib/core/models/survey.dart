@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class Surveys extends Equatable{
+class Surveys extends Equatable {
   Surveys({
     this.title,
     this.createdAt = "",
@@ -32,7 +32,9 @@ class Surveys extends Equatable{
             ? List<Questions>.from(
                 json["questions"].map((x) => Questions.fromJson(x)))
             : [],
-        reviews: json["reviews"]!=null? List<dynamic>.from(json["reviews"].map((x) => x)):[],
+        reviews: json["reviews"] != null
+            ? List<dynamic>.from(json["reviews"].map((x) => x))
+            : [],
       );
 
   Map<String, dynamic> toJson() => {
@@ -47,11 +49,13 @@ class Surveys extends Equatable{
       };
   @override
   String toString() {
-    return title??"";
+    return title ?? "";
   }
+
   @override
   // TODO: implement props
-  List<Object?> get props => [title,createdAt,updatedAt,author,category,image];
+  List<Object?> get props =>
+      [title, createdAt, updatedAt, author, category, image];
 }
 
 class Questions {

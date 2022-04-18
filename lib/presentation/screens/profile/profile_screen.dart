@@ -20,34 +20,32 @@ class ProfileScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                child: Row(
-                  children: [
-                    const Expanded(
-                      child: SizedBox(),
+              Row(
+                children: [
+                  const Expanded(
+                    child: SizedBox(),
+                  ),
+                  SizedBox(
+                    width: 95,
+                    child: Text(
+                      "Profile",
+                      style: Monsterats_600_18_FONT_SIZE_BLACK,
+                      textAlign: TextAlign.right,
                     ),
-                    Container(
-                      width: 95,
-                      child: Text(
-                        "Profile",
-                        style: Monsterats_600_18_FONT_SIZE_BLACK,
-                        textAlign: TextAlign.right,
-                      ),
+                  ),
+                  const Expanded(child: SizedBox()),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.settings,
+                      size: 30,
                     ),
-                    const Expanded(child: SizedBox()),
-                    IconButton(
-                      icon: const Icon(
-                        Icons.settings,
-                        size: 30,
-                      ),
-                      color: ORANGE,
-                      onPressed: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .pushNamed('/setting');
-                      },
-                    ),
-                  ],
-                ),
+                    color: ORANGE,
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true)
+                          .pushNamed('/setting');
+                    },
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 27,
@@ -57,11 +55,9 @@ class ProfileScreen extends StatelessWidget {
                 height: 44,
               ),
               Center(
-                  child: Flexible(
-                child: Text(
-                  BlocProvider.of<AuthBloc>(context).email,
-                  style: Monsterats_600_18_FONT_SIZE_BLACK,
-                ),
+                  child: Text(
+                BlocProvider.of<AuthBloc>(context).state.email,
+                style: Monsterats_600_18_FONT_SIZE_BLACK,
               )),
               const SizedBox(
                 height: 60,

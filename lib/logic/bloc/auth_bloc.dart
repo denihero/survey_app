@@ -32,8 +32,7 @@ class AuthRegister extends AuthEvent {
 }
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
-  var email = "";
-  AuthBloc() : super(AuthInitial()) {
+  AuthBloc() : super(const AuthInitial()) {
     on<AuthLogin>((event, emit) async {
       if (state.email != "") {
         emit(
@@ -44,7 +43,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
       try {
         var r = await login(event.username, event.password);
         if (r) {
-          email = event.username;
+          var email = event.username;
           emit(AuthSuccess(email));
         } else if (r == false) {
           emit(const AuthError());

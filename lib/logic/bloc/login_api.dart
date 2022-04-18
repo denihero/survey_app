@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:survey/core/models/category.dart';
+import 'package:survey/core/models/submission.dart';
 
 import '../../core/models/survey.dart';
 
@@ -75,7 +76,6 @@ Future<List<Surveys>> get_surveys() async {
   return ls;
 }
 
-
 Stream<Surveys> get_surveys_stream() async* {
   var response = await http.get(
     Uri.parse("http://45.32.114.90:8002/surveys/"),
@@ -99,7 +99,21 @@ Stream<Surveys> get_surveys_stream() async* {
   return;
 }
 
+post_sumbissions(Submission sub) async {
+  var response = await http.post(
+    Uri.parse("http://45.32.114.90:8002/sumbitions/"),
+    body: json.encode(sub.toJson()),
+    // encoding: "",
+    headers: {
+      "Content-Type":"application/json",
+    }
+  );
+  print(response.body);
+}
 
 void main(List<String> args) async {
-  print(await get_surveys());
+  await post_sumbissions(
+    Submission(
+        participation_email: "ulukbekovbr@gmail.com", survey: 1, answer: [1,2]),
+  );
 }
