@@ -18,7 +18,7 @@ import '../main_page.dart';
 class App {
   static final route = <String, WidgetBuilder>{
     '/': (context) => const MainPage(),
-    '/home': (context) => HomeScreen(),
+    '/home': (context) => const HomeScreen(),
     '/favourite': (context) => const FavouriteScreen(),
     '/profile': (context) => const ProfileScreen(),
     '/quiz': (context) => const QuizScreen(),

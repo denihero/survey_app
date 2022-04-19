@@ -5,6 +5,8 @@ import 'package:survey/presentation/screens/home/widget/category_choose_widget.d
 import 'package:survey/presentation/screens/home/widget/user_survey_widget.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
