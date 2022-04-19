@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:survey/core/models/survey.dart';
+import 'package:survey/logic/cubit/current_survey_cubit.dart';
 
 class TitleWidget extends StatelessWidget {
   const TitleWidget({Key? key, required this.title, required this.icon})
@@ -25,10 +28,17 @@ class TitleWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           child: IconButton(
-            icon: Icon(icon, size: 35,),
-            color: Colors.black, onPressed: () {
-              Navigator.pop(context);
-          },
+            icon: Icon(
+              icon,
+              size: 35,
+            ),
+            color: Colors.black,
+            onPressed: () {
+              BlocProvider.of<SurveyCurrentCubit>(context).answers =
+                  <Questions, int>{};
+              Navigator.of(context)
+                        .pushNamedAndRemoveUntil('/', (route) => false);
+            },
           ),
         ),
         const SizedBox(

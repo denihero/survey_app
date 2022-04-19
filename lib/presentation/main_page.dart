@@ -20,11 +20,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<MainPage> {
-  final _screens = <Widget>[
-    HomeScreen(),
-    const FavouriteScreen(),
-    const ProfileScreen()
-  ];
+  final _screens = <Widget>[HomeScreen(), const ProfileScreen()];
 
   int _currentIndex = 0;
 
@@ -96,13 +92,6 @@ class _HomeScreenState extends State<MainPage> {
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.home,
-                    size: 35,
-                  ),
-                  label: '',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.favorite,
                     size: 35,
                   ),
                   label: '',

@@ -48,7 +48,7 @@ class _UserSurveyCardState extends State<UserSurveyCard> {
               style: Monsterats_500_15_FONT_SIZE_BLACK,
             ),
             subtitle: Text(
-              'Survey: ${widget.survey.questions?.length ?? 0}',
+              'Quesions: ${widget.survey.questions?.length ?? 0}',
               style: Monsterats_500_15_FONT_SIZE_BLACK,
             ),
             trailing: IconButton(

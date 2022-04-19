@@ -121,7 +121,7 @@ class _questionState extends State<question> {
                 const SizedBox(
                   height: 50,
                 ),
-                Flexible(
+                Expanded(
                   child: Text(
                     survey.questions?[widget.index].text ?? "",
                     style: Monsterats_500_16_FONT_SIZE_BLACK,
@@ -130,7 +130,7 @@ class _questionState extends State<question> {
                 const SizedBox(
                   height: 30,
                 ),
-                Flexible(
+                Expanded(
                   flex: 15,
                   // height: 380,
                   child: ListView(
