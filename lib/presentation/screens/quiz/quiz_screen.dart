@@ -41,7 +41,7 @@ class _QuizScreenState extends State<QuizScreen> {
     return SafeArea(
       child: Container(
         // height: 500,
-        padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 25),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -121,11 +121,11 @@ class _questionState extends State<question> {
                 const SizedBox(
                   height: 50,
                 ),
-                Expanded(
-                  child: Text(
-                    survey.questions?[widget.index].text ?? "",
-                    style: Monsterats_500_16_FONT_SIZE_BLACK,
-                  ),
+                Text(
+                  survey.questions?[widget.index].text ?? "",
+                  style: Monsterats_500_16_FONT_SIZE_BLACK,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(
                   height: 30,
@@ -142,7 +142,9 @@ class _questionState extends State<question> {
                                     chosen_index[widget.index] = e.id ?? 0;
                                   });
                                   BlocProvider.of<SurveyCurrentCubit>(context)
-                                      .answers[survey.questions![widget.index]] = chosen_index[widget.index];
+                                              .answers[
+                                          survey.questions![widget.index]] =
+                                      chosen_index[widget.index];
                                 },
                                 child: Question(
                                   question: e.text ?? "",
@@ -177,7 +179,7 @@ class _questionState extends State<question> {
                             .state
                             .surveys
                             .indexOf(survey!) +
-                        1;
+                        10;
                     BlocProvider.of<SurveyCurrentCubit>(context)
                         .post_submissions(email, survey_index);
                     Navigator.of(context)

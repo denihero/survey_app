@@ -86,7 +86,7 @@ Stream<Surveys> get_surveys_stream() async* {
   }
   int length = jsonDecode(response.body.toString())["count"];
   // print(length);
-  for (var i = 1; i <= length; i++) {
+  for (var i = 9; i < 9+length; i++) {
     var response = await http.get(
       Uri.parse("http://45.32.114.90:8002/surveys/$i/"),
     );
