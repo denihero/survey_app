@@ -1,10 +1,8 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:survey/core/constants/color.dart';
 import 'package:survey/presentation/screens/favourite/favourite_screen.dart';
 import 'package:survey/presentation/screens/finish_survey/finish_survey_screen.dart';
-import 'package:survey/presentation/screens/home/home_screen.dart';
 import 'package:survey/presentation/screens/login/login_screen.dart';
 import 'package:survey/presentation/screens/pre_quiz/pre_quiz_screen.dart';
 import 'package:survey/presentation/screens/profile/profile_screen.dart';
@@ -35,10 +33,8 @@ class _HomeScreenState extends State<MainPage> {
   void selectTab(String tabItem,int index){
     if(tabItem == currentPage){
       _navigatorState[tabItem]?.currentState?.popUntil((route) => route.isFirst);
-      log(tabItem);
     }else{
       setState(() {
-        log(tabItem);
         currentPage = pageKeys[index];
         _currentIndex = index;
       });
