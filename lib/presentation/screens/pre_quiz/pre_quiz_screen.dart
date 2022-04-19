@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:survey/core/constants/color.dart';
 import 'package:survey/logic/cubit/current_survey_cubit.dart';
 
 import '../quiz/quiz_screen.dart';
@@ -79,7 +80,11 @@ class PreQuizScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Spacer(),
+                    Expanded(
+                      child: Container(
+                        color: WHITE,
+                      ),
+                    ),
                   ],
                 ),
               ),
