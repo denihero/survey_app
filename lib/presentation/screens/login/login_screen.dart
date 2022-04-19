@@ -43,10 +43,10 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           state is AuthError
               ? ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("Invalid email or password or Error"),
-            ),
-          )
+                  const SnackBar(
+                    content: Text("Invalid email or password or Error"),
+                  ),
+                )
               : null;
         },
       ),
@@ -109,7 +109,7 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
                 elevation: 5,
                 borderRadius: const BorderRadius.all(Radius.circular(12)),
                 child: TextFormField(
-                  textCapitalization: TextCapitalization.sentences,
+                  textCapitalization: TextCapitalization.none,
                   keyboardType: TextInputType.emailAddress,
                   textAlignVertical: TextAlignVertical.bottom,
                   cursorHeight: 18,
@@ -148,13 +148,13 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
                     suffixIcon: IconButton(
                       icon: isShowed
                           ? const Padding(
-                        padding: EdgeInsets.only(top: 5),
-                        child: Icon(Icons.visibility_off),
-                      )
+                              padding: EdgeInsets.only(top: 5),
+                              child: Icon(Icons.visibility_off),
+                            )
                           : const Padding(
-                        padding: EdgeInsets.only(top: 5),
-                        child: Icon(Icons.visibility),
-                      ),
+                              padding: EdgeInsets.only(top: 5),
+                              child: Icon(Icons.visibility),
+                            ),
                       onPressed: () {
                         setState(() {
                           isShowed = !isShowed;
@@ -175,21 +175,21 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
                         shape: MaterialStateProperty.all(
                             const RoundedRectangleBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(18)))),
+                                    BorderRadius.all(Radius.circular(18)))),
                         backgroundColor: MaterialStateProperty.all(ORANGE),
                       ),
                       onPressed: () {
                         check(widget.usernameController.text,
-                            widget.passwordController.text)
+                                widget.passwordController.text)
                             ? BlocProvider.of<AuthBloc>(context).add(
-                          AuthLogin(widget.usernameController.text,
-                              widget.passwordController.text),
-                        )
+                                AuthLogin(widget.usernameController.text,
+                                    widget.passwordController.text),
+                              )
                             : ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Entered invalid data!"),
-                          ),
-                        );
+                                const SnackBar(
+                                  content: Text("Entered invalid data!"),
+                                ),
+                              );
                       },
                       child: Row(
                         children: [
@@ -214,29 +214,29 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
           ),
           RichText(
               text: TextSpan(children: [
-                TextSpan(
-                  text: 'Don\'t have account ? ',
-                  style: Monsterats_500_16_FONT_SIZE_BLACK.copyWith(
-                      color: Colors.grey.shade500),
-                ),
-                TextSpan(
-                    text: 'Sign up',
-                    style:
+            TextSpan(
+              text: 'Don\'t have account ? ',
+              style: Monsterats_500_16_FONT_SIZE_BLACK.copyWith(
+                  color: Colors.grey.shade500),
+            ),
+            TextSpan(
+                text: 'Sign up',
+                style:
                     Monsterats_800_15_FONT_SIZE_ORANGE.copyWith(color: ORANGE),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RegisterInitialWidget(
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RegisterInitialWidget(
                                 usernameController: TextEditingController(),
                                 passwordController: TextEditingController(),
                                 passwordRepeatController:
-                                TextEditingController(),
+                                    TextEditingController(),
                               )),
-                        );
-                      })
-              ]))
+                    );
+                  })
+          ]))
         ],
       ),
     );
