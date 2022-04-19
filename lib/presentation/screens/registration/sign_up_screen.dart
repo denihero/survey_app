@@ -123,7 +123,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                         borderRadius:
                         const BorderRadius.all(Radius.circular(12)),
                         child: TextFormField(
-                          textCapitalization: TextCapitalization.sentences,
+                          textCapitalization: TextCapitalization.none,
                           keyboardType: TextInputType.emailAddress,
                           textAlignVertical: TextAlignVertical.bottom,
                           cursorHeight: 18,
