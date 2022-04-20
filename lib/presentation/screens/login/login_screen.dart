@@ -209,8 +209,8 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
               ),
             ],
           ),
-          const SizedBox(
-            height: 260,
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.27,
           ),
           RichText(
               text: TextSpan(children: [
