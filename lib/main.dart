@@ -3,12 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:survey/logic/bloc/auth_bloc.dart';
-import 'package:survey/logic/bloc/login_api.dart';
 import 'package:survey/logic/cubit/categories_cubit.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/navigation/routes.dart';
-import 'package:survey/presentation/screens/setting/setting_screen.dart';
-
+import 'package:flutter/services.dart';
 import 'logic/cubit/current_survey_cubit.dart';
 
 void main() async {
@@ -17,7 +15,7 @@ void main() async {
       storageDirectory: await getApplicationDocumentsDirectory());
 
   HydratedBlocOverrides.runZoned(
-    () => runApp(const MyApp()),
+    () => SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((value) => runApp(const MyApp())),
     storage: storage,
   );
 }
