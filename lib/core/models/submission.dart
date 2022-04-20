@@ -19,6 +19,12 @@ class Submission extends Equatable {
       "answer": answer,
     };
   }
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "$participation_email $survey $answer";
+  }
 }
 
 class SubmissionState extends Equatable {

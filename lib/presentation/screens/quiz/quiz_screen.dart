@@ -178,8 +178,8 @@ class _questionState extends State<question> {
                     int survey_index = BlocProvider.of<SurveyCubit>(context)
                             .state
                             .surveys
-                            .indexOf(survey!) +
-                        10;
+                            .indexOf(survey!) +1
+                        ;
                     BlocProvider.of<SurveyCurrentCubit>(context)
                         .post_submissions(email, survey_index);
                     Navigator.of(context)

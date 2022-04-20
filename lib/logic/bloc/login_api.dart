@@ -86,7 +86,7 @@ Stream<Surveys> get_surveys_stream() async* {
   }
   int length = jsonDecode(response.body.toString())["count"];
   // print(length);
-  for (var i = 9; i < 9+length; i++) {
+  for (var i = 1; i <= length; i++) {
     var response = await http.get(
       Uri.parse("http://137.184.230.26/surveys/$i/"),
     );
@@ -100,20 +100,16 @@ Stream<Surveys> get_surveys_stream() async* {
 }
 
 post_sumbissions(Submission sub) async {
-  var response = await http.post(
-    Uri.parse("http://137.184.230.26/sumbitions/"),
-    body: json.encode(sub.toJson()),
-    // encoding: "",
-    headers: {
-      "Content-Type":"application/json",
-    }
-  );
+  print(sub);
+  var response = await http.post(Uri.parse("http://137.184.230.26/sumbitions/"),
+      body: json.encode(sub.toJson()),
+      // encoding: "",
+      headers: {
+        "Content-Type": "application/json",
+      });
   print(response.body);
 }
 
 void main(List<String> args) async {
-  await post_sumbissions(
-    Submission(
-        participation_email: "denihero81@gmail.com", survey: 1, answer: [1,2]),
-  );
+  print(await get_surveys());
 }
