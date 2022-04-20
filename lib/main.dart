@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             brightness: Brightness.light,
           ),
-          initialRoute: '/login',
+          initialRoute: '/',
           routes: App.route),
     );
   }

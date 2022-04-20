@@ -8,7 +8,7 @@ import '../../core/models/survey.dart';
 
 Future<bool> login(String username, String password) async {
   var response = await http.post(
-    Uri.parse("http://45.32.114.90:8002/account/login/"),
+    Uri.parse("http://137.184.230.26/account/login/"),
     body: {
       "email": username,
       "password": password,
@@ -24,7 +24,7 @@ Future<bool> login(String username, String password) async {
 
 Future<bool> register(String username, String password) async {
   var response = await http.post(
-    Uri.parse("http://45.32.114.90:8002/account/register/"),
+    Uri.parse("http://137.184.230.26/account/register/"),
     body: {
       "email": username,
       "password": password,
@@ -40,7 +40,7 @@ Future<bool> register(String username, String password) async {
 
 Future<List<String>> get_categories() async {
   var response = await http.get(
-    Uri.parse("http://45.32.114.90:8002/categories/"),
+    Uri.parse("http://137.184.230.26/categories/"),
   );
   if (response.statusCode >= 400) {
     throw UnimplementedError();
@@ -53,7 +53,7 @@ Future<List<String>> get_categories() async {
 Future<List<Surveys>> get_surveys() async {
   List<Surveys> ls = <Surveys>[];
   var response = await http.get(
-    Uri.parse("http://45.32.114.90:8002/surveys/"),
+    Uri.parse("http://137.184.230.26/surveys/"),
   );
   // print(response.body.toString());
   if (response.statusCode >= 400) {
@@ -63,7 +63,7 @@ Future<List<Surveys>> get_surveys() async {
   // print(length);
   for (var i = 1; i <= length; i++) {
     var response = await http.get(
-      Uri.parse("http://45.32.114.90:8002/surveys/$i/"),
+      Uri.parse("http://137.184.230.26/surveys/$i/"),
     );
     // print(i);
     // print(jsonDecode(response.body.toString()));
@@ -78,7 +78,7 @@ Future<List<Surveys>> get_surveys() async {
 
 Stream<Surveys> get_surveys_stream() async* {
   var response = await http.get(
-    Uri.parse("http://45.32.114.90:8002/surveys/"),
+    Uri.parse("http://137.184.230.26/surveys/"),
   );
   // print(response.body.toString());
   if (response.statusCode >= 400) {
@@ -88,7 +88,7 @@ Stream<Surveys> get_surveys_stream() async* {
   // print(length);
   for (var i = 9; i < 9+length; i++) {
     var response = await http.get(
-      Uri.parse("http://45.32.114.90:8002/surveys/$i/"),
+      Uri.parse("http://137.184.230.26/surveys/$i/"),
     );
     // print(i);
     // print(jsonDecode(response.body.toString()));
@@ -101,7 +101,7 @@ Stream<Surveys> get_surveys_stream() async* {
 
 post_sumbissions(Submission sub) async {
   var response = await http.post(
-    Uri.parse("http://45.32.114.90:8002/sumbitions/"),
+    Uri.parse("http://137.184.230.26/sumbitions/"),
     body: json.encode(sub.toJson()),
     // encoding: "",
     headers: {
@@ -114,6 +114,6 @@ post_sumbissions(Submission sub) async {
 void main(List<String> args) async {
   await post_sumbissions(
     Submission(
-        participation_email: "ulukbekovbr@gmail.com", survey: 1, answer: [1,2]),
+        participation_email: "denihero81@gmail.com", survey: 1, answer: [1,2]),
   );
 }

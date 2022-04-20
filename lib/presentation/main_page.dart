@@ -26,10 +26,12 @@ class _HomeScreenState extends State<MainPage> {
   int _currentIndex = 0;
   String currentPage = 'Home';
   List<String> pageKeys = ['Home','Profile'];
+
   final Map<String,GlobalKey<NavigatorState>> _navigatorState = {
     'Home': GlobalKey<NavigatorState>(),
     'Profile':GlobalKey<NavigatorState>(),
   };
+
   void selectTab(String tabItem,int index){
     if(tabItem == currentPage){
       _navigatorState[tabItem]?.currentState?.popUntil((route) => route.isFirst);
