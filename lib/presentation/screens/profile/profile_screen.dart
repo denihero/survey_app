@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:survey/logic/cubit/current_survey_cubit.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/screens/home/widget/user_survey_card.dart';
-import 'package:survey/presentation/screens/setting/setting_screen.dart';
 import '../../../core/constants/color.dart';
 import '../../../core/constants/style.dart';
 import '../../../logic/bloc/auth_bloc.dart';
-import 'widgets/profilecard.dart';
+
 import 'widgets/profileicon.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -107,6 +105,15 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
         ),
+      ),
+
+      floatingActionButton: FloatingActionButton(
+        heroTag: 'admin',
+        backgroundColor: ORANGE,
+        child: const Icon(Icons.add,color: WHITE,),
+        onPressed: () {
+            Navigator.of(context,rootNavigator: true).pushNamed('/admin');
+        },
       ),
     );
   }

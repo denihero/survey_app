@@ -1,4 +1,6 @@
+
 import 'package:flutter/cupertino.dart';
+import 'package:survey/presentation/screens/admin/admin_screen.dart';
 import 'package:survey/presentation/screens/favourite/favourite_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:survey/presentation/main_page.dart';
@@ -29,5 +31,6 @@ class App {
     '/user_attempt': (context) => const UserAttemptScreen(),
     '/user_result': (context) => const UserResultScreen(),
     '/login': (context) => LoginScreen(),
+    '/admin':(context) => const AdminScreen()
   };
 }
