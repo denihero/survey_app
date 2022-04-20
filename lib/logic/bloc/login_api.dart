@@ -100,6 +100,7 @@ Stream<Surveys> get_surveys_stream() async* {
 }
 
 post_sumbissions(Submission sub) async {
+  print(sub);
   var response = await http.post(Uri.parse("http://137.184.230.26/sumbitions/"),
       body: json.encode(sub.toJson()),
       // encoding: "",
