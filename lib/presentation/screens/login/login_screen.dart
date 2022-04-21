@@ -9,6 +9,7 @@ import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/main_page.dart';
 import 'package:survey/presentation/screens/registration/sign_up_screen.dart';
 import '../../../logic/bloc/auth_bloc.dart';
+import 'package:sizer/sizer.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -81,11 +82,11 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(15),
+      padding: EdgeInsets.all(1.9.h),
       child: Column(
         children: [
-          const SizedBox(
-            height: 200,
+          SizedBox(
+            height: 27.h,
           ),
           Align(
             alignment: Alignment.topLeft,
@@ -99,8 +100,8 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
               ]),
             ),
           ),
-          const SizedBox(
-            height: 100,
+          SizedBox(
+            height: 10.h,
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -113,16 +114,16 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
                   keyboardType: TextInputType.emailAddress,
                   textAlignVertical: TextAlignVertical.bottom,
                   cursorHeight: 18,
-                  style: const TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 14.sp),
                   controller: widget.usernameController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     border: InputBorder.none,
                     prefixIcon: Padding(
                       padding: EdgeInsets.only(top: 5),
-                      child: Icon(Icons.email, size: 23),
+                      child: Icon(Icons.email, size: 3.h),
                     ),
                     hintText: "Username or email",
-                    hintStyle: TextStyle(fontSize: 18),
+                    hintStyle: TextStyle(fontSize: 14.sp),
                   ),
                 ),
               ),
@@ -137,13 +138,13 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
                   textAlignVertical: TextAlignVertical.bottom,
                   obscureText: isShowed,
                   cursorHeight: 18,
-                  style: const TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 14.sp),
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintStyle: const TextStyle(fontSize: 18),
-                    prefixIcon: const Padding(
+                    hintStyle: TextStyle(fontSize: 18),
+                    prefixIcon: Padding(
                       padding: EdgeInsets.only(top: 5),
-                      child: Icon(Icons.lock, size: 23),
+                      child: Icon(Icons.lock, size: 3.h),
                     ),
                     suffixIcon: IconButton(
                       icon: isShowed
@@ -242,7 +243,7 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
             ),
           ),
           SizedBox(
-            height: 25,
+            height: 4.h,
           ),
         ],
       ),

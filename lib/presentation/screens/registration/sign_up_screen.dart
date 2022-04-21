@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/core/constants/color.dart';
 import 'package:survey/core/constants/style.dart';
 import 'package:survey/logic/bloc/auth_bloc.dart';
+import 'package:sizer/sizer.dart';
 
 class RegisterInitialWidget extends StatefulWidget {
   const RegisterInitialWidget({
@@ -63,7 +64,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
         ),
       ),
       body: Container(
-        padding: const EdgeInsets.all(15),
+        padding: EdgeInsets.all(1.9.h),
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthError) {
@@ -84,8 +85,8 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                   });
             }
             if (state is AuthInitial) {
-              Navigator.of(context).pushNamedAndRemoveUntil("/login", (route)=>false);
-              
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil("/login", (route) => false);
             }
             if (state is AuthRegisterSuccess) {
               setState(() {
@@ -130,8 +131,8 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                       style: Monsterats_600_28_FONT_SIZE_BLACK,
                     ),
                   ),
-                  const SizedBox(
-                    height: 30,
+                  SizedBox(
+                    height: 7.h,
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -146,16 +147,16 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                           keyboardType: TextInputType.emailAddress,
                           textAlignVertical: TextAlignVertical.bottom,
                           cursorHeight: 18,
-                          style: const TextStyle(fontSize: 18),
+                          style: TextStyle(fontSize: 14.sp),
                           controller: widget.usernameController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             border: InputBorder.none,
                             prefixIcon: Padding(
                               padding: EdgeInsets.only(top: 5),
-                              child: Icon(Icons.email, size: 23),
+                              child: Icon(Icons.email, size: 3.h),
                             ),
                             hintText: "Username or email",
-                            hintStyle: TextStyle(fontSize: 18),
+                            hintStyle: TextStyle(fontSize: 14.sp),
                           ),
                         ),
                       ),
@@ -170,14 +171,14 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                           textAlignVertical: TextAlignVertical.bottom,
                           obscureText: isShowed,
                           cursorHeight: 18,
-                          style: const TextStyle(fontSize: 18),
+                          style: TextStyle(fontSize: 14.sp),
                           controller: widget.passwordController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintStyle: const TextStyle(fontSize: 18),
-                            prefixIcon: const Padding(
+                            hintStyle: TextStyle(fontSize: 14.sp),
+                            prefixIcon: Padding(
                               padding: EdgeInsets.only(top: 5),
-                              child: Icon(Icons.lock, size: 23),
+                              child: Icon(Icons.lock, size: 3.h),
                             ),
                             suffixIcon: IconButton(
                               icon: isShowed
@@ -211,13 +212,13 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                           textAlignVertical: TextAlignVertical.bottom,
                           obscureText: confirmIsShowed,
                           cursorHeight: 18,
-                          style: const TextStyle(fontSize: 18),
+                          style: TextStyle(fontSize: 14.sp),
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintStyle: const TextStyle(fontSize: 18),
-                            prefixIcon: const Padding(
+                            hintStyle: TextStyle(fontSize: 14.sp),
+                            prefixIcon: Padding(
                               padding: EdgeInsets.only(top: 5),
-                              child: Icon(Icons.lock, size: 23),
+                              child: Icon(Icons.lock, size: 3.h),
                             ),
                             suffixIcon: IconButton(
                               icon: confirmIsShowed
@@ -301,18 +302,21 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                                 keyboardType: TextInputType.text,
                                 textAlignVertical: TextAlignVertical.bottom,
                                 cursorHeight: 18,
-                                style: const TextStyle(fontSize: 18),
+                                style: TextStyle(fontSize: 14.sp),
                                 controller: _codeController,
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   border: InputBorder.none,
                                   prefixIcon: Padding(
                                     padding: EdgeInsets.only(top: 5),
-                                    child: Icon(Icons.code, size: 23),
+                                    child: Icon(Icons.code, size: 3.h),
                                   ),
                                   hintText: "Confirmation Code",
-                                  hintStyle: TextStyle(fontSize: 18),
+                                  hintStyle: TextStyle(fontSize: 14.sp),
                                 ),
                               ),
+                            ),
+                            SizedBox(
+                              height: 1.8.h,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -360,7 +364,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 45, left: 60),
+        padding: EdgeInsets.only(bottom: 6.2.h, left: 16.5.w),
         child: RichText(
             text: TextSpan(children: [
           TextSpan(

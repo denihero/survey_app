@@ -89,6 +89,10 @@ class ProfileScreen extends StatelessWidget {
                             element.author ==
                             BlocProvider.of<AuthBloc>(context).state.email)
                         .toList();
+                    if (surveys.isEmpty)
+                      return const Center(
+                        child: Text("Empty"),
+                      );
                     return ListView.builder(
                         keyboardDismissBehavior:
                             ScrollViewKeyboardDismissBehavior.onDrag,
