@@ -14,6 +14,7 @@ Future<bool> login(String username, String password) async {
       "password": password,
     },
   );
+  print(response.body.toString());
 
   if (response.statusCode >= 400) throw UnimplementedError();
   if (response.statusCode == 201 || response.statusCode == 200) {
@@ -83,6 +84,7 @@ Future<List<Surveys>> get_surveys() async {
     );
     // print(i);
     // print(jsonDecode(response.body.toString()));
+    print(response.body.toString());
     ls.add(
       Surveys.fromJson(
         jsonDecode(response.body.toString()),

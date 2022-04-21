@@ -55,9 +55,9 @@ class PreQuizScreen extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const QuizScreen()),
+                    MaterialPageRoute(builder: (context) => QuizScreen()),
                   );
                 },
                 child: Container(

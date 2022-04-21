@@ -41,14 +41,16 @@ class AuthConfirmPassword extends AuthEvent {
 class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
   AuthBloc() : super(const AuthInitial()) {
     on<AuthLogin>((event, emit) async {
-      if (state.email != "") {
-        emit(
-          AuthSuccess(state.email),
-        );
-      }
+      // if (state.email != "") {
+      //   emit(
+      //     AuthSuccess(state.email),
+      //   );
+      // }
       emit(const AuthLoading(""));
+      print("Hello");
       try {
         var r = await login(event.username, event.password);
+        print(r);
         if (r) {
           var email = event.username;
           emit(AuthSuccess(email));

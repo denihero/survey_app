@@ -19,8 +19,8 @@ class _SearchWidgetState extends State<SearchWidget> {
  @override
   void initState() {
    setState(() {
-     get_surveys().then((value) {
-       _fountItems.addAll(value);
+     get_surveys_stream_fixed().listen((value) {
+       _fountItems.add(value);
      });
      _postDisplay = _fountItems;
    });
