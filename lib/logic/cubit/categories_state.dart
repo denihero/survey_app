@@ -1,11 +1,11 @@
 part of 'categories_cubit.dart';
 
 abstract class Cat extends Equatable {
-  final List<String> categories=[];
+  final Map<String, String> categories = {};
 }
 
 class Categoriess extends Cat {
-  final List<String> categories;
+  final Map<String, String> categories;
   Categoriess(this.categories);
 
   @override

@@ -55,7 +55,7 @@ Future<bool> confirmPassword(String username, String code) async {
   return false;
 }
 
-Future<List<String>> get_categories() async {
+Future<Map<String, String>> get_categories() async {
   var response = await http.get(
     Uri.parse("http://137.184.230.26/categories/"),
   );
@@ -161,8 +161,8 @@ post_sumbissions(Submission sub) async {
   print(response.body);
 }
 
+post_survey() {}
+
 void main(List<String> args) async {
-  print(await get_surveys_stream_fixed().listen((event) {
-    print(event);
-  }));
+  print(await get_categories());
 }

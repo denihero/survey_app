@@ -21,7 +21,7 @@ class _CategoryChooseState extends State<CategoryChooseWidget> {
     log('$_choices');
     return BlocBuilder<CategoriesCubit, Cat>(
       builder: (context, state) {
-      _choices = state.categories;
+      _choices = state.categories.keys.toList();
         return SizedBox(
           height: MediaQuery.of(context).size.height / 13,
           child: ListView.builder(

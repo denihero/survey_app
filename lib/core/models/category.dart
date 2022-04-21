@@ -1,14 +1,13 @@
 
 class Categories {
-  final List<String> categories;
+  final Map<String,String> categories;
 
   factory Categories.fromJson(List<dynamic> json) {
-    var x = <String>[];
+    Map<String,String> x = {};
     var c = json.forEach(
-      (element) => x.add(
-        element["name"],
-      ),
-    );
+      (element) {
+        x[element["name"]]=element["slug"];
+      }    );
     return Categories(x);
   }
   Categories(this.categories);
