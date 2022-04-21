@@ -20,14 +20,14 @@ class SurveyCubit extends Cubit<SurveyState> {
   }
 
   fetch_surveys_stream() async {
-    await get_surveys_stream().fold(
+    await get_surveys_stream_fixed().fold(
       Surveys(title: "Hello"),
       ((previous, element) {
-        print("Fetching");
-        emit(SurveyCompleted(surveys: [
+        final new_state = SurveyCompleted(surveys: [
           ...state.surveys,
           ...[element]
-        ]));
+        ]);
+        emit(new_state);
         return;
       }),
     );
