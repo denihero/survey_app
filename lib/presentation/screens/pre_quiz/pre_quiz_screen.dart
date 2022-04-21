@@ -42,51 +42,45 @@ class PreQuizScreen extends StatelessWidget {
               ),
 
               //description of the course
-              Expanded(
-                child: ListView(
-                  children: [
-                    Text(
-                      "Description",
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => QuizScreen()),
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 25),
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: Colors.deepOrangeAccent,
-                            borderRadius: BorderRadius.circular(9)),
-                        child: const Center(
-                          child: Text(
-                            "Start",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        color: WHITE,
-                      ),
-                    ),
-                  ],
+              const Text(
+                "Description",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
                 ),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const QuizScreen()),
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 25),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: Colors.deepOrangeAccent,
+                      borderRadius: BorderRadius.circular(9)),
+                  child: const Center(
+                    child: Text(
+                      "Start",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ),
+              ),
+              const Expanded(
+                child: const SizedBox(
+                    // color: WHITE,
+                    ),
               ),
             ],
           ),

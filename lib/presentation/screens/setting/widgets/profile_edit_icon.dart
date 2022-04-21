@@ -13,8 +13,7 @@ class ProfileEditIcon extends StatelessWidget {
       width: 150,
       child: Stack(
         // alignment: Alignment.bottomRight,
-        overflow: Overflow.clip,
-        children: [
+        clipBehavior: Clip.hardEdge, children: [
           ProfileIcon(
             is_settings: true,
           ),
