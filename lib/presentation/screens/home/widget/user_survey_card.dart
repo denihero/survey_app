@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/core/constants/style.dart';
@@ -37,12 +38,18 @@ class _UserSurveyCardState extends State<UserSurveyCard> {
           child: ListTile(
             leading: widget.survey.image == null
                 ? const FittedBox(child: Placeholder())
-                : Image.network(
-                    widget.survey.image ?? "",
+                : CachedNetworkImage(
+                    imageUrl: widget.survey.image ?? "",
                     fit: BoxFit.cover,
                     height: 60,
                     width: 60,
                   ),
+            // : Image.network(
+            //     widget.survey.image ?? "",
+            //     fit: BoxFit.cover,
+            //     height: 60,
+            //     width: 60,
+            //   ),
             title: Text(
               widget.survey.title ?? "",
               style: Monsterats_500_15_FONT_SIZE_BLACK,

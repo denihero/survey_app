@@ -67,6 +67,7 @@ Future<List<String>> get_categories() async {
   ).categories;
 }
 
+//not correct function
 Future<List<Surveys>> get_surveys() async {
   List<Surveys> ls = <Surveys>[];
   var response = await http.get(
@@ -94,6 +95,7 @@ Future<List<Surveys>> get_surveys() async {
   return ls;
 }
 
+//not correct function
 Stream<Surveys> get_surveys_stream() async* {
   var response = await http.get(
     Uri.parse("http://137.184.230.26/surveys/"),
@@ -119,6 +121,7 @@ Stream<Surveys> get_surveys_stream() async* {
 
 class Empty {}
 
+//correct one
 Stream<Surveys> get_surveys_stream_fixed() async* {
   var response = await http.get(
     Uri.parse("http://137.184.230.26/surveys/"),
