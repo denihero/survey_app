@@ -16,8 +16,12 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SurveyCubit, SurveyState>(
+      //  buildWhen: (previous, current) {
+      //    print(previous.surveys.last.title != current.surveys.last.title);
+      //    return previous.surveys.last.title != current.surveys.last.title;
+      // },
       builder: (context, state) {
-        if (state is SurveyError){
+        if (state is SurveyError) {
           return const Center(
             child: Text("Error..."),
           );

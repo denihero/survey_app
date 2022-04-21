@@ -209,34 +209,41 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
               ),
             ],
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.27,
-          ),
+          // SizedBox(
+          //   height: MediaQuery.of(context).size.height * 0.27,
+          // ),
+          Spacer(),
           RichText(
-              text: TextSpan(children: [
-            TextSpan(
-              text: 'Don\'t have account ? ',
-              style: Monsterats_500_16_FONT_SIZE_BLACK.copyWith(
-                  color: Colors.grey.shade500),
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Don\'t have account ? ',
+                  style: Monsterats_500_16_FONT_SIZE_BLACK.copyWith(
+                      color: Colors.grey.shade500),
+                ),
+                TextSpan(
+                    text: 'Sign up',
+                    style: Monsterats_800_15_FONT_SIZE_ORANGE.copyWith(
+                        color: ORANGE),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegisterInitialWidget(
+                                    usernameController: TextEditingController(),
+                                    passwordController: TextEditingController(),
+                                    passwordRepeatController:
+                                        TextEditingController(),
+                                  )),
+                        );
+                      })
+              ],
             ),
-            TextSpan(
-                text: 'Sign up',
-                style:
-                    Monsterats_800_15_FONT_SIZE_ORANGE.copyWith(color: ORANGE),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => RegisterInitialWidget(
-                                usernameController: TextEditingController(),
-                                passwordController: TextEditingController(),
-                                passwordRepeatController:
-                                    TextEditingController(),
-                              )),
-                    );
-                  })
-          ]))
+          ),
+          SizedBox(
+            height: 25,
+          ),
         ],
       ),
     );

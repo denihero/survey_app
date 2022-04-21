@@ -24,7 +24,7 @@ class RegisterInitialWidget extends StatefulWidget {
 class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
   bool check(String name, String password, String repeat) {
     bool emailValid = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(name);
     if (name.isEmpty ||
         password.length < 6 ||
@@ -79,7 +79,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                   builder: (context) {
                     return AlertDialog(
                       content:
-                      const Text("Check your email for confirmation code"),
+                          const Text("Check your email for confirmation code"),
                       actions: [
                         TextButton(
                           onPressed: () {
@@ -121,7 +121,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                       Material(
                         elevation: 5,
                         borderRadius:
-                        const BorderRadius.all(Radius.circular(12)),
+                            const BorderRadius.all(Radius.circular(12)),
                         child: TextFormField(
                           textCapitalization: TextCapitalization.none,
                           keyboardType: TextInputType.emailAddress,
@@ -146,7 +146,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                       Material(
                         elevation: 5,
                         borderRadius:
-                        const BorderRadius.all(Radius.circular(12)),
+                            const BorderRadius.all(Radius.circular(12)),
                         child: TextFormField(
                           textAlignVertical: TextAlignVertical.bottom,
                           obscureText: isShowed,
@@ -163,13 +163,13 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                             suffixIcon: IconButton(
                               icon: isShowed
                                   ? const Padding(
-                                padding: EdgeInsets.only(top: 5),
-                                child: Icon(Icons.visibility_off),
-                              )
+                                      padding: EdgeInsets.only(top: 5),
+                                      child: Icon(Icons.visibility_off),
+                                    )
                                   : const Padding(
-                                padding: EdgeInsets.only(top: 5),
-                                child: Icon(Icons.visibility),
-                              ),
+                                      padding: EdgeInsets.only(top: 5),
+                                      child: Icon(Icons.visibility),
+                                    ),
                               onPressed: () {
                                 setState(() {
                                   isShowed = !isShowed;
@@ -186,7 +186,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                       Material(
                         elevation: 5,
                         borderRadius:
-                        const BorderRadius.all(Radius.circular(12)),
+                            const BorderRadius.all(Radius.circular(12)),
                         child: TextFormField(
                           controller: widget.passwordRepeatController,
                           textAlignVertical: TextAlignVertical.bottom,
@@ -203,13 +203,13 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                             suffixIcon: IconButton(
                               icon: confirmIsShowed
                                   ? const Padding(
-                                padding: EdgeInsets.only(top: 5),
-                                child: Icon(Icons.visibility_off),
-                              )
+                                      padding: EdgeInsets.only(top: 5),
+                                      child: Icon(Icons.visibility_off),
+                                    )
                                   : const Padding(
-                                padding: EdgeInsets.only(top: 5),
-                                child: Icon(Icons.visibility),
-                              ),
+                                      padding: EdgeInsets.only(top: 5),
+                                      child: Icon(Icons.visibility),
+                                    ),
                               onPressed: () {
                                 setState(() {
                                   confirmIsShowed = !confirmIsShowed;
@@ -233,7 +233,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(18)))),
                               backgroundColor:
-                              MaterialStateProperty.all(ORANGE),
+                                  MaterialStateProperty.all(ORANGE),
                             ),
                             child: Row(
                               children: [
@@ -254,13 +254,13 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                                   widget.passwordRepeatController.text;
                               check(email, password, repeat)
                                   ? BlocProvider.of<AuthBloc>(context).add(
-                                AuthRegister(email, password),
-                              )
+                                      AuthRegister(email, password),
+                                    )
                                   : ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Entered invalid data!"),
-                                ),
-                              );
+                                      const SnackBar(
+                                        content: Text("Entered invalid data!"),
+                                      ),
+                                    );
                             },
                           ),
                         ],
@@ -274,22 +274,22 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 15, left: 60),
+        padding: const EdgeInsets.only(bottom: 45, left: 60),
         child: RichText(
             text: TextSpan(children: [
-              TextSpan(
-                text: 'Already have a account ? ',
-                style: Monsterats_500_16_FONT_SIZE_BLACK.copyWith(
-                    color: Colors.grey.shade500, fontSize: 15),
-              ),
-              TextSpan(
-                  text: 'Sign in',
-                  style: Monsterats_800_15_FONT_SIZE_ORANGE.copyWith(color: ORANGE),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      Navigator.of(context).pushNamed("/login");
-                    })
-            ])),
+          TextSpan(
+            text: 'Already have a account ? ',
+            style: Monsterats_500_16_FONT_SIZE_BLACK.copyWith(
+                color: Colors.grey.shade500, fontSize: 15),
+          ),
+          TextSpan(
+              text: 'Sign in',
+              style: Monsterats_800_15_FONT_SIZE_ORANGE.copyWith(color: ORANGE),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  Navigator.of(context).pushNamed("/login");
+                })
+        ])),
       ),
     );
   }

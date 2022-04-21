@@ -99,8 +99,35 @@ Stream<Surveys> get_surveys_stream() async* {
   return;
 }
 
+Stream<Surveys> get_surveys_stream_fixed() async* {
+  var response = await http.get(
+    Uri.parse("http://137.184.230.26/surveys/"),
+  );
+
+  if (response.statusCode >= 400) {
+    throw UnimplementedError();
+  }
+
+  String? next_one;
+
+  try {
+    final first_one = jsonDecode(response.body.toString());
+    next_one = first_one["next"];
+    yield Surveys.fromJson(first_one["results"][0]);
+  } catch (_) {
+    throw UnimplementedError();
+  }
+  while (next_one != null) {
+    var response = await http.get(
+      Uri.parse(next_one),
+    );
+    final survey = jsonDecode(response.body.toString());
+    next_one = survey["next"];
+    yield Surveys.fromJson(survey["results"][0]);
+  }
+}
+
 post_sumbissions(Submission sub) async {
-  print(sub);
   var response = await http.post(Uri.parse("http://137.184.230.26/sumbitions/"),
       body: json.encode(sub.toJson()),
       // encoding: "",
@@ -111,5 +138,7 @@ post_sumbissions(Submission sub) async {
 }
 
 void main(List<String> args) async {
-  print(await get_surveys());
+  print(await get_surveys_stream_fixed().listen((event) {
+    print(event);
+  }));
 }
