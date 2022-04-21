@@ -97,7 +97,7 @@ class _HomeScreenState extends State<MainPage> {
               } else if (setting.name == "/quiz") {
                 return MaterialPageRoute(builder: (_) => const QuizScreen());
               }else if(setting.name == '/create_question') {
-                return MaterialPageRoute(builder: (_) => const CreateQuestionScreen());
+                return MaterialPageRoute(builder: (_) => CreateQuestionScreen());
               }
               return null;
             },

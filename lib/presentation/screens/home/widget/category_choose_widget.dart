@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/logic/cubit/categories_cubit.dart';
@@ -16,7 +18,7 @@ class _CategoryChooseState extends State<CategoryChooseWidget> {
   var _choices = <String>[];
   @override
   Widget build(BuildContext context) {
-    print(_choices);
+    log('$_choices');
     return BlocBuilder<CategoriesCubit, Cat>(
       builder: (context, state) {
       _choices = state.categories;

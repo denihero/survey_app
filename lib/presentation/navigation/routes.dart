@@ -33,6 +33,6 @@ class App {
     '/user_result': (context) => const UserResultScreen(),
     '/login': (context) => LoginScreen(),
     '/admin':(context) => const AdminScreen(),
-    '/create_question': (context) => const CreateQuestionScreen()
+    '/create_question': (context) => CreateQuestionScreen()
   };
 }

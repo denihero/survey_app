@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:survey/core/constants/color.dart';
 import 'package:survey/core/constants/style.dart';
+import 'package:survey/presentation/screens/create_question/widget/answer_textformfield.dart';
+import 'package:survey/presentation/screens/create_question/widget/question_formfield.dart';
 
 
 class CreateQuestionScreen extends StatelessWidget {
-  const CreateQuestionScreen({Key? key}) : super(key: key);
+  CreateQuestionScreen({Key? key}) : super(key: key);
+  final List<AnswerTextFormField> answerTextFormField = [];
+
+  void addTextFormField() {
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,36 +46,10 @@ class CreateQuestionScreen extends StatelessWidget {
             ),
                ),
              ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.height * 0.06,
-              child: TextFormField(
-                textAlignVertical: TextAlignVertical.bottom,
-                textCapitalization: TextCapitalization.sentences,
-                cursorHeight: 20,
-                style: const TextStyle(
-                  fontSize: 16
-                ),
-                decoration: InputDecoration(
-                  hintText: 'Question',
-                  hintStyle: const TextStyle(
-                    fontSize: 16
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: const BorderSide(
-                      color: Colors.blue,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: const BorderSide(
-                      color: Colors.blue,
-                      width: 2.0,
-                    ),
-                  ),
-                ),
-              ),
+              child: const QuestionTextFormField(),
             ),
             Align(
               alignment: Alignment.topLeft,
@@ -83,44 +64,20 @@ class CreateQuestionScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.height * 0.06,
               child: Padding(
                 padding: EdgeInsets.only(
                   top: MediaQuery.of(context).size.width * 0.020,
                 ),
-                child: TextFormField(
-                  textAlignVertical: TextAlignVertical.bottom,
-                  textCapitalization: TextCapitalization.sentences,
-                  cursorHeight: 20,
-                  style: const TextStyle(
-                      fontSize: 16
-                  ),
-                  decoration: InputDecoration(
-                    hintText: 'Answer',
-                    hintStyle: const TextStyle(
-                        fontSize: 16
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide: const BorderSide(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide: const BorderSide(
-                        color: Colors.blue,
-                        width: 2.0,
-                      ),
-                    ),
-                  ),
-                ),
+                child:ListView.builder(
+                  itemCount: answerTextFormField.length,
+                  itemBuilder: (context, index) {
+                    return const AnswerTextFormField();
+                  }),
               ),
             ),
-
-
           ],
         )
       ),
