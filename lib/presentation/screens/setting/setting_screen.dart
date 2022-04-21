@@ -68,7 +68,7 @@ class SettingScreen extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         BlocProvider.of<AuthBloc>(context).add(AuthLogout());
-                        Navigator.of(context).pushNamed("/login");
+                        Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil('/login', (route) => false);
                       },
                       child: Text(
                         "Logout",

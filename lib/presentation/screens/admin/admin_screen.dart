@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:survey/core/constants/color.dart';
+import 'package:survey/core/constants/style.dart';
 
 
 class AdminScreen extends StatelessWidget {
@@ -40,7 +41,7 @@ class AdminScreen extends StatelessWidget {
 
                     const Positioned(
                         top: 40,
-                        left: 20,
+                        left: 25,
                         child: Text(
                             'Upload Image',
                             style: TextStyle(
@@ -75,13 +76,27 @@ class AdminScreen extends StatelessWidget {
                   ),
                 )
               ],
+            ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding:  EdgeInsets.only(
+                  top: MediaQuery.of(context).size.width * 0.09,
+                  left: MediaQuery.of(context).size.width * 0.03
+                ),
+                child: Text(
+                    'Your questions:',
+                    style: Monsterats_600_24_FONT_SIZE_BLACK ,
+                ),
+              ),
             )
           ],
+
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         heroTag: 'admin',
-        onPressed: () {  },
+        onPressed: () => Navigator.pushNamed(context, '/create_question'),
         label: Row(
           children: const [
             Icon(Icons.add),
