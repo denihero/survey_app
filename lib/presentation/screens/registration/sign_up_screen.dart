@@ -35,6 +35,16 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
     return true;
   }
 
+  @override
+  void dispose() {
+    _codeController?.dispose();
+    widget.passwordController.dispose();
+    widget.usernameController.dispose();
+    super.dispose();
+  }
+
+  bool _isShowCodeConfirm = false;
+  TextEditingController? _codeController;
   late bool isShowed = true;
   late bool confirmIsShowed = true;
 
@@ -65,7 +75,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                       actions: [
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context).pushNamed("/login");
+                            Navigator.of(context, rootNavigator: true).pop();
                           },
                           child: const Center(child: Text("OK")),
                         ),
@@ -73,7 +83,15 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                     );
                   });
             }
+            if (state is AuthInitial) {
+              Navigator.of(context).pushNamedAndRemoveUntil("/login", (route)=>false);
+              
+            }
             if (state is AuthRegisterSuccess) {
+              setState(() {
+                _isShowCodeConfirm = true;
+              });
+              _codeController = TextEditingController();
               showDialog(
                   context: context,
                   builder: (context) {
@@ -83,7 +101,8 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                       actions: [
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context).pushNamed("/login");
+                            // Navigator.of(context).pushNamed("/login");
+                            Navigator.of(context, rootNavigator: true).pop();
                           },
                           child: const Center(child: Text("OK")),
                         ),
@@ -140,7 +159,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Material(
@@ -180,7 +199,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Material(
@@ -267,6 +286,73 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                       )
                     ],
                   ),
+                  _isShowCodeConfirm
+                      ? Column(
+                          children: [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Material(
+                              elevation: 5,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(12)),
+                              child: TextFormField(
+                                textCapitalization: TextCapitalization.none,
+                                keyboardType: TextInputType.text,
+                                textAlignVertical: TextAlignVertical.bottom,
+                                cursorHeight: 18,
+                                style: const TextStyle(fontSize: 18),
+                                controller: _codeController,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  prefixIcon: Padding(
+                                    padding: EdgeInsets.only(top: 5),
+                                    child: Icon(Icons.code, size: 23),
+                                  ),
+                                  hintText: "Confirmation Code",
+                                  hintStyle: TextStyle(fontSize: 18),
+                                ),
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ElevatedButton(
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                        const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(18)))),
+                                    backgroundColor:
+                                        MaterialStateProperty.all(ORANGE),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        "Send Code",
+                                        style:
+                                            Monsterats_400_16_FONT_SIZE_BLACK,
+                                      ),
+                                      const Icon(
+                                        Icons.arrow_forward,
+                                        size: 20,
+                                      )
+                                    ],
+                                  ),
+                                  onPressed: () {
+                                    final code = _codeController?.text;
+
+                                    final email =
+                                        widget.usernameController.text;
+                                    BlocProvider.of<AuthBloc>(context).add(
+                                        AuthConfirmPassword(email, "", code));
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        )
+                      : const Text(""),
                 ],
               );
             },

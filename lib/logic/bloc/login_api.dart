@@ -38,6 +38,22 @@ Future<bool> register(String username, String password) async {
   return false;
 }
 
+Future<bool> confirmPassword(String username, String code) async {
+  var response = await http.post(
+    Uri.parse("http://137.184.230.26/account/activate/"),
+    body: {
+      "email": username,
+      "code": code,
+    },
+  );
+  print(response.body);
+  if (response.statusCode >= 400) throw UnimplementedError();
+  if (response.statusCode == 201 || response.statusCode == 200) {
+    return true;
+  }
+  return false;
+}
+
 Future<List<String>> get_categories() async {
   var response = await http.get(
     Uri.parse("http://137.184.230.26/categories/"),
@@ -99,10 +115,13 @@ Stream<Surveys> get_surveys_stream() async* {
   return;
 }
 
+class Empty {}
+
 Stream<Surveys> get_surveys_stream_fixed() async* {
   var response = await http.get(
     Uri.parse("http://137.184.230.26/surveys/"),
   );
+  if (jsonDecode(response.body.toString())["next"] == null) throw Empty();
 
   if (response.statusCode >= 400) {
     throw UnimplementedError();

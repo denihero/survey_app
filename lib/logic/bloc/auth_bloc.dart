@@ -3,6 +3,7 @@ import 'dart:ffi';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import 'login_api.dart';
@@ -29,6 +30,12 @@ class AuthLogout extends AuthEvent {
 
 class AuthRegister extends AuthEvent {
   AuthRegister(String username, String password) : super(username, password);
+}
+
+class AuthConfirmPassword extends AuthEvent {
+  final code;
+  AuthConfirmPassword(String username, String password, this.code)
+      : super(username, password);
 }
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
@@ -64,6 +71,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
       } catch (_) {
         emit(AuthError());
       }
+    });
+    on<AuthConfirmPassword>((event, emit) async {
+      try {
+        emit(AuthLoading(""));
+        var r = await confirmPassword(event.username, event.code);
+        if (r) {
+          emit(AuthInitial());
+        } else if (r == false) {
+          emit(AuthError());
+        }
+      } catch (_) {}
     });
     on<AuthLogout>((event, emit) {
       emit(AuthLoading(""));

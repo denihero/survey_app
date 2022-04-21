@@ -69,6 +69,7 @@ class AuthRegisterSuccess extends AuthState {
   }
 }
 
+
 class AuthError extends AuthState {
   const AuthError({e = ""}) : super(email: e);
   @override

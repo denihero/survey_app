@@ -21,3 +21,4 @@ class SurveyCompleted extends SurveyState {
 class SurveyError extends SurveyState {}
 
 class SurveyLoading extends SurveyState {}
+class SurveyEmpty extends SurveyState {}

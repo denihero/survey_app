@@ -14,22 +14,30 @@ class SurveyCubit extends Cubit<SurveyState> {
       List<Surveys> r = await get_surveys();
       print(r.length);
       emit(SurveyCompleted(surveys: r));
+    } on Empty {
+      emit(SurveyEmpty());
     } catch (_) {
       emit(SurveyError());
     }
   }
 
   fetch_surveys_stream() async {
-    await get_surveys_stream_fixed().fold(
-      Surveys(title: "Hello"),
-      ((previous, element) {
-        final new_state = SurveyCompleted(surveys: [
-          ...state.surveys,
-          ...[element]
-        ]);
-        emit(new_state);
-        return;
-      }),
-    );
+    try {
+      await get_surveys_stream_fixed().fold(
+        Surveys(title: "Hello"),
+        ((previous, element) {
+          final new_state = SurveyCompleted(surveys: [
+            ...state.surveys,
+            ...[element]
+          ]);
+          emit(new_state);
+          return;
+        }),
+      );
+    } on Empty {
+      emit(SurveyEmpty());
+    } on UnimplementedError {
+      emit(SurveyError());
+    }
   }
 }

@@ -73,12 +73,15 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 BlocBuilder<SurveyCubit, SurveyState>(
                     builder: (context, state) {
-                  if (state is SurveyError) {
+                  if (state is SurveyEmpty) {
+                    return const Center(
+                      child: Text("Empty"),
+                    );
+                  } else if (state is SurveyError) {
                     return const Center(
                       child: Text("Error..."),
                     );
-                  }
-                  if (state is SurveyCompleted) {
+                  } else if (state is SurveyCompleted) {
                     final surveys = BlocProvider.of<SurveyCubit>(context)
                         .state
                         .surveys
@@ -106,13 +109,15 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
       ),
-
       floatingActionButton: FloatingActionButton(
         heroTag: 'admin',
         backgroundColor: ORANGE,
-        child: const Icon(Icons.add,color: WHITE,),
+        child: const Icon(
+          Icons.add,
+          color: WHITE,
+        ),
         onPressed: () {
-            Navigator.of(context,rootNavigator: true).pushNamed('/admin');
+          Navigator.of(context, rootNavigator: true).pushNamed('/admin');
         },
       ),
     );
