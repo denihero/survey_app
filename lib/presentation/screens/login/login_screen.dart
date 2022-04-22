@@ -119,7 +119,7 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     prefixIcon: Padding(
-                      padding: EdgeInsets.only(top: 5),
+                      padding: const EdgeInsets.only(top: 5),
                       child: Icon(Icons.email, size: 3.h),
                     ),
                     hintText: "Username or email",
@@ -243,7 +243,7 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
             ),
           ),
           SizedBox(
-            height: 4.h,
+            height: 1.h,
           ),
         ],
       ),

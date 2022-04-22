@@ -11,6 +11,7 @@ import 'logic/cubit/current_survey_cubit.dart';
 import 'package:sizer/sizer.dart';
 
 void main() async {
+  WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus();
   WidgetsFlutterBinding.ensureInitialized();
   final storage = await HydratedStorage.build(
       storageDirectory: await getApplicationDocumentsDirectory());

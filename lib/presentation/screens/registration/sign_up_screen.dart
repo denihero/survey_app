@@ -52,6 +52,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -290,7 +291,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                   _isShowCodeConfirm
                       ? Column(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Material(
@@ -357,29 +358,30 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                           ],
                         )
                       : const Text(""),
+                  const Spacer(),
+                  RichText(
+                      text: TextSpan(children: [
+                        TextSpan(
+                          text: 'Already have a account ? ',
+                          style: Monsterats_500_16_FONT_SIZE_BLACK.copyWith(
+                              color: Colors.grey.shade500, fontSize: 15),
+                        ),
+                        TextSpan(
+                            text: 'Sign in',
+                            style: Monsterats_800_15_FONT_SIZE_ORANGE.copyWith(color: ORANGE),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.of(context).pushNamed("/login");
+                              })
+                      ])),
+                  SizedBox(
+                    height: 1.h,
+                  ),
                 ],
               );
             },
           ),
         ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.only(bottom: 6.2.h, left: 16.5.w),
-        child: RichText(
-            text: TextSpan(children: [
-          TextSpan(
-            text: 'Already have a account ? ',
-            style: Monsterats_500_16_FONT_SIZE_BLACK.copyWith(
-                color: Colors.grey.shade500, fontSize: 15),
-          ),
-          TextSpan(
-              text: 'Sign in',
-              style: Monsterats_800_15_FONT_SIZE_ORANGE.copyWith(color: ORANGE),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  Navigator.of(context).pushNamed("/login");
-                })
-        ])),
       ),
     );
   }

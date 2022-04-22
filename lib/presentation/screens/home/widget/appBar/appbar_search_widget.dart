@@ -14,8 +14,9 @@ class SearchWidget extends StatefulWidget {
 
 class _SearchWidgetState extends State<SearchWidget> {
 
+
  final List<Surveys> _fountItems = [];
-  late List<Surveys> _postDisplay = [];
+ late List<Surveys> _postDisplay = [];
  @override
   void initState() {
    setState(() {
@@ -38,7 +39,7 @@ class _SearchWidgetState extends State<SearchWidget> {
         ),
         textAlignVertical: TextAlignVertical.center,
         textAlign: TextAlign.start,
-        textInputAction: TextInputAction.search,
+        textInputAction: TextInputAction.done,
         textCapitalization: TextCapitalization.sentences,
         onChanged: (text) {
           text = text.toLowerCase();
@@ -72,7 +73,9 @@ class _SearchWidgetState extends State<SearchWidget> {
                 backgroundColor: BLUE,
                 child: IconButton(
                   icon: const Icon(Icons.search),
-                  color: WHITE,onPressed: () {}
+                  color: WHITE,onPressed: () {
+                  FocusScope.of(context).requestFocus(FocusNode());
+                }
                   ,)
             ),
           ),
