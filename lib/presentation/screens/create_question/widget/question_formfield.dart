@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class QuestionTextFormField extends StatelessWidget {
   const QuestionTextFormField({Key? key}) : super(key: key);
@@ -8,14 +9,14 @@ class QuestionTextFormField extends StatelessWidget {
     return TextFormField(
       textAlignVertical: TextAlignVertical.bottom,
       textCapitalization: TextCapitalization.sentences,
-      cursorHeight: 20,
-      style: const TextStyle(
-          fontSize: 16
+      cursorHeight: 14.sp,
+      style: TextStyle(
+          fontSize: 13.sp
       ),
       decoration: InputDecoration(
         hintText: 'Question',
-        hintStyle: const TextStyle(
-            fontSize: 16
+        hintStyle: TextStyle(
+            fontSize: 13.sp
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
@@ -25,9 +26,9 @@ class QuestionTextFormField extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
-          borderSide: const BorderSide(
+          borderSide: BorderSide(
             color: Colors.blue,
-            width: 2.0,
+            width: 2.0.w,
           ),
         ),
       ),

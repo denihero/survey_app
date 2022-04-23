@@ -19,12 +19,12 @@ class AnswerTextFormField extends StatelessWidget {
               textCapitalization: TextCapitalization.sentences,
               cursorHeight: 20.sp,
               style: TextStyle(
-                  fontSize: 16.sp
+                  fontSize: 14.sp
               ),
               decoration: InputDecoration(
                 hintText: 'Answer',
                 hintStyle:  TextStyle(
-                    fontSize: 16.sp
+                    fontSize: 14.sp
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
@@ -45,7 +45,7 @@ class AnswerTextFormField extends StatelessWidget {
 
           Visibility(
             child: SizedBox(
-              width: 30.w,
+              width: 7.w,
               child: IconButton(
                 icon: const Icon(Icons.add_circle),
                 color:Colors.green,
@@ -55,7 +55,7 @@ class AnswerTextFormField extends StatelessWidget {
           ),
           Visibility(
             child: SizedBox(
-              width: 30.w,
+              width: 7.w,
               child: IconButton(
                 icon: const Icon(Icons.remove_circle),
                 color:Colors.red,
