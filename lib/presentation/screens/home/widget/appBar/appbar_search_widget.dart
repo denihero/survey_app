@@ -1,8 +1,12 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/core/constants/color.dart';
 import 'package:survey/core/models/survey.dart';
 import 'package:survey/logic/bloc/login_api.dart';
+import 'package:survey/logic/cubit/survey_cubit.dart';
 
 
 class SearchWidget extends StatefulWidget {
@@ -14,20 +18,20 @@ class SearchWidget extends StatefulWidget {
 
 class _SearchWidgetState extends State<SearchWidget> {
 
+  void searchSurvey(String query){
+    var surveys = BlocProvider.of<SurveyCubit>(context).state.surveys;
+    var surv = surveys.where((surveys) {
+      final titleLower = surveys.title?.toLowerCase();
+      final searchLower = query.toLowerCase();
 
- final List<Surveys> _fountItems = [];
- late List<Surveys> _postDisplay = [];
- @override
-  void initState() {
-   setState(() {
-     get_surveys_stream_fixed().listen((value) {
-       _fountItems.add(value);
-     });
-     _postDisplay = _fountItems;
-   });
-    super.initState();
+      return titleLower!.contains(searchLower);
+    }).toList();
+    surv;
+    setState(() {
+      surv;
+    });
   }
- 
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -41,17 +45,8 @@ class _SearchWidgetState extends State<SearchWidget> {
         textAlign: TextAlign.start,
         textInputAction: TextInputAction.done,
         textCapitalization: TextCapitalization.sentences,
-        onChanged: (text) {
-          text = text.toLowerCase();
-          setState(() {
-            _postDisplay = _fountItems.where((post) {
-              var postTitle = post.title?.toLowerCase();
-              return postTitle!.contains(text);
-            }).toList();
-
-
-          });
-
+        onChanged: (text) async{
+          searchSurvey(text);
         },
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.only(top: 2,left: 10),

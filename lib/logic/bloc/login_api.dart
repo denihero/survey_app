@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:survey/core/models/category.dart';
@@ -83,9 +84,6 @@ Future<List<Surveys>> get_surveys() async {
     var response = await http.get(
       Uri.parse("http://137.184.230.26/surveys/$i/"),
     );
-    // print(i);
-    // print(jsonDecode(response.body.toString()));
-    print(response.body.toString());
     ls.add(
       Surveys.fromJson(
         jsonDecode(response.body.toString()),

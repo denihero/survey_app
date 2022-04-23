@@ -22,7 +22,7 @@ class CustomAppbarWidget extends StatelessWidget
           const SizedBox(
             height: 25,
           ),
-          SearchWidget()
+          const SearchWidget()
         ],
       ),
       backgroundColor: WHITE,
