@@ -152,7 +152,7 @@ Stream<Surveys> get_surveys_stream_fixed(String token) async* {
   }
 }
 
-post_sumbissions(Submission sub,String token) async {
+post_sumbissions(Submission sub, String token) async {
   var response = await http.post(Uri.parse("http://137.184.230.26/sumbitions/"),
       body: json.encode(sub.toJson()),
       // encoding: "",
@@ -163,4 +163,101 @@ post_sumbissions(Submission sub,String token) async {
   print(response.body);
 }
 
-post_survey() {}
+post_survey(Surveys survey, String token) async {
+  var response_surveys = await http.post(
+    Uri.parse(
+      "http://137.184.230.26/surveys/",
+    ),
+    headers: {
+      // "Content-Type": "application/json",
+      "Authorization": "Token $token",
+    },
+    body: {
+      "title": survey.title,
+      "description": survey.description,
+      "category": survey.category,
+    },
+  );
+  if (response_surveys.statusCode >= 400) {
+    throw UnimplementedError();
+  }
+  int id = jsonDecode(response_surveys.body)["id"];
+  print(response_surveys.body);
+  for (Questions i in survey.questions ?? []) {
+    var response_questions = await http.post(
+      Uri.parse(
+        "http://137.184.230.26/questions/",
+      ),
+      headers: {
+        // "Content-Type": "application/json",
+        "Authorization": "Token $token",
+      },
+      body: {
+        "survey": id.toString(),
+        "text": i.text,
+      },
+    );
+
+    if (response_questions.statusCode >= 400) {
+      throw UnimplementedError();
+    }
+    print(response_questions.body);
+    int question_id = jsonDecode(response_questions.body)["id"];
+
+    for (Choice c in i.choices ?? []) {
+      var response_choices = await http.post(
+        Uri.parse("http://137.184.230.26/choices/"),
+        headers: {
+          // "Content-Type": "application/json",
+          "Authorization": "Token $token",
+        },
+        body: {
+          "text": c.text,
+          "question": question_id.toString(),
+        },
+      );
+      if (response_choices.statusCode >= 400) {
+        throw UnimplementedError();
+      }
+      print(response_choices.body);
+    }
+  }
+}
+
+void main(List<String> args) async {
+  var response = await http.post(
+    Uri.parse("http://137.184.230.26/account/login/"),
+    body: {
+      "email": "alatoo2022@gmail.com",
+      "password": 1123.toString(),
+    },
+  );
+  print(response.body);
+  print(response.statusCode);
+  print("Finish");
+  // final survey = Surveys(
+  //   id: -12,
+  //   title: "Javascript",
+  //   description: "A quiz about programming language",
+  //   category: "Programming",
+  //   questions: [
+  //     Questions(
+  //       text: "what does console.log?",
+  //       choices: [
+  //         Choice(text: "prints data"),
+  //         Choice(text: "if statement"),
+  //         Choice(text: "best thing"),
+  //       ],
+  //     ),
+  //     Questions(
+  //       text: "Which js framework you use?",
+  //       choices: [
+  //         Choice(text: "React"),
+  //         Choice(text: "Svelte"),
+  //         Choice(text: "Angular"),
+  //       ],
+  //     ),
+  //   ],
+  // );
+  // await post_survey(survey, "89112c9df37e076e09646c2a481863fdf8d1c310");
+}
