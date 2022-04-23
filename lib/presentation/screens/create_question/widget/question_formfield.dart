@@ -28,7 +28,7 @@ class QuestionTextFormField extends StatelessWidget {
           borderRadius: BorderRadius.circular(12.0),
           borderSide: BorderSide(
             color: Colors.blue,
-            width: 2.0.w,
+            width: 2.0.sp,
           ),
         ),
       ),
