@@ -11,7 +11,7 @@ class SurveyCurrentCubit extends Cubit<Surveys?> {
     emit(s);
   }
 
-  post_submissions(String email, int survey) async {
+  post_submissions(String email, int survey,String token) async {
     List<int> final_answers = <int>[];
     print(answers);
     answers.forEach((key, value) {
@@ -19,7 +19,7 @@ class SurveyCurrentCubit extends Cubit<Surveys?> {
     });
     final sub = Submission(
         participation_email: email, survey: survey, answer: final_answers);
-    await post_sumbissions(sub);
+    await post_sumbissions(sub,token);
     answers = <Questions, int>{};
     emit(null);
   }

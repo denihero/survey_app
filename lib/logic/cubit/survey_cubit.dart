@@ -14,7 +14,7 @@ class SurveyCubit extends Cubit<SurveyState> {
   fetch_surveys() async {
     emit(SurveyLoading());
     try {
-      List<Surveys> r = await get_surveys();
+      List<Surveys> r = await get_surveys("");
       print(r.length);
       emit(SurveyCompleted(surveys: r));
     } on Empty {
@@ -24,11 +24,11 @@ class SurveyCubit extends Cubit<SurveyState> {
     }
   }
 
-  fetch_surveys_stream() async {
+  fetch_surveys_stream(String token) async {
     print(state.surveys);
     try {
-      await get_surveys_stream_fixed().fold(
-        Surveys(title: "Hello"),
+      await get_surveys_stream_fixed(token).fold(
+        Surveys(id:-1,title: "Hello"),
         ((previous, element) {
           if (!state.surveys.contains(element)) {
             final new_state = SurveyCompleted(surveys: [

@@ -2,6 +2,8 @@ import 'package:equatable/equatable.dart';
 
 class Surveys extends Equatable {
   Surveys({
+    required this.id,
+    this.description,
     this.title,
     this.createdAt = "",
     this.updatedAt,
@@ -12,6 +14,8 @@ class Surveys extends Equatable {
     this.reviews,
   });
 
+  int id;
+  String? description;
   String? title;
   String? createdAt;
   DateTime? updatedAt;
@@ -22,6 +26,8 @@ class Surveys extends Equatable {
   List<dynamic>? reviews;
 
   factory Surveys.fromJson(Map<String, dynamic> json) => Surveys(
+        id: json["id"],
+        description: json["description"],
         title: json["title"],
         createdAt: json["created_at"],
         updatedAt: DateTime.parse(json["updated_at"]),
@@ -38,6 +44,8 @@ class Surveys extends Equatable {
       );
 
   Map<String, dynamic> toJson() => {
+        "id":id,
+        "description":description,
         "title": title,
         "created_at": createdAt,
         "updated_at": updatedAt?.toIso8601String(),

@@ -31,8 +31,9 @@ class LoginScreen extends StatelessWidget {
               passwordController: passwordController,
             );
           } else if (state is AuthSuccess || state.email != "") {
-            BlocProvider.of<CategoriesCubit>(context).get_category();
-            BlocProvider.of<SurveyCubit>(context).fetch_surveys_stream();
+            String token = BlocProvider.of<AuthBloc>(context).state.token;
+            BlocProvider.of<CategoriesCubit>(context).get_category(token);
+            BlocProvider.of<SurveyCubit>(context).fetch_surveys_stream(token);
             return const MainPage();
           }
           return const Center(child: CircularProgressIndicator());
@@ -180,6 +181,7 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
                         backgroundColor: MaterialStateProperty.all(ORANGE),
                       ),
                       onPressed: () {
+                        FocusScope.of(context).unfocus();
                         check(widget.usernameController.text,
                                 widget.passwordController.text)
                             ? BlocProvider.of<AuthBloc>(context).add(

@@ -7,7 +7,7 @@ import 'package:survey/core/models/submission.dart';
 
 import '../../core/models/survey.dart';
 
-Future<bool> login(String username, String password) async {
+Future<String> login(String username, String password) async {
   var response = await http.post(
     Uri.parse("http://137.184.230.26/account/login/"),
     body: {
@@ -15,13 +15,13 @@ Future<bool> login(String username, String password) async {
       "password": password,
     },
   );
-  print(response.body.toString());
 
   if (response.statusCode >= 400) throw UnimplementedError();
+  print(response.body.toString());
   if (response.statusCode == 201 || response.statusCode == 200) {
-    return true;
+    return jsonDecode(response.body.toString())["token"];
   }
-  return false;
+  return "";
 }
 
 Future<bool> register(String username, String password) async {
@@ -56,10 +56,11 @@ Future<bool> confirmPassword(String username, String code) async {
   return false;
 }
 
-Future<Map<String, String>> get_categories() async {
-  var response = await http.get(
-    Uri.parse("http://137.184.230.26/categories/"),
-  );
+Future<Map<String, String>> get_categories(String token) async {
+  var response =
+      await http.get(Uri.parse("http://137.184.230.26/categories/"), headers: {
+    "Authorization": "Token $token",
+  });
   if (response.statusCode >= 400) {
     throw UnimplementedError();
   }
@@ -69,11 +70,12 @@ Future<Map<String, String>> get_categories() async {
 }
 
 //not correct function
-Future<List<Surveys>> get_surveys() async {
+Future<List<Surveys>> get_surveys(String token) async {
   List<Surveys> ls = <Surveys>[];
-  var response = await http.get(
-    Uri.parse("http://137.184.230.26/surveys/"),
-  );
+  var response =
+      await http.get(Uri.parse("http://137.184.230.26/surveys/"), headers: {
+    "Authorization": "Token $token",
+  });
   // print(response.body.toString());
   if (response.statusCode >= 400) {
     throw UnimplementedError();
@@ -94,7 +96,7 @@ Future<List<Surveys>> get_surveys() async {
 }
 
 //not correct function
-Stream<Surveys> get_surveys_stream() async* {
+Stream<Surveys> get_surveys_stream(String token) async* {
   var response = await http.get(
     Uri.parse("http://137.184.230.26/surveys/"),
   );
@@ -120,10 +122,11 @@ Stream<Surveys> get_surveys_stream() async* {
 class Empty {}
 
 //correct one
-Stream<Surveys> get_surveys_stream_fixed() async* {
-  var response = await http.get(
-    Uri.parse("http://137.184.230.26/surveys/"),
-  );
+Stream<Surveys> get_surveys_stream_fixed(String token) async* {
+  var response =
+      await http.get(Uri.parse("http://137.184.230.26/surveys/"), headers: {
+    "Authorization": "Token $token",
+  });
   if (jsonDecode(response.body.toString())["next"] == null) throw Empty();
 
   if (response.statusCode >= 400) {
@@ -140,27 +143,24 @@ Stream<Surveys> get_surveys_stream_fixed() async* {
     throw UnimplementedError();
   }
   while (next_one != null) {
-    var response = await http.get(
-      Uri.parse(next_one),
-    );
+    var response = await http.get(Uri.parse(next_one), headers: {
+      "Authorization": "Token $token",
+    });
     final survey = jsonDecode(response.body.toString());
     next_one = survey["next"];
     yield Surveys.fromJson(survey["results"][0]);
   }
 }
 
-post_sumbissions(Submission sub) async {
+post_sumbissions(Submission sub,String token) async {
   var response = await http.post(Uri.parse("http://137.184.230.26/sumbitions/"),
       body: json.encode(sub.toJson()),
       // encoding: "",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": "Token $token",
       });
   print(response.body);
 }
 
 post_survey() {}
-
-void main(List<String> args) async {
-  print(await get_categories());
-}

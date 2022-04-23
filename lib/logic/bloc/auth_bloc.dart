@@ -51,10 +51,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
       try {
         var r = await login(event.username, event.password);
         print(r);
-        if (r) {
+        if (r.isNotEmpty) {
           var email = event.username;
-          emit(AuthSuccess(email));
-        } else if (r == false) {
+          emit(AuthSuccess(email,r));
+        } else if (r.isEmpty) {
           emit(const AuthError());
         }
       } catch (_) {
@@ -63,32 +63,34 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
     });
     on<AuthRegister>((event, emit) async {
       try {
-        emit(AuthLoading(""));
+        emit(const AuthLoading(""));
         var r = await register(event.username, event.password);
         if (r) {
-          emit(AuthRegisterSuccess());
+          emit(const AuthRegisterSuccess());
         } else if (r == false) {
-          emit(AuthError());
+          emit(const AuthError());
         }
       } catch (_) {
-        emit(AuthError());
+        emit(const AuthError());
       }
     });
     on<AuthConfirmPassword>((event, emit) async {
       try {
-        emit(AuthLoading(""));
+        emit(const AuthLoading(""));
         var r = await confirmPassword(event.username, event.code);
         if (r) {
-          emit(AuthInitial());
+          emit(const AuthInitial());
         } else if (r == false) {
-          emit(AuthError());
+          emit(const AuthError());
         }
-      } catch (_) {}
+      } catch (_) {
+        emit(const AuthError());
+      }
     });
     on<AuthLogout>((event, emit) {
-      emit(AuthLoading(""));
+      emit(const AuthLoading(""));
       emit(
-        AuthInitial(),
+        const AuthInitial(),
       );
     });
   }
