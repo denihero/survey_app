@@ -110,6 +110,10 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
                       );
                     }),
               ),
+              ElevatedButton(
+                child: Text('Next Question'),
+                onPressed: () {},
+              ),
 
               ElevatedButton(
                   onPressed: () => addTextFormField(),
