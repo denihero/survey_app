@@ -45,7 +45,11 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
   }
 
   bool _isShowCodeConfirm = false;
+  bool _isShowNameSurname = false;
   TextEditingController? _codeController;
+  TextEditingController? _nameController;
+  TextEditingController? _surnameController;
+
   late bool isShowed = true;
   late bool confirmIsShowed = true;
 
@@ -84,12 +88,34 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                       ],
                     );
                   });
-            }
-            if (state is AuthInitial) {
+            } else if (state is AuthInitial) {
               Navigator.of(context)
                   .pushNamedAndRemoveUntil("/login", (route) => false);
-            }
-            if (state is AuthRegisterSuccess) {
+            } else if (state is AuthConfirmPasswordSucces) {
+              setState(() {
+                _isShowNameSurname = true;
+                // _isShowCodeConfirm = false;
+              });
+              _nameController = TextEditingController();
+              _surnameController = TextEditingController();
+
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      content: const Text("Please enter Your name and surname"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            // Navigator.of(context).pushNamed("/login");
+                            Navigator.of(context, rootNavigator: true).pop();
+                          },
+                          child: const Center(child: Text("OK")),
+                        ),
+                      ],
+                    );
+                  });
+            } else if (state is AuthRegisterSuccess) {
               setState(() {
                 _isShowCodeConfirm = true;
               });
@@ -128,167 +154,179 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      'Create Account',
+                      _isShowCodeConfirm && _isShowNameSurname == false
+                          ? 'Enter Code'
+                          : _isShowNameSurname
+                              ? "Enter name and surname"
+                              : "Create account",
                       style: Monsterats_600_28_FONT_SIZE_BLACK,
                     ),
                   ),
                   SizedBox(
                     height: 7.h,
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Material(
-                        elevation: 5,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        child: TextFormField(
-                          textCapitalization: TextCapitalization.none,
-                          keyboardType: TextInputType.emailAddress,
-                          textAlignVertical: TextAlignVertical.bottom,
-                          cursorHeight: 18,
-                          style: TextStyle(fontSize: 14.sp),
-                          controller: widget.usernameController,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            prefixIcon: Padding(
-                              padding: EdgeInsets.only(top: 5),
-                              child: Icon(Icons.email, size: 3.h),
-                            ),
-                            hintText: "Username or email",
-                            hintStyle: TextStyle(fontSize: 14.sp),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Material(
-                        elevation: 5,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        child: TextFormField(
-                          textAlignVertical: TextAlignVertical.bottom,
-                          obscureText: isShowed,
-                          cursorHeight: 18,
-                          style: TextStyle(fontSize: 14.sp),
-                          controller: widget.passwordController,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintStyle: TextStyle(fontSize: 14.sp),
-                            prefixIcon: Padding(
-                              padding: EdgeInsets.only(top: 5),
-                              child: Icon(Icons.lock, size: 3.h),
-                            ),
-                            suffixIcon: IconButton(
-                              icon: isShowed
-                                  ? const Padding(
-                                      padding: EdgeInsets.only(top: 5),
-                                      child: Icon(Icons.visibility_off),
-                                    )
-                                  : const Padding(
-                                      padding: EdgeInsets.only(top: 5),
-                                      child: Icon(Icons.visibility),
-                                    ),
-                              onPressed: () {
-                                setState(() {
-                                  isShowed = !isShowed;
-                                });
-                              },
-                            ),
-                            hintText: "Password",
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Material(
-                        elevation: 5,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        child: TextFormField(
-                          controller: widget.passwordRepeatController,
-                          textAlignVertical: TextAlignVertical.bottom,
-                          obscureText: confirmIsShowed,
-                          cursorHeight: 18,
-                          style: TextStyle(fontSize: 14.sp),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintStyle: TextStyle(fontSize: 14.sp),
-                            prefixIcon: Padding(
-                              padding: EdgeInsets.only(top: 5),
-                              child: Icon(Icons.lock, size: 3.h),
-                            ),
-                            suffixIcon: IconButton(
-                              icon: confirmIsShowed
-                                  ? const Padding(
-                                      padding: EdgeInsets.only(top: 5),
-                                      child: Icon(Icons.visibility_off),
-                                    )
-                                  : const Padding(
-                                      padding: EdgeInsets.only(top: 5),
-                                      child: Icon(Icons.visibility),
-                                    ),
-                              onPressed: () {
-                                setState(() {
-                                  confirmIsShowed = !confirmIsShowed;
-                                });
-                              },
-                            ),
-                            hintText: "Confirm Password",
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          ElevatedButton(
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                  const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(18)))),
-                              backgroundColor:
-                                  MaterialStateProperty.all(ORANGE),
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Sign up",
-                                  style: Monsterats_400_16_FONT_SIZE_BLACK,
+                  !_isShowCodeConfirm
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Material(
+                              elevation: 5,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(12)),
+                              child: TextFormField(
+                                textCapitalization: TextCapitalization.none,
+                                keyboardType: TextInputType.emailAddress,
+                                textAlignVertical: TextAlignVertical.bottom,
+                                cursorHeight: 18,
+                                style: TextStyle(fontSize: 14.sp),
+                                controller: widget.usernameController,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  prefixIcon: Padding(
+                                    padding: const EdgeInsets.only(top: 5),
+                                    child: Icon(Icons.email, size: 3.h),
+                                  ),
+                                  hintText: "Username or email",
+                                  hintStyle: TextStyle(fontSize: 14.sp),
                                 ),
-                                const Icon(
-                                  Icons.arrow_forward,
-                                  size: 20,
-                                )
-                              ],
+                              ),
                             ),
-                            onPressed: () {
-                              final email = widget.usernameController.text;
-                              final password = widget.passwordController.text;
-                              final repeat =
-                                  widget.passwordRepeatController.text;
-                              check(email, password, repeat)
-                                  ? BlocProvider.of<AuthBloc>(context).add(
-                                      AuthRegister(email, password),
-                                    )
-                                  : ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text("Entered invalid data!"),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Material(
+                              elevation: 5,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(12)),
+                              child: TextFormField(
+                                textAlignVertical: TextAlignVertical.bottom,
+                                obscureText: isShowed,
+                                cursorHeight: 18,
+                                style: TextStyle(fontSize: 14.sp),
+                                controller: widget.passwordController,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintStyle: TextStyle(fontSize: 14.sp),
+                                  prefixIcon: Padding(
+                                    padding: const EdgeInsets.only(top: 5),
+                                    child: Icon(Icons.lock, size: 3.h),
+                                  ),
+                                  suffixIcon: IconButton(
+                                    icon: isShowed
+                                        ? const Padding(
+                                            padding: EdgeInsets.only(top: 5),
+                                            child: Icon(Icons.visibility_off),
+                                          )
+                                        : const Padding(
+                                            padding: EdgeInsets.only(top: 5),
+                                            child: Icon(Icons.visibility),
+                                          ),
+                                    onPressed: () {
+                                      setState(() {
+                                        isShowed = !isShowed;
+                                      });
+                                    },
+                                  ),
+                                  hintText: "Password",
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Material(
+                              elevation: 5,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(12)),
+                              child: TextFormField(
+                                controller: widget.passwordRepeatController,
+                                textAlignVertical: TextAlignVertical.bottom,
+                                obscureText: confirmIsShowed,
+                                cursorHeight: 18,
+                                style: TextStyle(fontSize: 14.sp),
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintStyle: TextStyle(fontSize: 14.sp),
+                                  prefixIcon: Padding(
+                                    padding: const EdgeInsets.only(top: 5),
+                                    child: Icon(Icons.lock, size: 3.h),
+                                  ),
+                                  suffixIcon: IconButton(
+                                    icon: confirmIsShowed
+                                        ? const Padding(
+                                            padding: EdgeInsets.only(top: 5),
+                                            child: Icon(Icons.visibility_off),
+                                          )
+                                        : const Padding(
+                                            padding: EdgeInsets.only(top: 5),
+                                            child: Icon(Icons.visibility),
+                                          ),
+                                    onPressed: () {
+                                      setState(() {
+                                        confirmIsShowed = !confirmIsShowed;
+                                      });
+                                    },
+                                  ),
+                                  hintText: "Confirm Password",
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ElevatedButton(
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                        const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(18)))),
+                                    backgroundColor:
+                                        MaterialStateProperty.all(ORANGE),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        "Sign up",
+                                        style:
+                                            Monsterats_400_16_FONT_SIZE_BLACK,
                                       ),
-                                    );
-                            },
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  _isShowCodeConfirm
+                                      const Icon(
+                                        Icons.arrow_forward,
+                                        size: 20,
+                                      )
+                                    ],
+                                  ),
+                                  onPressed: () {
+                                    final email =
+                                        widget.usernameController.text;
+                                    final password =
+                                        widget.passwordController.text;
+                                    final repeat =
+                                        widget.passwordRepeatController.text;
+                                    check(email, password, repeat)
+                                        ? BlocProvider.of<AuthBloc>(context)
+                                            .add(
+                                            AuthRegister(email, password),
+                                          )
+                                        : ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                            const SnackBar(
+                                              content:
+                                                  Text("Entered invalid data!"),
+                                            ),
+                                          );
+                                  },
+                                ),
+                              ],
+                            )
+                          ],
+                        )
+                      : const Text(""),
+                  _isShowCodeConfirm && !_isShowNameSurname
                       ? Column(
                           children: [
                             const SizedBox(
@@ -308,7 +346,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   prefixIcon: Padding(
-                                    padding: EdgeInsets.only(top: 5),
+                                    padding: const EdgeInsets.only(top: 5),
                                     child: Icon(Icons.code, size: 3.h),
                                   ),
                                   hintText: "Confirmation Code",
@@ -358,22 +396,127 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                           ],
                         )
                       : const Text(""),
+                  _isShowNameSurname
+                      ? Column(
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Material(
+                              elevation: 5,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(12)),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: TextFormField(
+                                  textCapitalization: TextCapitalization.none,
+                                  keyboardType: TextInputType.text,
+                                  textAlignVertical: TextAlignVertical.bottom,
+                                  cursorHeight: 18,
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                  ),
+                                  controller: _nameController,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "Name",
+                                    hintStyle: TextStyle(fontSize: 14.sp),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 1.8.h,
+                            ),
+                            Material(
+                              elevation: 5,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(12)),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: TextFormField(
+                                  textCapitalization: TextCapitalization.none,
+                                  keyboardType: TextInputType.text,
+                                  textAlignVertical: TextAlignVertical.bottom,
+                                  cursorHeight: 18,
+                                  style: TextStyle(fontSize: 14.sp),
+                                  controller: _surnameController,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "Surname",
+                                    hintStyle: TextStyle(fontSize: 14.sp),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 1.8.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ElevatedButton(
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                        const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(18)))),
+                                    backgroundColor:
+                                        MaterialStateProperty.all(ORANGE),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        "Confirm",
+                                        style:
+                                            Monsterats_400_16_FONT_SIZE_BLACK,
+                                      ),
+                                      const Icon(
+                                        Icons.arrow_forward,
+                                        size: 20,
+                                      )
+                                    ],
+                                  ),
+                                  onPressed: () {
+                                    print("Hello");
+                                    final code = _codeController?.text;
+                                    final email =
+                                        widget.usernameController.text;
+                                    print(email);
+                                    print(widget.passwordController.text);
+                                    BlocProvider.of<AuthBloc>(context).add(
+                                      AuthRegisterSendNameSurname(
+                                        name: _nameController?.text ?? "",
+                                        surname: _surnameController?.text,
+                                        username: email,
+                                        password:
+                                            widget.passwordController.text,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        )
+                      : const Text(""),
                   const Spacer(),
                   RichText(
                       text: TextSpan(children: [
-                        TextSpan(
-                          text: 'Already have a account ? ',
-                          style: Monsterats_500_16_FONT_SIZE_BLACK.copyWith(
-                              color: Colors.grey.shade500, fontSize: 15),
-                        ),
-                        TextSpan(
-                            text: 'Sign in',
-                            style: Monsterats_800_15_FONT_SIZE_ORANGE.copyWith(color: ORANGE),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                Navigator.of(context).pushNamed("/login");
-                              })
-                      ])),
+                    TextSpan(
+                      text: 'Already have a account ? ',
+                      style: Monsterats_500_16_FONT_SIZE_BLACK.copyWith(
+                          color: Colors.grey.shade500, fontSize: 15),
+                    ),
+                    TextSpan(
+                        text: 'Sign in',
+                        style: Monsterats_800_15_FONT_SIZE_ORANGE.copyWith(
+                            color: ORANGE),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.of(context).pushNamed("/login");
+                          })
+                  ])),
                   SizedBox(
                     height: 1.h,
                   ),

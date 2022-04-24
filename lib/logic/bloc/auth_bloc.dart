@@ -32,6 +32,17 @@ class AuthRegister extends AuthEvent {
   AuthRegister(String username, String password) : super(username, password);
 }
 
+class AuthRegisterSendNameSurname extends AuthEvent {
+  final name;
+  final surname;
+  AuthRegisterSendNameSurname(
+      {required String username,
+      required String password,
+      required this.name,
+      required this.surname})
+      : super(username, password);
+}
+
 class AuthConfirmPassword extends AuthEvent {
   final code;
   AuthConfirmPassword(String username, String password, this.code)
@@ -47,13 +58,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
       //   );
       // }
       emit(const AuthLoading(""));
-      print("Hello");
+      print("Login");
       try {
         var r = await login(event.username, event.password);
         print(r);
         if (r.isNotEmpty) {
           var email = event.username;
-          emit(AuthSuccess(email,r));
+          var nameSurname = await getNameSurname(event.username);
+          print("NAme and surname:");
+          print(nameSurname);
+          emit(
+            AuthSuccess(
+              email,
+              r,
+              nameSurname[0],
+              nameSurname[1],
+            ),
+          );
         } else if (r.isEmpty) {
           emit(const AuthError());
         }
@@ -79,11 +100,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
         emit(const AuthLoading(""));
         var r = await confirmPassword(event.username, event.code);
         if (r) {
-          emit(const AuthInitial());
+          emit(const AuthConfirmPasswordSucces());
         } else if (r == false) {
           emit(const AuthError());
         }
       } catch (_) {
+        emit(const AuthError());
+      }
+    });
+    on<AuthRegisterSendNameSurname>((event, emit) async {
+      try {
+        emit(const AuthLoading(""));
+        print(event.username);
+        print(event.password);
+
+        var token = await login(event.username, event.password);
+        print("Succes");
+        var r = await sendNameSurname(event.name, event.surname, token);
+        emit(const AuthInitial());
+      } catch (r) {
+        print(r);
         emit(const AuthError());
       }
     });

@@ -42,8 +42,8 @@ class PreQuizScreen extends StatelessWidget {
               ),
 
               //description of the course
-              const Text(
-                "Description",
+              Text(
+                survey?.description??"Description",
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w400,

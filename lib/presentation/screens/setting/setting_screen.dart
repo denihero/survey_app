@@ -43,6 +43,28 @@ class SettingScreen extends StatelessWidget {
                 height: 40,
               ),
               Text(
+                "Name",
+                style: Monsterats_600_18_FONT_SIZE_BLACK,
+              ),
+              Text(
+                BlocProvider.of<AuthBloc>(context).state.name,
+                style: Monsterats_500_15_FONT_SIZE_BLACK,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Surname",
+                style: Monsterats_600_18_FONT_SIZE_BLACK,
+              ),
+              Text(
+                BlocProvider.of<AuthBloc>(context).state.surname,
+                style: Monsterats_500_15_FONT_SIZE_BLACK,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
                 "email",
                 style: Monsterats_600_18_FONT_SIZE_BLACK,
               ),
@@ -68,7 +90,9 @@ class SettingScreen extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         BlocProvider.of<AuthBloc>(context).add(AuthLogout());
-                        Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil('/login', (route) => false);
+                        Navigator.of(context, rootNavigator: true)
+                            .pushNamedAndRemoveUntil(
+                                '/login', (route) => false);
                       },
                       child: Text(
                         "Logout",

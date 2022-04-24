@@ -24,6 +24,22 @@ Future<String> login(String username, String password) async {
   return "";
 }
 
+sendNameSurname(String name, String surname, String token) async {
+  var response = await http.post(
+    Uri.parse("http://137.184.230.26/info_users/"),
+    body: {
+      "name": name,
+      "surname": surname,
+    },
+    headers: {
+      "Authorization": "Token $token",
+    },
+  );
+  print(response.body);
+
+  if (response.statusCode >= 400) throw UnimplementedError();
+}
+
 Future<bool> register(String username, String password) async {
   var response = await http.post(
     Uri.parse("http://137.184.230.26/account/register/"),
@@ -225,40 +241,16 @@ post_survey(Surveys survey, String token) async {
   }
 }
 
-void main(List<String> args) async {
-  var response = await http.post(
-    Uri.parse("http://137.184.230.26/account/login/"),
-    body: {
-      "email": "alatoo2022@gmail.com",
-      "password": 1123.toString(),
-    },
-  );
+getNameSurname(String email) async {
+  var response = await http.get(Uri.parse("http://137.184.230.26/info_users/"));
   print(response.body);
-  print(response.statusCode);
-  print("Finish");
-  // final survey = Surveys(
-  //   id: -12,
-  //   title: "Javascript",
-  //   description: "A quiz about programming language",
-  //   category: "Programming",
-  //   questions: [
-  //     Questions(
-  //       text: "what does console.log?",
-  //       choices: [
-  //         Choice(text: "prints data"),
-  //         Choice(text: "if statement"),
-  //         Choice(text: "best thing"),
-  //       ],
-  //     ),
-  //     Questions(
-  //       text: "Which js framework you use?",
-  //       choices: [
-  //         Choice(text: "React"),
-  //         Choice(text: "Svelte"),
-  //         Choice(text: "Angular"),
-  //       ],
-  //     ),
-  //   ],
-  // );
-  // await post_survey(survey, "89112c9df37e076e09646c2a481863fdf8d1c310");
+  for (var item in jsonDecode(response.body)) {
+    if (item["author"] == email) {
+      return [item["name"], item["surname"]];
+    }
+  }
+}
+
+void main(List<String> args) async {
+  print(await getNameSurname("baibai@gmail.com"));
 }

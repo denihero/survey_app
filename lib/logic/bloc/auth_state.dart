@@ -3,13 +3,18 @@ part of 'auth_bloc.dart';
 abstract class AuthState extends Equatable {
   final email;
   final token;
-  const AuthState({this.email = "", this.token = ""});
+  final name;
+  final surname;
+  const AuthState(
+      {this.name = "", this.surname = "", this.email = "", this.token = ""});
 
   fromMap(Map<String, dynamic> map) {
     if (map["email"] != "") {
       return AuthSuccess(
         map["email"] as String,
         map["token"] as String,
+        map["name"] as String,
+        map["surname"] as String,
       );
     }
     return AuthInitial(
@@ -18,7 +23,7 @@ abstract class AuthState extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
-    return {"email": email, "token": token};
+    return {"email": email, "token": token,"name":name,"surname":surname};
   }
 
   @override
@@ -35,6 +40,8 @@ class AuthInitial extends AuthState {
       return AuthSuccess(
         map["email"] as String,
         map["token"] as String,
+        map["name"] as String,
+        map["surname"] as String,
       );
     }
     return AuthInitial(
@@ -54,13 +61,21 @@ class AuthLoading extends AuthState {
 }
 
 class AuthSuccess extends AuthState {
-  const AuthSuccess(e, token) : super(email: e, token: token);
+  const AuthSuccess(e, token, name, surname) : super(email: e, token: token,name: name,surname: surname);
   @override
   fromMap(Map<String, dynamic> map) {
     return AuthSuccess(
       map["email"] as String,
       map["token"] as String,
+      map["name"] as String,
+      map["surname"] as String,
     );
+  }
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "$name $surname $email";
   }
 }
 
@@ -76,6 +91,16 @@ class AuthRegisterSuccess extends AuthState {
 
 class AuthError extends AuthState {
   const AuthError({e = ""}) : super(email: e);
+  @override
+  fromMap(Map<String, dynamic> map) {
+    return AuthError(
+      e: map["email"] as String,
+    );
+  }
+}
+
+class AuthConfirmPasswordSucces extends AuthState {
+  const AuthConfirmPasswordSucces({e = ""}) : super(email: e);
   @override
   fromMap(Map<String, dynamic> map) {
     return AuthError(
