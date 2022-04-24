@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:survey/core/constants/color.dart';
-import 'package:survey/presentation/screens/create_question/create_question_screen.dart';
 import 'package:survey/presentation/screens/favourite/favourite_screen.dart';
 import 'package:survey/presentation/screens/finish_survey/finish_survey_screen.dart';
 import 'package:survey/presentation/screens/login/login_screen.dart';
@@ -96,8 +95,6 @@ class _HomeScreenState extends State<MainPage> {
                 return MaterialPageRoute(builder: (_) => LoginScreen());
               } else if (setting.name == "/quiz") {
                 return MaterialPageRoute(builder: (_) => const QuizScreen());
-              }else if(setting.name == '/create_question') {
-                return MaterialPageRoute(builder: (_) => CreateQuestionScreen());
               }
               return null;
             },

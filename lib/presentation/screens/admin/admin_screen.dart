@@ -12,7 +12,6 @@ import 'package:survey/logic/bloc/auth_bloc.dart';
 import 'package:survey/logic/bloc/login_api.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/screens/admin/admin_bloc.dart';
-import 'package:survey/presentation/screens/quiz/quiz_screen.dart';
 
 class AdminScreen extends StatefulWidget {
   const AdminScreen({Key? key}) : super(key: key);
@@ -27,6 +26,7 @@ class _AdminScreenState extends State<AdminScreen> {
 
   final ImagePicker _picker = ImagePicker();
   File? imageFile;
+
   @override
   void initState() {
     titleController = TextEditingController();
@@ -120,11 +120,13 @@ class _AdminScreenState extends State<AdminScreen> {
                                       ),
                                       const Positioned(
                                           top: 40,
-                                          left: 20,
+                                          left: 25,
                                           child: Text(
                                             'Upload Image',
                                             style: TextStyle(
-                                                fontSize: 14, color: WHITE),
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700,
+                                                color: WHITE),
                                           ))
                                     ],
                                   ),
@@ -169,7 +171,7 @@ class _AdminScreenState extends State<AdminScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       //Questions
@@ -223,7 +225,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                         .pushNamedAndRemoveUntil(
                                             "/", (route) => false);
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     "OK",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
