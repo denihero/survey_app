@@ -164,6 +164,7 @@ post_sumbissions(Submission sub, String token) async {
 }
 
 post_survey(Surveys survey, String token) async {
+  print("Description:${survey.description}");
   var response_surveys = await http.post(
     Uri.parse(
       "http://137.184.230.26/surveys/",

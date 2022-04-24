@@ -7,8 +7,11 @@ import 'package:survey/logic/cubit/categories_cubit.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/navigation/routes.dart';
 import 'package:flutter/services.dart';
+import 'core/constants/color.dart';
 import 'logic/cubit/current_survey_cubit.dart';
 import 'package:sizer/sizer.dart';
+
+import 'logic/cubit/post_survey_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +46,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<SurveyCurrentCubit>(
           create: (context) => SurveyCurrentCubit(),
         ),
+        BlocProvider<SurveyCurrentPost>(
+          create: (context) => SurveyCurrentPost(),
+        ),
       ],
       child: Sizer(
         builder: ((context, orientation, deviceType) {
@@ -52,6 +58,9 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 primarySwatch: Colors.blue,
                 brightness: Brightness.light,
+                buttonTheme: const ButtonThemeData(
+                  buttonColor: ORANGE,
+                ),
               ),
               initialRoute: '/login',
               routes: App.route);

@@ -25,19 +25,17 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
           return const Center(
             child: Text("Nothing to show yet!"),
           );
-        }
-
-        else if (state is SurveyError) {
+        } else if (state is SurveyError) {
           return const Center(
             child: Text("Error..."),
           );
-        }
-        else if (state is SurveyCompleted) {
+        } else if (state is SurveyCompleted) {
           final surveys = BlocProvider.of<SurveyCubit>(context).state.surveys;
           return ListView.builder(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               // scrollDirection: Axis.vertical,
               physics: const BouncingScrollPhysics(),
+              reverse: true,
               itemCount: surveys.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {

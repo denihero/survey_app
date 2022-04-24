@@ -16,38 +16,40 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding:
-              const EdgeInsets.only(top: 50, right: 30, left: 30, bottom: 0),
+          padding: const EdgeInsets.only(top: 50, bottom: 0),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    const Expanded(
-                      child: SizedBox(),
-                    ),
-                    SizedBox(
-                      width: 95,
-                      child: Text(
-                        "Profile",
-                        style: Monsterats_600_18_FONT_SIZE_BLACK,
-                        textAlign: TextAlign.right,
+                Padding(
+                  padding: const EdgeInsets.only(left: 30, right: 30),
+                  child: Row(
+                    children: [
+                      const Expanded(
+                        child: SizedBox(),
                       ),
-                    ),
-                    const Expanded(child: SizedBox()),
-                    IconButton(
-                      icon: const Icon(
-                        Icons.settings,
-                        size: 30,
+                      SizedBox(
+                        width: 95,
+                        child: Text(
+                          "Profile",
+                          style: Monsterats_600_18_FONT_SIZE_BLACK,
+                          textAlign: TextAlign.right,
+                        ),
                       ),
-                      color: ORANGE,
-                      onPressed: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .pushNamed('/setting');
-                      },
-                    ),
-                  ],
+                      const Expanded(child: SizedBox()),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.settings,
+                          size: 30,
+                        ),
+                        color: ORANGE,
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true)
+                              .pushNamed('/setting');
+                        },
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 27,
@@ -64,9 +66,14 @@ class ProfileScreen extends StatelessWidget {
                 const SizedBox(
                   height: 60,
                 ),
-                Text(
-                  "Your Surveys:",
-                  style: Monsterats_600_18_FONT_SIZE_BLACK,
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 30,
+                  ),
+                  child: Text(
+                    "Your Surveys:",
+                    style: Monsterats_600_18_FONT_SIZE_BLACK,
+                  ),
                 ),
                 const SizedBox(
                   height: 39,
@@ -94,6 +101,7 @@ class ProfileScreen extends StatelessWidget {
                         child: Text("Empty"),
                       );
                     return ListView.builder(
+                        reverse: true,
                         keyboardDismissBehavior:
                             ScrollViewKeyboardDismissBehavior.onDrag,
                         // scrollDirection: Axis.vertical,

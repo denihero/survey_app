@@ -44,8 +44,8 @@ class Surveys extends Equatable {
       );
 
   Map<String, dynamic> toJson() => {
-        "id":id,
-        "description":description,
+        "id": id,
+        "description": description,
         "title": title,
         "created_at": createdAt,
         "updated_at": updatedAt?.toIso8601String(),
@@ -96,6 +96,11 @@ class Questions extends Equatable {
   @override
   // TODO: implement props
   List<Object?> get props => [id];
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "$text:$choices";
+  }
 }
 
 class Choice extends Equatable {
@@ -124,4 +129,9 @@ class Choice extends Equatable {
   @override
   // TODO: implement props
   List<Object?> get props => [id, text, question];
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "$text";
+  }
 }
