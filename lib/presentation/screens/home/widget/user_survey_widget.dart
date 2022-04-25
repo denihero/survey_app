@@ -4,6 +4,8 @@ import 'package:survey/logic/cubit/like_cubit.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/screens/home/widget/user_survey_card.dart';
 
+import '../../../../logic/bloc/auth_bloc.dart';
+
 class UserSurveyWidget extends StatefulWidget {
   const UserSurveyWidget({
     Key? key,
@@ -41,6 +43,14 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
               itemCount: surveys.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
+
+                      final surveysMine = BlocProvider.of<SurveyCubit>(context)
+                          .state
+                          .surveys
+                          .where((element) =>
+                              element.author ==
+                              BlocProvider.of<AuthBloc>(context).state.email)
+                          .toList();
                 bool isSaved = BlocProvider.of<LikeCubit>(context)
                     .state
                     .favorites
@@ -49,6 +59,7 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
                   survey: surveys[index],
                   // isMine: isMine,
                   is_saved: isSaved,
+                  isMine: surveysMine.contains(surveys[index]),
                 );
               });
         }
