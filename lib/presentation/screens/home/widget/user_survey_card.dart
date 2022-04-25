@@ -107,8 +107,18 @@ class _UserSurveyCardState extends State<UserSurveyCard> {
                           try {
                             await delete_survey(widget.survey.id,
                                 BlocProvider.of<AuthBloc>(context).state.token);
+                            // BlocProvider.of<LikeCubit>(context).get_like(BlocProvider.of<AuthBloc>(context).state.token);
+                            BlocProvider.of<LikeCubit>(context)
+                                .delete_from_map(widget.survey);
                             BlocProvider.of<SurveyCubit>(context)
                                 .delete_survey(widget.survey);
+                            // if (widget.is_saved) {
+                            //   BlocProvider.of<LikeCubit>(context).delete_likes(
+                            //       widget.survey,
+                            //       BlocProvider.of<AuthBloc>(context)
+                            //           .state
+                            //           .token);
+                            // }
                           } catch (_) {
                             print("delete survey Error");
                           }

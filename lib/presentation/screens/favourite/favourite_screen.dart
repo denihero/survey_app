@@ -45,7 +45,6 @@ class FavouriteScreen extends StatelessWidget {
                     itemCount: state.favorites.length,
                     // reverse: true,
                     itemBuilder: (context, index) {
-
                       final surveysMine = BlocProvider.of<SurveyCubit>(context)
                           .state
                           .surveys

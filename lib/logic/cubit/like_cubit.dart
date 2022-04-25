@@ -43,10 +43,14 @@ class LikeCubit extends Cubit<LikeState> {
 
   get_like(String token) async {
     emit(LikeLoading());
+    // Map<Surveys, int> ls = Map<Surveys,int>.from(state.favorites);
     Map<Surveys, int> ls = {};
     try {
       var data = await get_likes(token);
       for (var m in data) {
+        // if (!state.favorites.containsKey(m['survey'])) {
+        //   ls[await get_survey_via_id(m['survey'], token)] = m['id'];
+        // }
         ls[await get_survey_via_id(m['survey'], token)] = m['id'];
       }
       if (data.isEmpty)
@@ -56,6 +60,15 @@ class LikeCubit extends Cubit<LikeState> {
       }
     } catch (_) {
       emit(LikeError());
+    }
+  }
+
+  delete_from_map(Surveys survey) {
+    emit(LikeLoading());
+    Map<Surveys, int> ls = Map<Surveys, int>.from(state.favorites);
+    if(ls.containsKey(survey)){
+      ls.remove(survey);
+      emit(LikeSuccess(ls));
     }
   }
 
