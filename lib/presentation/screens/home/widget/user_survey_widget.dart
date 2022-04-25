@@ -18,12 +18,12 @@ class UserSurveyWidget extends StatefulWidget {
 class _UserSurveyWidgetState extends State<UserSurveyWidget> {
   @override
   Widget build(BuildContext context) {
+    final x = context.watch<LikeCubit>();
     return BlocBuilder<SurveyCubit, SurveyState>(
-      buildWhen: (previous, current) {
-        bool x = BlocProvider.of<LikeCubit>(context).state.favorites.isNotEmpty;
-        print(x);
-        return x;
-      },
+      // buildWhen: (previous, current) {
+      //   print(x.state.favorites.isNotEmpty);
+      //   return x.state.favorites.isNotEmpty;
+      // },
       builder: (context, state) {
         if (state is SurveyEmpty) {
           return const Center(
@@ -36,32 +36,32 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
         } else if (state is SurveyCompleted) {
           final surveys = BlocProvider.of<SurveyCubit>(context).state.surveys;
           return ListView.builder(
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              // scrollDirection: Axis.vertical,
-              physics: const BouncingScrollPhysics(),
-              reverse: true,
-              itemCount: surveys.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-
-                      final surveysMine = BlocProvider.of<SurveyCubit>(context)
-                          .state
-                          .surveys
-                          .where((element) =>
-                              element.author ==
-                              BlocProvider.of<AuthBloc>(context).state.email)
-                          .toList();
-                bool isSaved = BlocProvider.of<LikeCubit>(context)
-                    .state
-                    .favorites
-                    .containsKey(surveys[index]);
-                return UserSurveyCard(
-                  survey: surveys[index],
-                  // isMine: isMine,
-                  is_saved: isSaved,
-                  isMine: surveysMine.contains(surveys[index]),
-                );
-              });
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            // scrollDirection: Axis.vertical,
+            physics: const BouncingScrollPhysics(),
+            reverse: true,
+            itemCount: surveys.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              final surveysMine = BlocProvider.of<SurveyCubit>(context)
+                  .state
+                  .surveys
+                  .where((element) =>
+                      element.author ==
+                      BlocProvider.of<AuthBloc>(context).state.email)
+                  .toList();
+              bool isSaved = BlocProvider.of<LikeCubit>(context)
+                  .state
+                  .favorites
+                  .containsKey(surveys[index]);
+              return UserSurveyCard(
+                survey: surveys[index],
+                // isMine: isMine,
+                is_saved: isSaved,
+                isMine: surveysMine.contains(surveys[index]),
+              );
+            },
+          );
         }
         return const Center(child: CircularProgressIndicator());
       },

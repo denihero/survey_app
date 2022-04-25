@@ -14,6 +14,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final x = context.watch<LikeCubit>();
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -80,14 +81,15 @@ class ProfileScreen extends StatelessWidget {
                   height: 39,
                 ),
                 BlocBuilder<SurveyCubit, SurveyState>(
-                  buildWhen: (previous, current) {
-                    bool x = BlocProvider.of<LikeCubit>(context)
-                        .state
-                        .favorites
-                        .isNotEmpty;
-                    return x;
-                  },
+                  // buildWhen: (previous, current) {
+                  //   bool x = BlocProvider.of<LikeCubit>(context)
+                  //       .state
+                  //       .favorites
+                  //       .isNotEmpty;
+                  //   return x;
+                  // },
                   builder: (context, state) {
+                    print("Profile:$state");
                     if (state is SurveyEmpty) {
                       return const Center(
                         child: Text("Empty"),
