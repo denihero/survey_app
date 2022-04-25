@@ -19,7 +19,10 @@ class SurveyCurrentCubit extends Cubit<Surveys?> {
     });
     final sub = Submission(
         participation_email: email, survey: survey, answer: final_answers);
+    try{
     await post_sumbissions(sub,token);
+    }
+    catch(_){}
     answers = <Questions, int>{};
     emit(null);
   }

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/core/constants/color.dart';
 import 'package:survey/core/constants/style.dart';
 import 'package:survey/logic/cubit/categories_cubit.dart';
+import 'package:survey/logic/cubit/like_cubit.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/main_page.dart';
 import 'package:survey/presentation/screens/registration/sign_up_screen.dart';
@@ -32,6 +33,7 @@ class LoginScreen extends StatelessWidget {
             );
           } else if (state is AuthSuccess || state.email != "") {
             String token = BlocProvider.of<AuthBloc>(context).state.token;
+            BlocProvider.of<LikeCubit>(context).get_like(token);
             BlocProvider.of<CategoriesCubit>(context).get_category(token);
             BlocProvider.of<SurveyCubit>(context).fetch_surveys_stream(token);
             return const MainPage();

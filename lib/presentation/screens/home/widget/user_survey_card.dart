@@ -5,26 +5,28 @@ import 'package:survey/core/constants/style.dart';
 import 'package:survey/logic/bloc/auth_bloc.dart';
 import 'package:survey/logic/bloc/login_api.dart';
 import 'package:survey/logic/cubit/current_survey_cubit.dart';
+import 'package:survey/logic/cubit/like_cubit.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/screens/pre_quiz/pre_quiz_screen.dart';
 
 import '../../../../core/models/survey.dart';
 
 class UserSurveyCard extends StatefulWidget {
-  const UserSurveyCard({
+  UserSurveyCard({
     Key? key,
     required this.survey,
     this.isMine = false,
+    this.is_saved = false,
   }) : super(key: key);
   final Surveys survey;
-  final isMine;
+  final bool isMine;
+  bool is_saved;
 
   @override
   State<UserSurveyCard> createState() => _UserSurveyCardState();
 }
 
 class _UserSurveyCardState extends State<UserSurveyCard> {
-  bool? isSaved = false;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -74,14 +76,23 @@ class _UserSurveyCardState extends State<UserSurveyCard> {
                     Icons.favorite,
                     size: 30,
                   ),
-                  color: isSaved! ? Colors.black : Colors.grey,
+                  color: widget.is_saved ? Colors.black : Colors.grey,
                   onPressed: () {
                     setState(
                       () {
-                        if (!isSaved!) {
-                          isSaved = true;
+                        if (!widget.is_saved) {
+                          widget.is_saved = true;
+                          BlocProvider.of<LikeCubit>(context).add_like(
+                              widget.survey,
+                              BlocProvider.of<AuthBloc>(context).state.token);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text("Added to favorites")));
                         } else {
-                          isSaved = false;
+                          widget.is_saved = false;
+                          BlocProvider.of<LikeCubit>(context).delete_likes(
+                              widget.survey,
+                              BlocProvider.of<AuthBloc>(context).state.token);
                         }
                       },
                     );
@@ -93,10 +104,14 @@ class _UserSurveyCardState extends State<UserSurveyCard> {
                 widget.isMine
                     ? IconButton(
                         onPressed: () async {
-                          await delete_survey(widget.survey.id,
-                              BlocProvider.of<AuthBloc>(context).state.token);
-                          BlocProvider.of<SurveyCubit>(context)
-                              .delete_survey(widget.survey);
+                          try {
+                            await delete_survey(widget.survey.id,
+                                BlocProvider.of<AuthBloc>(context).state.token);
+                            BlocProvider.of<SurveyCubit>(context)
+                                .delete_survey(widget.survey);
+                          } catch (_) {
+                            print("delete survey Error");
+                          }
                         },
                         icon: Icon(
                           Icons.delete,

@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:survey/core/models/category.dart';
 import 'package:survey/core/models/submission.dart';
+import 'package:survey/logic/cubit/like_cubit.dart';
 
 import '../../core/models/survey.dart';
 
@@ -113,6 +114,19 @@ Future<List<Surveys>> get_surveys(String token) async {
   return ls;
 }
 
+get_survey_via_id(int id, String token) async {
+  var response =
+      await http.get(Uri.parse("http://137.184.230.26/surveys/$id/"), headers: {
+    "Authorization": "Token $token",
+  });
+  print(response.body);
+  return Surveys.fromJson(
+    jsonDecode(
+      response.body.toString(),
+    ),
+  );
+}
+
 //not correct function
 Stream<Surveys> get_surveys_stream(String token) async* {
   var response = await http.get(
@@ -179,21 +193,71 @@ post_sumbissions(Submission sub, String token) async {
         "Authorization": "Token $token",
       });
   print(response.body);
+
+  if (response.statusCode >= 400) throw UnimplementedError();
 }
 
-delete_survey(int survey_index,String token)async{
+delete_survey(int survey_index, String token) async {
   var response_surveys = await http.delete(
+      Uri.parse(
+        "http://137.184.230.26/surveys/",
+      ),
+      headers: {
+        // "Content-Type": "application/json",
+        "Authorization": "Token $token",
+      },
+      body: {
+        "id": survey_index.toString(),
+      });
+  if (response_surveys.statusCode >= 400) throw UnimplementedError();
+}
+
+post_like(int survey_index, String token) async {
+  var response_surveys = await http.post(
+      Uri.parse(
+        "http://137.184.230.26/likes/",
+      ),
+      headers: {
+        // "Content-Type": "application/json",
+        "Authorization": "Token $token",
+      },
+      body: {
+        "survey": survey_index.toString(),
+      });
+
+  if (response_surveys.statusCode >= 400) throw UnimplementedError();
+  return jsonDecode(response_surveys.body)["id"];
+}
+
+get_likes(String token) async {
+  var response_surveys = await http.get(
     Uri.parse(
-      "http://137.184.230.26/surveys/",
+      "http://137.184.230.26/likes/favorite/",
     ),
     headers: {
       // "Content-Type": "application/json",
       "Authorization": "Token $token",
     },
-    body: {
-      "id":survey_index.toString(),
-    }
   );
+  if (response_surveys.statusCode >= 400) throw UnimplementedError();
+  print(response_surveys.body);
+  return jsonDecode(response_surveys.body);
+}
+
+delete_like(int like_index, String token) async {
+  var response_surveys = await http.delete(
+      Uri.parse(
+        "http://137.184.230.26/likes/",
+      ),
+      headers: {
+        // "Content-Type": "application/json",
+        "Authorization": "Token $token",
+      },
+      body: {
+        "id": like_index.toString(),
+      });
+  print(response_surveys.body);
+  if (response_surveys.statusCode >= 400) throw UnimplementedError();
 }
 
 post_survey(Surveys survey, String token) async {
@@ -269,5 +333,5 @@ getNameSurname(String email) async {
 }
 
 void main(List<String> args) async {
-  print(await get_categories("89112c9df37e076e09646c2a481863fdf8d1c310"));
+  print(await get_likes("89112c9df37e076e09646c2a481863fdf8d1c310"));
 }

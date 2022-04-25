@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:survey/logic/bloc/auth_bloc.dart';
+import 'package:survey/logic/cubit/like_cubit.dart';
+import 'package:survey/logic/cubit/survey_cubit.dart';
+import 'package:survey/presentation/screens/home/widget/user_survey_card.dart';
+import 'package:survey/presentation/screens/users_survey/widget/user_survey.dart';
 
+import '../../../core/models/survey.dart';
 import '../favourite/widget/card.dart';
 
 class FavouriteScreen extends StatelessWidget {
@@ -9,7 +16,7 @@ class FavouriteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Container(
-      padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 25),
+      padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 0),
       child: Column(
         children: [
           //Title
@@ -24,30 +31,56 @@ class FavouriteScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 120,
+            height: 100,
           ),
-          Expanded(
-            child: ListView(
-              // Saved Cards
-              children: const [
-                InfoCard(
-                    title: "Math for high school",
-                    subtitle: "0/35 Questions",
-                    isSaved: true),
-                InfoCard(
-                    title: "Math for high school",
-                    subtitle: "0/35 Questions",
-                    isSaved: true),
-                InfoCard(
-                    title: "Math for high school",
-                    subtitle: "0/35 Questions",
-                    isSaved: true),
-                InfoCard(
-                    title: "Math for high school",
-                    subtitle: "0/35 Questions",
-                    isSaved: true),
-              ],
-            ),
+          BlocBuilder<LikeCubit, LikeState>(
+            builder: (context, state) {
+              if (state is LikeEmpty) {
+                return const Center(
+                  child: Text("Empty"),
+                );
+              } else if (state is LikeSuccess) {
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: state.favorites.length,
+                    // reverse: true,
+                    itemBuilder: (context, index) {
+                      List keys = state.favorites.keys.toList();
+                      return UserSurveyCard(
+                        survey: keys[index],
+                        is_saved: true,
+                      );
+                    },
+                    // Saved Cards
+                    // children: const [
+                    //   InfoCard(
+                    //       title: "Math for high school",
+                    //       subtitle: "0/35 Questions",
+                    //       isSaved: true),
+                    //   InfoCard(
+                    //       title: "Math for high school",
+                    //       subtitle: "0/35 Questions",
+                    //       isSaved: true),
+                    //   InfoCard(
+                    //       title: "Math for high school",
+                    //       subtitle: "0/35 Questions",
+                    //       isSaved: true),
+                    //   InfoCard(
+                    //       title: "Math for high school",
+                    //       subtitle: "0/35 Questions",
+                    //       isSaved: true),
+                    // ],
+                  ),
+                );
+              } else if (state is LikeError) {
+                return const Center(
+                  child: Text("Error.."),
+                );
+              }
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
           ),
         ],
       ),

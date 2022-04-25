@@ -6,6 +6,7 @@ import '../../../core/constants/color.dart';
 import '../../../core/constants/style.dart';
 import '../../../logic/bloc/auth_bloc.dart';
 
+import '../../../logic/cubit/like_cubit.dart';
 import 'widgets/profileicon.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -79,45 +80,58 @@ class ProfileScreen extends StatelessWidget {
                   height: 39,
                 ),
                 BlocBuilder<SurveyCubit, SurveyState>(
-                    builder: (context, state) {
-                  if (state is SurveyEmpty) {
-                    return const Center(
-                      child: Text("Empty"),
-                    );
-                  } else if (state is SurveyError) {
-                    return const Center(
-                      child: Text("Error..."),
-                    );
-                  } else if (state is SurveyCompleted) {
-                    final surveys = BlocProvider.of<SurveyCubit>(context)
+                  buildWhen: (previous, current) {
+                    bool x = BlocProvider.of<LikeCubit>(context)
                         .state
-                        .surveys
-                        .where((element) =>
-                            element.author ==
-                            BlocProvider.of<AuthBloc>(context).state.email)
-                        .toList();
-                    if (surveys.isEmpty) {
+                        .favorites
+                        .isNotEmpty;
+                    return x;
+                  },
+                  builder: (context, state) {
+                    if (state is SurveyEmpty) {
                       return const Center(
                         child: Text("Empty"),
                       );
+                    } else if (state is SurveyError) {
+                      return const Center(
+                        child: Text("Error..."),
+                      );
+                    } else if (state is SurveyCompleted) {
+                      final surveys = BlocProvider.of<SurveyCubit>(context)
+                          .state
+                          .surveys
+                          .where((element) =>
+                              element.author ==
+                              BlocProvider.of<AuthBloc>(context).state.email)
+                          .toList();
+                      if (surveys.isEmpty) {
+                        return const Center(
+                          child: Text("Empty"),
+                        );
+                      }
+                      return ListView.builder(
+                          reverse: true,
+                          keyboardDismissBehavior:
+                              ScrollViewKeyboardDismissBehavior.onDrag,
+                          // scrollDirection: Axis.vertical,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: surveys.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            bool isSaved = BlocProvider.of<LikeCubit>(context)
+                                .state
+                                .favorites
+                                .containsKey(surveys[index]);
+                            return UserSurveyCard(
+                              survey: surveys[index],
+                              isMine: true,
+                              is_saved: isSaved,
+                            );
+                          });
                     }
-                    return ListView.builder(
-                        reverse: true,
-                        keyboardDismissBehavior:
-                            ScrollViewKeyboardDismissBehavior.onDrag,
-                        // scrollDirection: Axis.vertical,
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: surveys.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return UserSurveyCard(
-                            survey: surveys[index],
-                            isMine: true,
-                          );
-                        });
-                  }
-                  return const Center(child: CircularProgressIndicator());
-                })
+                    return const Center(child: CircularProgressIndicator());
+                  },
+                ),
               ],
             ),
           ),

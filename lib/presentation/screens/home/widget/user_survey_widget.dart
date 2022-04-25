@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:survey/logic/cubit/like_cubit.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/screens/home/widget/user_survey_card.dart';
 
@@ -16,10 +17,11 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SurveyCubit, SurveyState>(
-      //  buildWhen: (previous, current) {
-      //    print(previous.surveys.last.title != current.surveys.last.title);
-      //    return previous.surveys.last.title != current.surveys.last.title;
-      // },
+      buildWhen: (previous, current) {
+        bool x = BlocProvider.of<LikeCubit>(context).state.favorites.isNotEmpty;
+        print(x);
+        return x;
+      },
       builder: (context, state) {
         if (state is SurveyEmpty) {
           return const Center(
@@ -39,8 +41,14 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
               itemCount: surveys.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
+                bool isSaved = BlocProvider.of<LikeCubit>(context)
+                    .state
+                    .favorites
+                    .containsKey(surveys[index]);
                 return UserSurveyCard(
                   survey: surveys[index],
+                  // isMine: isMine,
+                  is_saved: isSaved,
                 );
               });
         }
