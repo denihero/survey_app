@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:survey/core/constants/color.dart';
 import 'package:survey/core/constants/style.dart';
 import 'package:survey/logic/bloc/auth_bloc.dart';
@@ -49,6 +52,19 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
   TextEditingController? _codeController;
   TextEditingController? _nameController;
   TextEditingController? _surnameController;
+
+  final ImagePicker _picker = ImagePicker();
+  File? imageFile;
+
+  pickImage() async {
+    try {
+      final image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      setState(() {
+        this.imageFile = File(image.path);
+      });
+    } catch (_) {}
+  }
 
   late bool isShowed = true;
   late bool confirmIsShowed = true;
@@ -163,7 +179,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                     ),
                   ),
                   SizedBox(
-                    height: 7.h,
+                    height: _isShowNameSurname ? 2.h : 7.h,
                   ),
                   !_isShowCodeConfirm
                       ? Column(
@@ -398,7 +414,30 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                       : const Text(""),
                   _isShowNameSurname
                       ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            GestureDetector(
+                              onTap: pickImage,
+                              child: CircleAvatar(
+                                backgroundColor: ORANGE,
+                                child: imageFile != null
+                                    ? ClipOval(
+                                        child: Image.file(
+                                          imageFile!,
+                                          fit: BoxFit.cover,
+                                          height: 100,
+                                          width: 100,
+                                        ),
+                                      )
+                                    : const Text(
+                                        "Upload",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                radius: 50,
+                              ),
+                            ),
                             const SizedBox(
                               height: 20,
                             ),
