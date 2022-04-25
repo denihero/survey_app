@@ -10,6 +10,7 @@ import 'package:survey/core/constants/style.dart';
 import 'package:survey/core/models/survey.dart';
 import 'package:survey/logic/bloc/auth_bloc.dart';
 import 'package:survey/logic/bloc/login_api.dart';
+import 'package:survey/logic/cubit/categories_cubit.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/screens/admin/admin_bloc.dart';
 
@@ -51,6 +52,7 @@ class _AdminScreenState extends State<AdminScreen> {
     } catch (_) {}
   }
 
+  String categorySelectedVal = "Survey";
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -58,6 +60,14 @@ class _AdminScreenState extends State<AdminScreen> {
       child: Builder(
         builder: ((context) {
           final formBloc = context.read<ListFieldFormBloc>();
+          final categoriesMenuItems =
+              context.read<CategoriesCubit>().state.categories.keys.toList();
+          final _dropDownMenuItems = categoriesMenuItems.map(
+            (String e) => DropdownMenuItem<String>(
+              child: Text(e),
+              value: e,
+            ),
+          );
           return Theme(
             data: Theme.of(context).copyWith(
               buttonTheme: const ButtonThemeData(
@@ -97,7 +107,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                 ? Container(
                                     margin: const EdgeInsets.only(left: 15),
                                     child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(12.0),
+                                      borderRadius: BorderRadius.circular(12.0),
                                       child: Image.file(
                                         imageFile!,
                                         fit: BoxFit.cover,
@@ -140,6 +150,27 @@ class _AdminScreenState extends State<AdminScreen> {
                                     controller: titleController,
                                     decoration: const InputDecoration(
                                         hintText: 'Type title'),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 7,
+                                ),
+                                ListTile(
+                                  title: const Text("Category:"),
+                                  trailing: DropdownButton<String>(
+                                    value: categorySelectedVal,
+                                    items: _dropDownMenuItems.toList(),
+                                    onChanged: (String? newval) {
+                                      print(categorySelectedVal);
+                                      if (newval != null) {
+                                        setState(() {
+                                          categorySelectedVal =
+                                              newval.toString();
+                                          print("After");
+                                          print(categorySelectedVal);
+                                        });
+                                      }
+                                    },
                                   ),
                                 ),
                                 const SizedBox(
@@ -201,7 +232,7 @@ class _AdminScreenState extends State<AdminScreen> {
                             id: -1,
                             title: titleController.text,
                             description: descController.text,
-                            category: "Sport",
+                            category: categorySelectedVal,
                             questions: questions,
                           );
                           print("Description:");

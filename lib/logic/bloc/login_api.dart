@@ -77,6 +77,8 @@ Future<Map<String, String>> get_categories(String token) async {
       await http.get(Uri.parse("http://137.184.230.26/categories/"), headers: {
     "Authorization": "Token $token",
   });
+  print("token:$token");
+  print("Response :${response.body}");
   if (response.statusCode >= 400) {
     throw UnimplementedError();
   }
@@ -252,5 +254,5 @@ getNameSurname(String email) async {
 }
 
 void main(List<String> args) async {
-  print(await getNameSurname("baibai@gmail.com"));
+  print(await get_categories("89112c9df37e076e09646c2a481863fdf8d1c310"));
 }

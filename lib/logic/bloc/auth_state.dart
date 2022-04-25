@@ -74,7 +74,6 @@ class AuthSuccess extends AuthState {
 
   @override
   String toString() {
-    // TODO: implement toString
     return "$name $surname $email";
   }
 }

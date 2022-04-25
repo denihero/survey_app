@@ -35,7 +35,6 @@ class SurveyCubit extends Cubit<SurveyState> {
               ...state.surveys,
               ...[element]
             ]);
-
             emit(new_state);
           }
           return;
