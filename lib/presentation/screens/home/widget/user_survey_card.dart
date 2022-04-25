@@ -2,14 +2,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/core/constants/style.dart';
+import 'package:survey/logic/bloc/auth_bloc.dart';
+import 'package:survey/logic/bloc/login_api.dart';
 import 'package:survey/logic/cubit/current_survey_cubit.dart';
+import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/screens/pre_quiz/pre_quiz_screen.dart';
 
 import '../../../../core/models/survey.dart';
 
 class UserSurveyCard extends StatefulWidget {
-  const UserSurveyCard({Key? key, required this.survey}) : super(key: key);
+  const UserSurveyCard({
+    Key? key,
+    required this.survey,
+    this.isMine = false,
+  }) : super(key: key);
   final Surveys survey;
+  final isMine;
 
   @override
   State<UserSurveyCard> createState() => _UserSurveyCardState();
@@ -58,21 +66,45 @@ class _UserSurveyCardState extends State<UserSurveyCard> {
               'Quesions: ${widget.survey.questions?.length ?? 0}',
               style: Monsterats_500_15_FONT_SIZE_BLACK,
             ),
-            trailing: IconButton(
-              icon: const Icon(
-                Icons.favorite,
-                size: 30,
-              ),
-              color: isSaved! ? Colors.black : Colors.grey,
-              onPressed: () {
-                setState(() {
-                  if (!isSaved!) {
-                    isSaved = true;
-                  } else {
-                    isSaved = false;
-                  }
-                });
-              },
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.favorite,
+                    size: 30,
+                  ),
+                  color: isSaved! ? Colors.black : Colors.grey,
+                  onPressed: () {
+                    setState(
+                      () {
+                        if (!isSaved!) {
+                          isSaved = true;
+                        } else {
+                          isSaved = false;
+                        }
+                      },
+                    );
+                  },
+                ),
+                const SizedBox(
+                  width: 7,
+                ),
+                widget.isMine
+                    ? IconButton(
+                        onPressed: () async {
+                          await delete_survey(widget.survey.id,
+                              BlocProvider.of<AuthBloc>(context).state.token);
+                          BlocProvider.of<SurveyCubit>(context)
+                              .delete_survey(widget.survey);
+                        },
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.red[300],
+                        ),
+                      )
+                    : const Text(""),
+              ],
             ),
           ),
         ),

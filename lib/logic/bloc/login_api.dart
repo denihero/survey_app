@@ -181,6 +181,21 @@ post_sumbissions(Submission sub, String token) async {
   print(response.body);
 }
 
+delete_survey(int survey_index,String token)async{
+  var response_surveys = await http.delete(
+    Uri.parse(
+      "http://137.184.230.26/surveys/",
+    ),
+    headers: {
+      // "Content-Type": "application/json",
+      "Authorization": "Token $token",
+    },
+    body: {
+      "id":survey_index.toString(),
+    }
+  );
+}
+
 post_survey(Surveys survey, String token) async {
   print("Description:${survey.description}");
   var response_surveys = await http.post(

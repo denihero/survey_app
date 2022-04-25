@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:survey/core/constants/color.dart';
 import 'package:survey/presentation/screens/favourite/favourite_screen.dart';
@@ -22,36 +21,41 @@ class MainPage extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<MainPage> {
-
   int _currentIndex = 0;
   String currentPage = 'Home';
-  List<String> pageKeys = ['Home','Profile'];
+  List<String> pageKeys = [
+    'Home',
+    "Favourite",
+    'Profile',
+  ];
 
-  final Map<String,GlobalKey<NavigatorState>> _navigatorState = {
+  final Map<String, GlobalKey<NavigatorState>> _navigatorState = {
     'Home': GlobalKey<NavigatorState>(),
-    'Profile':GlobalKey<NavigatorState>(),
+    'Favourite': GlobalKey<NavigatorState>(),
+    'Profile': GlobalKey<NavigatorState>(),
   };
 
-  void selectTab(String tabItem,int index){
-    if(tabItem == currentPage){
-      _navigatorState[tabItem]?.currentState?.popUntil((route) => route.isFirst);
-    }else{
+  void selectTab(String tabItem, int index) {
+    if (tabItem == currentPage) {
+      _navigatorState[tabItem]
+          ?.currentState
+          ?.popUntil((route) => route.isFirst);
+    } else {
       setState(() {
         currentPage = pageKeys[index];
         _currentIndex = index;
       });
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
       onWillPop: () async {
-        final isFirstRouteInitialTab = !await _navigatorState[currentPage]!.currentState!.maybePop();
-        if(isFirstRouteInitialTab){
-          if(currentPage != 'Home'){
+        final isFirstRouteInitialTab =
+            !await _navigatorState[currentPage]!.currentState!.maybePop();
+        if (isFirstRouteInitialTab) {
+          if (currentPage != 'Home') {
             selectTab('Home', 1);
 
             return false;
@@ -68,16 +72,18 @@ class _HomeScreenState extends State<MainPage> {
                           children: [
                             _buildOffstageStateNavigator('Home'),
                             _buildOffstageStateNavigator('Profile'),
+                            _buildOffstageStateNavigator('Favourite'),
                           ],
-
                         ));
               } else if (setting.name == '/favourite') {
-                return MaterialPageRoute(builder: (_) => const FavouriteScreen());
+                return MaterialPageRoute(
+                    builder: (_) => const FavouriteScreen());
               } else if (setting.name == '/user_survey') {
                 return MaterialPageRoute(
                     builder: (_) => const UserSurveyScreen());
               } else if (setting.name == '/favourite') {
-                return MaterialPageRoute(builder: (_) => const FavouriteScreen());
+                return MaterialPageRoute(
+                    builder: (_) => const FavouriteScreen());
               } else if (setting.name == '/pre_quiz') {
                 return MaterialPageRoute(builder: (_) => PreQuizScreen());
               } else if (setting.name == '/user_attempt') {
@@ -107,7 +113,8 @@ class _HomeScreenState extends State<MainPage> {
                 topRight: Radius.circular(21),
               ),
               boxShadow: [
-                BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+                BoxShadow(
+                    color: Colors.black38, spreadRadius: 0, blurRadius: 10),
               ],
             ),
             child: ClipRRect(
@@ -129,6 +136,13 @@ class _HomeScreenState extends State<MainPage> {
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
+                      Icons.favorite,
+                      size: 35,
+                    ),
+                    label: '',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(
                       Icons.person_sharp,
                       size: 35,
                     ),
@@ -144,13 +158,11 @@ class _HomeScreenState extends State<MainPage> {
     );
   }
 
-  Widget _buildOffstageStateNavigator(String tabItem){
+  Widget _buildOffstageStateNavigator(String tabItem) {
     return Offstage(
       offstage: currentPage != tabItem,
       child: TabNavigator(
-          navigatorKeys: _navigatorState[tabItem]!,
-          tabItem:tabItem
-      ),
+          navigatorKeys: _navigatorState[tabItem]!, tabItem: tabItem),
     );
   }
 }
