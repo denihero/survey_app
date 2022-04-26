@@ -40,6 +40,10 @@ class FavouriteScreen extends StatelessWidget {
                   child: Text("Empty"),
                 );
               } else if (state is LikeSuccess) {
+                if (state.favorites.isEmpty)
+                  return const Center(
+                    child: Text("Empty"),
+                  );
                 return Expanded(
                   child: ListView.builder(
                     itemCount: state.favorites.length,

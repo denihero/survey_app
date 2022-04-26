@@ -44,7 +44,8 @@ class _AdminScreenState extends State<AdminScreen> {
 
   pickImage() async {
     try {
-      final image = await _picker.pickImage(source: ImageSource.gallery,imageQuality: 50);
+      final image = await _picker.pickImage(
+          source: ImageSource.gallery, imageQuality: 50);
       if (image == null) return;
       setState(() {
         this.imageFile = File(image.path);
@@ -131,11 +132,11 @@ class _AdminScreenState extends State<AdminScreen> {
                                       ),
                                       const Positioned(
                                           top: 40,
-                                          left: 25,
+                                          left: 21.5,
                                           child: Text(
                                             'Upload Image',
                                             style: TextStyle(
-                                                fontSize: 14,
+                                                fontSize: 13,
                                                 fontWeight: FontWeight.w700,
                                                 color: WHITE),
                                           ))
@@ -234,8 +235,10 @@ class _AdminScreenState extends State<AdminScreen> {
                             category: categorySelectedVal,
                             questions: questions,
                           );
-                          post_survey(survey,
-                              BlocProvider.of<AuthBloc>(context).state.token,imageFile);
+                          post_survey(
+                              survey,
+                              BlocProvider.of<AuthBloc>(context).state.token,
+                              imageFile);
                           BlocProvider.of<SurveyCubit>(context)
                               .fetch_surveys_stream(
                                   BlocProvider.of<AuthBloc>(context)
