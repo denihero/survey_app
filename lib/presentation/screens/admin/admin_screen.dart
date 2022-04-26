@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:survey/core/constants/color.dart';
@@ -119,6 +118,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                     ),
                                   )
                                 : Stack(
+                                    alignment: Alignment.center,
                                     children: [
                                       Container(
                                         margin: const EdgeInsets.only(left: 15),
@@ -131,15 +131,15 @@ class _AdminScreenState extends State<AdminScreen> {
                                         ),
                                       ),
                                       const Positioned(
-                                          top: 40,
-                                          left: 21.5,
-                                          child: Text(
-                                            'Upload Image',
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w700,
-                                                color: WHITE),
-                                          ))
+                                        left: 26,
+                                        child: Text(
+                                          'Upload Image',
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w700,
+                                              color: WHITE),
+                                        ),
+                                      )
                                     ],
                                   ),
                           ),
