@@ -44,11 +44,12 @@ class _AdminScreenState extends State<AdminScreen> {
 
   pickImage() async {
     try {
-      final image = await _picker.pickImage(source: ImageSource.gallery);
+      final image = await _picker.pickImage(source: ImageSource.gallery,imageQuality: 50);
       if (image == null) return;
       setState(() {
         this.imageFile = File(image.path);
       });
+      print(imageFile?.path);
     } catch (_) {}
   }
 
@@ -226,8 +227,6 @@ class _AdminScreenState extends State<AdminScreen> {
                                   .toList(),
                             );
                           }).toList();
-                          print("object");
-                          print(questions);
                           final survey = Surveys(
                             id: -1,
                             title: titleController.text,
@@ -235,15 +234,14 @@ class _AdminScreenState extends State<AdminScreen> {
                             category: categorySelectedVal,
                             questions: questions,
                           );
-                          print("Description:");
-                          print(descController.text);
                           post_survey(survey,
-                              BlocProvider.of<AuthBloc>(context).state.token);
+                              BlocProvider.of<AuthBloc>(context).state.token,imageFile);
                           BlocProvider.of<SurveyCubit>(context)
                               .fetch_surveys_stream(
                                   BlocProvider.of<AuthBloc>(context)
                                       .state
                                       .token);
+                          // uploadImage(imageFile);
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(

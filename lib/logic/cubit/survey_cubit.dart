@@ -11,18 +11,6 @@ part 'survey_state.dart';
 class SurveyCubit extends Cubit<SurveyState> {
   SurveyCubit() : super(SurveyInitial());
 
-  fetch_surveys() async {
-    emit(SurveyLoading());
-    try {
-      List<Surveys> r = await get_surveys("");
-      print(r.length);
-      emit(SurveyCompleted(surveys: r));
-    } on Empty {
-      emit(SurveyEmpty());
-    } catch (_) {
-      emit(SurveyError());
-    }
-  }
 
   delete_survey(Surveys survey) {
     List<Surveys> copy_survey = state.surveys.toList();

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:survey/logic/bloc/login_api.dart';
@@ -10,10 +12,10 @@ class SurveyCurrentPost extends Cubit<SurveyPost> {
     emit(SurveyPostInProgress(survey));
   }
 
-  postSurvey(String token) async {
+  postSurvey(String token,File? image) async {
     emit(SurveyPostLoading());
     try {
-      await post_survey(state.surveys, token);
+      await post_survey(state.surveys, token,image);
       emit(
         SurveyPostInitial(),
       );

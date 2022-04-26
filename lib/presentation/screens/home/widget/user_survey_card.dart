@@ -105,7 +105,7 @@ class _UserSurveyCardState extends State<UserSurveyCard> {
                     ? IconButton(
                         onPressed: () async {
                           try {
-                            await delete_survey(widget.survey.id,
+                            await delete_survey(widget.survey,
                                 BlocProvider.of<AuthBloc>(context).state.token);
                             // BlocProvider.of<LikeCubit>(context).get_like(BlocProvider.of<AuthBloc>(context).state.token);
                             BlocProvider.of<LikeCubit>(context)
