@@ -185,7 +185,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                                   ),
                                                   const Positioned(
                                                       top: 40,
-                                                      left: 21.5,
+                                                      left: 27,
                                                       child: Text(
                                                         'Upload Image',
                                                         style: TextStyle(
