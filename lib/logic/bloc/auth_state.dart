@@ -5,8 +5,9 @@ abstract class AuthState extends Equatable {
   final token;
   final name;
   final surname;
-  const AuthState(
-      {this.name = "", this.surname = "", this.email = "", this.token = ""});
+  final String? image;
+  const AuthState( 
+      {this.name = "", this.surname = "", this.email = "", this.token = "",this.image});
 
   fromMap(Map<String, dynamic> map) {
     if (map["email"] != "") {
@@ -15,6 +16,7 @@ abstract class AuthState extends Equatable {
         map["token"] as String,
         map["name"] as String,
         map["surname"] as String,
+        map["image"],
       );
     }
     return AuthInitial(
@@ -23,7 +25,7 @@ abstract class AuthState extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
-    return {"email": email, "token": token,"name":name,"surname":surname};
+    return {"email": email, "token": token, "name": name, "surname": surname,"image":image};
   }
 
   @override
@@ -42,6 +44,7 @@ class AuthInitial extends AuthState {
         map["token"] as String,
         map["name"] as String,
         map["surname"] as String,
+        map["image"] as String,
       );
     }
     return AuthInitial(
@@ -61,7 +64,8 @@ class AuthLoading extends AuthState {
 }
 
 class AuthSuccess extends AuthState {
-  const AuthSuccess(e, token, name, surname) : super(email: e, token: token,name: name,surname: surname);
+  const AuthSuccess(e, token, name, surname,image)
+      : super(email: e, token: token, name: name, surname: surname,image: image);
   @override
   fromMap(Map<String, dynamic> map) {
     return AuthSuccess(
@@ -69,12 +73,13 @@ class AuthSuccess extends AuthState {
       map["token"] as String,
       map["name"] as String,
       map["surname"] as String,
+      map["image"],
     );
   }
 
   @override
   String toString() {
-    return "$name $surname $email";
+    return "$name $surname $email $image";
   }
 }
 

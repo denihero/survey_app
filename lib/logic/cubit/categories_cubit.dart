@@ -8,7 +8,6 @@ part 'categories_state.dart';
 
 class CategoriesCubit extends Cubit<Cat> {
   CategoriesCubit() : super(CategoriesInitial());
-
   get_category(String token) async {
     print("Get categories");
     try {

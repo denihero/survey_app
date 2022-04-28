@@ -58,7 +58,8 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
 
   pickImage() async {
     try {
-      final image = await _picker.pickImage(source: ImageSource.gallery);
+      final image = await _picker.pickImage(
+          source: ImageSource.gallery, imageQuality: 50);
       if (image == null) return;
       setState(() {
         this.imageFile = File(image.path);
@@ -203,7 +204,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                                     padding: const EdgeInsets.only(top: 5),
                                     child: Icon(Icons.email, size: 3.h),
                                   ),
-                                  hintText: "Username or email",
+                                  hintText: "email",
                                   hintStyle: TextStyle(fontSize: 14.sp),
                                 ),
                               ),
@@ -526,6 +527,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                                     BlocProvider.of<AuthBloc>(context).add(
                                       AuthRegisterSendNameSurname(
                                         name: _nameController?.text ?? "",
+                                        file: imageFile,
                                         surname: _surnameController?.text,
                                         username: email,
                                         password:

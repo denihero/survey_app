@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart';
@@ -47,12 +49,15 @@ class LikeCubit extends Cubit<LikeState> {
     Map<Surveys, int> ls = {};
     try {
       var data = await get_likes(token);
+      log("data:$data");
+
       for (var m in data) {
         // if (!state.favorites.containsKey(m['survey'])) {
         //   ls[await get_survey_via_id(m['survey'], token)] = m['id'];
         // }
         ls[await get_survey_via_id(m['survey'], token)] = m['id'];
       }
+        print(ls);
       if (data.isEmpty)
         emit(LikeEmpty());
       else {
@@ -66,7 +71,7 @@ class LikeCubit extends Cubit<LikeState> {
   delete_from_map(Surveys survey) {
     emit(LikeLoading());
     Map<Surveys, int> ls = Map<Surveys, int>.from(state.favorites);
-    if(ls.containsKey(survey)){
+    if (ls.containsKey(survey)) {
       ls.remove(survey);
       emit(LikeSuccess(ls));
     }

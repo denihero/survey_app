@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -33,13 +34,15 @@ class AuthRegister extends AuthEvent {
 }
 
 class AuthRegisterSendNameSurname extends AuthEvent {
+  final File? file;
   final name;
   final surname;
   AuthRegisterSendNameSurname(
       {required String username,
       required String password,
       required this.name,
-      required this.surname})
+      required this.surname,
+      this.file})
       : super(username, password);
 }
 
@@ -73,6 +76,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
               r,
               nameSurname[0],
               nameSurname[1],
+              nameSurname[2]
             ),
           );
         } else if (r.isEmpty) {
@@ -111,12 +115,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
     on<AuthRegisterSendNameSurname>((event, emit) async {
       try {
         emit(const AuthLoading(""));
-        print(event.username);
-        print(event.password);
 
         var token = await login(event.username, event.password);
-        print("Succes");
-        var r = await sendNameSurname(event.name, event.surname, token);
+        print("Send name Username:");
+        var r =
+            await sendNameSurname(event.name, event.surname, token, event.file);
         emit(const AuthInitial());
       } catch (r) {
         print(r);

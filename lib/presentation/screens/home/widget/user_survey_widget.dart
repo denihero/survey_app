@@ -19,6 +19,7 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
   @override
   Widget build(BuildContext context) {
     final x = context.watch<LikeCubit>();
+
     return BlocBuilder<SurveyCubit, SurveyState>(
       // buildWhen: (previous, current) {
       //   print(x.state.favorites.isNotEmpty);
@@ -34,13 +35,15 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
             child: Text("Error..."),
           );
         } else if (state is SurveyCompleted) {
-          final surveys = BlocProvider.of<SurveyCubit>(context).state.surveys;
+
+    final surveys = BlocProvider.of<SurveyCubit>(context).state.surveys;
           return ListView.builder(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             // scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
             reverse: true,
             itemCount: surveys.length,
+            
             shrinkWrap: true,
             itemBuilder: (context, index) {
               final surveysMine = BlocProvider.of<SurveyCubit>(context)

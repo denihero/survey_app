@@ -4,6 +4,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:survey/logic/bloc/auth_bloc.dart';
 import 'package:survey/logic/cubit/categories_cubit.dart';
+import 'package:survey/logic/cubit/cubit/post_cubit.dart';
 import 'package:survey/logic/cubit/like_cubit.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/navigation/routes.dart';
@@ -53,6 +54,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<LikeCubit>(
           create: (context) => LikeCubit(),
         ),
+        BlocProvider<PostCubit>(
+          create: (context) => PostCubit(),)
       ],
       child: Sizer(
         builder: ((context, orientation, deviceType) {
