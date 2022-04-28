@@ -136,7 +136,6 @@ class _AdminScreenState extends State<AdminScreen> {
                                         ),
                                       ],
                                     ),
-<<<<<<< HEAD
                                   );
                                 }
                               },
@@ -148,11 +147,6 @@ class _AdminScreenState extends State<AdminScreen> {
                                         MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-=======
-                                  )
-                                : Stack(
-                                    alignment: Alignment.center,
->>>>>>> 10e2fe276031c0874cc0c613e5dae1a76ebda5fa
                                     children: [
                                       GestureDetector(
                                         onTap: pickImage,
@@ -203,7 +197,6 @@ class _AdminScreenState extends State<AdminScreen> {
                                                 ],
                                               ),
                                       ),
-<<<<<<< HEAD
                                       Expanded(
                                         child: Column(
                                           children: [
@@ -254,16 +247,6 @@ class _AdminScreenState extends State<AdminScreen> {
                                               ),
                                             ),
                                           ],
-=======
-                                      const Positioned(
-                                        left: 26,
-                                        child: Text(
-                                          'Upload Image',
-                                          style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w700,
-                                              color: WHITE),
->>>>>>> 10e2fe276031c0874cc0c613e5dae1a76ebda5fa
                                         ),
                                       )
                                     ],
