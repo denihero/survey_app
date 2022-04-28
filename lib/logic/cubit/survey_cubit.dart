@@ -24,7 +24,7 @@ class SurveyCubit extends Cubit<SurveyState> {
   }
 
   change_chosen(String cat) {
-    emit(SurveyCompleted(surveys: state.surveys,category_chosen: cat));
+    emit(SurveyCompleted(surveys: state.surveys, category_chosen: cat));
   }
   // add_survey(Surveys survey) {
   //   List<Surveys> copy_survey = state.surveys.toList();
@@ -63,6 +63,29 @@ class SurveyCubit extends Cubit<SurveyState> {
     emit(SurveyLoading());
     try {
       await get_surveys_via_category_stream_fixed(token, category).fold(
+        Surveys(id: -1, title: "Hello"),
+        ((previous, element) {
+          if (!state.surveys.contains(element)) {
+            final new_state = SurveyCompleted(surveys: [
+              ...state.surveys,
+              ...[element]
+            ]);
+            emit(new_state);
+          }
+          return;
+        }),
+      );
+    } on Empty {
+      emit(SurveyEmpty());
+    } on UnimplementedError {
+      emit(SurveyError());
+    }
+  }
+
+  find(String title, String token) async{
+    emit(SurveyLoading());
+    try {
+      await find_surveys_stream_fixed(title,token).fold(
         Surveys(id: -1, title: "Hello"),
         ((previous, element) {
           if (!state.surveys.contains(element)) {

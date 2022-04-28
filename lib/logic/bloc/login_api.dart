@@ -151,6 +151,39 @@ Stream<Surveys> get_surveys_via_category_stream_fixed(String token,String catego
 
 
 
+Stream<Surveys> find_surveys_stream_fixed(String title,String token) async* {
+  var response =
+      await http.get(Uri.parse("${Api.surveyApi}/surveys/?search=$title"), headers: {
+    "Authorization": "Token $token",
+  });
+  print(response.body);
+
+  if (jsonDecode(response.body.toString())["count"] == 0) throw Empty();
+
+  if (response.statusCode >= 400) {
+    throw UnimplementedError();
+  }
+
+  String? next_one;
+
+  try {
+    final first_one = jsonDecode(utf8.decode(response.bodyBytes));
+    print(first_one);
+    next_one = first_one["next"];
+    yield Surveys.fromJson(first_one["results"][0]);
+  } catch (_) {
+    throw UnimplementedError();
+  }
+  while (next_one != null) {
+    var response = await http.get(Uri.parse(next_one), headers: {
+      "Authorization": "Token $token",
+    });
+    final survey = jsonDecode(utf8.decode(response.bodyBytes));
+    next_one = survey["next"];
+    yield Surveys.fromJson(survey["results"][0]);
+  }
+  
+}
 
 
 //not correct function
