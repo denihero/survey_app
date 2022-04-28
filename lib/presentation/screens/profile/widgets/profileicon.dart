@@ -59,6 +59,7 @@ class ProfileIcon extends StatelessWidget {
                       imageUrl: image,
                       fit: BoxFit.cover,
                       height: 300,
+                      width: 290,
                     ),
                   ),
                 ),

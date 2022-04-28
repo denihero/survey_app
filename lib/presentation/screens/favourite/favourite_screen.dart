@@ -4,10 +4,6 @@ import 'package:survey/logic/bloc/auth_bloc.dart';
 import 'package:survey/logic/cubit/like_cubit.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/screens/home/widget/user_survey_card.dart';
-import 'package:survey/presentation/screens/users_survey/widget/user_survey.dart';
-
-import '../../../core/models/survey.dart';
-import '../favourite/widget/card.dart';
 
 class FavouriteScreen extends StatelessWidget {
   const FavouriteScreen({Key? key}) : super(key: key);
@@ -40,10 +36,11 @@ class FavouriteScreen extends StatelessWidget {
                   child: Text("Empty"),
                 );
               } else if (state is LikeSuccess) {
-                if (state.favorites.isEmpty)
+                if (state.favorites.isEmpty) {
                   return const Center(
                     child: Text("Empty"),
                   );
+                }
                 return Expanded(
                   child: ListView.builder(
                     itemCount: state.favorites.length,
@@ -63,25 +60,6 @@ class FavouriteScreen extends StatelessWidget {
                         isMine: surveysMine.contains(keys[index]),
                       );
                     },
-                    // Saved Cards
-                    // children: const [
-                    //   InfoCard(
-                    //       title: "Math for high school",
-                    //       subtitle: "0/35 Questions",
-                    //       isSaved: true),
-                    //   InfoCard(
-                    //       title: "Math for high school",
-                    //       subtitle: "0/35 Questions",
-                    //       isSaved: true),
-                    //   InfoCard(
-                    //       title: "Math for high school",
-                    //       subtitle: "0/35 Questions",
-                    //       isSaved: true),
-                    //   InfoCard(
-                    //       title: "Math for high school",
-                    //       subtitle: "0/35 Questions",
-                    //       isSaved: true),
-                    // ],
                   ),
                 );
               } else if (state is LikeError) {
