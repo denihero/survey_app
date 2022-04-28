@@ -6,11 +6,12 @@ import 'package:survey/core/models/submission.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 
+import '../../core/constants/api.dart';
 import '../../core/models/survey.dart';
 
 Future<String> login(String username, String password) async {
   var response = await http.post(
-    Uri.parse("http://137.184.230.26/account/login/"),
+    Uri.parse("${Api.surveyApi}/account/login/"),
     body: {
       "email": username,
       "password": password,
@@ -27,7 +28,7 @@ Future<String> login(String username, String password) async {
 
 sendNameSurname(String name, String surname, String token) async {
   var response = await http.post(
-    Uri.parse("http://137.184.230.26/info_users/"),
+    Uri.parse("${Api.surveyApi}/info_users/"),
     body: {
       "name": name,
       "surname": surname,
@@ -43,7 +44,7 @@ sendNameSurname(String name, String surname, String token) async {
 
 Future<bool> register(String username, String password) async {
   var response = await http.post(
-    Uri.parse("http://137.184.230.26/account/register/"),
+    Uri.parse("${Api.surveyApi}/account/register/"),
     body: {
       "email": username,
       "password": password,
@@ -59,7 +60,7 @@ Future<bool> register(String username, String password) async {
 
 Future<bool> confirmPassword(String username, String code) async {
   var response = await http.post(
-    Uri.parse("http://137.184.230.26/account/activate/"),
+    Uri.parse("${Api.surveyApi}/account/activate/"),
     body: {
       "email": username,
       "code": code,
@@ -75,7 +76,7 @@ Future<bool> confirmPassword(String username, String code) async {
 
 Future<Map<String, String>> get_categories(String token) async {
   var response =
-      await http.get(Uri.parse("http://137.184.230.26/categories/"), headers: {
+      await http.get(Uri.parse("${Api.surveyApi}/categories/"), headers: {
     "Authorization": "Token $token",
   });
   print("token:$token");
@@ -90,7 +91,7 @@ Future<Map<String, String>> get_categories(String token) async {
 
 get_survey_via_id(int id, String token) async {
   var response =
-      await http.get(Uri.parse("http://137.184.230.26/surveys/$id/"), headers: {
+      await http.get(Uri.parse("${Api.surveyApi}/surveys/$id/"), headers: {
     "Authorization": "Token $token",
   });
   print(response.body);
@@ -108,7 +109,7 @@ class Empty {}
 //correct one
 Stream<Surveys> get_surveys_stream_fixed(String token) async* {
   var response =
-      await http.get(Uri.parse("http://137.184.230.26/surveys/"), headers: {
+      await http.get(Uri.parse("${Api.surveyApi}/surveys/"), headers: {
     "Authorization": "Token $token",
   });
   print(response.body);
@@ -140,7 +141,7 @@ Stream<Surveys> get_surveys_stream_fixed(String token) async* {
 }
 
 post_sumbissions(Submission sub, String token) async {
-  var response = await http.post(Uri.parse("http://137.184.230.26/sumbitions/"),
+  var response = await http.post(Uri.parse("${Api.surveyApi}/sumbitions/"),
       body: json.encode(sub.toJson()),
       // encoding: "",
       headers: {
@@ -152,14 +153,10 @@ post_sumbissions(Submission sub, String token) async {
   if (response.statusCode >= 400) throw UnimplementedError();
 }
 
-
-
-
 delete_survey(Surveys survey, String token) async {
-  
   var response_surveys = await http.delete(
     Uri.parse(
-      "http://137.184.230.26/surveys/${survey.id}/",
+      "${Api.surveyApi}/surveys/${survey.id}/",
     ),
     headers: {
       // "Content-Type": "application/json",
@@ -173,7 +170,7 @@ delete_survey(Surveys survey, String token) async {
 post_like(int survey_index, String token) async {
   var response_surveys = await http.post(
       Uri.parse(
-        "http://137.184.230.26/likes/",
+        "${Api.surveyApi}/likes/",
       ),
       headers: {
         // "Content-Type": "application/json",
@@ -190,7 +187,7 @@ post_like(int survey_index, String token) async {
 get_likes(String token) async {
   var response_surveys = await http.get(
     Uri.parse(
-      "http://137.184.230.26/likes/favorite/",
+      "${Api.surveyApi}/likes/favorite/",
     ),
     headers: {
       // "Content-Type": "application/json",
@@ -205,7 +202,7 @@ get_likes(String token) async {
 delete_like(int like_index, String token) async {
   var response_surveys = await http.delete(
     Uri.parse(
-      "http://137.184.230.26/likes/$like_index/",
+      "${Api.surveyApi}/likes/$like_index/",
     ),
     headers: {
       // "Content-Type": "application/json",
@@ -219,7 +216,7 @@ delete_like(int like_index, String token) async {
 post_survey(Surveys survey, String token, File? image) async {
   var response_surveys = await http.post(
     Uri.parse(
-      "http://137.184.230.26/surveys/",
+      "${Api.surveyApi}/surveys/",
     ),
     headers: {
       // "Content-Type": "application/json",
@@ -239,7 +236,7 @@ post_survey(Surveys survey, String token, File? image) async {
   for (Questions i in survey.questions ?? []) {
     var response_questions = await http.post(
       Uri.parse(
-        "http://137.184.230.26/questions/",
+        "${Api.surveyApi}/questions/",
       ),
       headers: {
         // "Content-Type": "application/json",
@@ -260,7 +257,7 @@ post_survey(Surveys survey, String token, File? image) async {
 
     for (Choice c in i.choices ?? []) {
       var response_choices = await http.post(
-        Uri.parse("http://137.184.230.26/choices/"),
+        Uri.parse("${Api.surveyApi}/choices/"),
         headers: {
           // "Content-Type": "application/json",
           "Authorization": "Token $token",
@@ -279,7 +276,7 @@ post_survey(Surveys survey, String token, File? image) async {
 }
 
 getNameSurname(String email) async {
-  var response = await http.get(Uri.parse("http://137.184.230.26/info_users/"));
+  var response = await http.get(Uri.parse("${Api.surveyApi}/info_users/"));
   print(response.body);
   for (var item in jsonDecode(utf8.decode(response.bodyBytes))) {
     if (item["author"] == email) {
@@ -302,8 +299,7 @@ Future<String> uploadImage(File? file) async {
   Dio dio = Dio();
   dio.options.headers['Authorization'] =
       "Token 89112c9df37e076e09646c2a481863fdf8d1c310";
-  var response =
-      await dio.post("http://137.184.230.26/surveys/", data: formData);
+  var response = await dio.post("${Api.surveyApi}/surveys/", data: formData);
   print(response.extra);
   return response.data['id'];
 }

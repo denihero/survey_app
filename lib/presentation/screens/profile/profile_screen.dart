@@ -62,7 +62,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Center(
                     child: Text(
-                  BlocProvider.of<AuthBloc>(context).state.email,
+                  "${BlocProvider.of<AuthBloc>(context).state.name} ${BlocProvider.of<AuthBloc>(context).state.surname}",
                   style: Monsterats_600_18_FONT_SIZE_BLACK,
                 )),
                 const SizedBox(
