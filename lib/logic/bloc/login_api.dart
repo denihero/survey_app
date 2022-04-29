@@ -295,7 +295,7 @@ post_like(int survey_index, String token) async {
   return jsonDecode(response_surveys.body)["id"];
 }
 
-get_likes(String token) async {
+get_likes(String token, String email) async {
   var response_surveys = await http.get(
     Uri.parse(
       "${Api.surveyApi}/likes/",
@@ -334,7 +334,7 @@ post_survey(Surveys survey, String token, File? image) async {
     Surveys return_survey;
     return_survey = Surveys.fromJson(await uploadImage(image, survey, token));
     for (Questions i in survey.questions ?? []) {
-      Questions  question;
+      Questions question;
       var response_questions = await http.post(
         Uri.parse(
           "${Api.surveyApi}/questions/",
@@ -383,49 +383,14 @@ getNameSurname(String email) async {
   print(response.body);
   for (var item in jsonDecode(utf8.decode(response.bodyBytes))) {
     if (item["author"] == email) {
-      return [item["name"], item["surname"], item["image"],item["id"]];
+      return [item["name"], item["surname"], item["image"], item["id"]];
     }
   }
 }
 
 void main(List<String> args) async {
-  await post_survey(
-      Surveys(
-          id: -1,
-          title: "Baitur Survey",
-          description: "Yes",
-          category: "Sport",
-          questions: [
-            Questions(
-              text: "How to play football?",
-              choices: [
-                Choice(text: "Yes"),
-                Choice(text: "No"),
-              ],
-            ),
-            Questions(
-              text: "How to play football?",
-              choices: [
-                Choice(text: "Yes"),
-                Choice(text: "No"),
-              ],
-            ),
-            Questions(
-              text: "How to play football?",
-              choices: [
-                Choice(text: "Yes"),
-                Choice(text: "No"),
-              ],
-            ),
-          ]),
-      "8e548b2896b3e1f73315792721575d83be6e800e",
-      null);
-  // await get_likes("616de61914e2ee9c30cb3a2e779c9a31d6b6f2f3");
-  // try {
-  //   await uploadImage(null, Surveys(id: -1));
-  // } catch (_) {
-  //   print("Error");
-  // }
+  print(await get_likes(
+      "c6041824a7c53fa5fa31f72ec9af92e626f62425", "ulukbekovbr@gmail.com"));
 }
 
 Future uploadImage(File? file, Surveys survey, String token) async {
