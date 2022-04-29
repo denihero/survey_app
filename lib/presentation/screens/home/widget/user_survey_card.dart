@@ -49,7 +49,11 @@ class _UserSurveyCardState extends State<UserSurveyCard> {
             leading: widget.survey.image == null
                 ? const FittedBox(child: Placeholder())
                 : CachedNetworkImage(
-                  progressIndicatorBuilder: (context, url, progress) => const Center(child: CircularProgressIndicator(color: Colors.black,)),
+                    progressIndicatorBuilder: (context, url, progress) =>
+                        const Center(
+                            child: CircularProgressIndicator(
+                      color: Colors.black,
+                    )),
                     imageUrl: widget.survey.image ?? "",
                     fit: BoxFit.cover,
                     height: 60,
@@ -105,26 +109,67 @@ class _UserSurveyCardState extends State<UserSurveyCard> {
                 widget.isMine
                     ? IconButton(
                         onPressed: () async {
-                          try {
-                            await delete_survey(widget.survey,
-                                BlocProvider.of<AuthBloc>(context).state.token);
-                            // BlocProvider.of<LikeCubit>(context).get_like(BlocProvider.of<AuthBloc>(context).state.token);
-                            BlocProvider.of<LikeCubit>(context)
-                                .delete_from_map(widget.survey);
-                            BlocProvider.of<SurveyCubit>(context)
-                                .delete_survey(widget.survey);
-                            BlocProvider.of<SurveyMineCubit>(context)
-                                .delete_survey(widget.survey);
-                            // if (widget.is_saved) {
-                            //   BlocProvider.of<LikeCubit>(context).delete_likes(
-                            //       widget.survey,
-                            //       BlocProvider.of<AuthBloc>(context)
-                            //           .state
-                            //           .token);
-                            // }
-                          } catch (_) {
-                            print("delete survey Error");
-                          }
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  content: const Text(
+                                      "Are you sure you want to delete it?"),
+                                  actions: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        TextButton(
+                                          onPressed: () async {
+                                            try {
+                                              await delete_survey(
+                                                  widget.survey,
+                                                  BlocProvider.of<AuthBloc>(
+                                                          context)
+                                                      .state
+                                                      .token);
+                                              // BlocProvider.of<LikeCubit>(context).get_like(BlocProvider.of<AuthBloc>(context).state.token);
+                                              BlocProvider.of<LikeCubit>(
+                                                      context)
+                                                  .delete_from_map(
+                                                      widget.survey);
+                                              BlocProvider.of<SurveyCubit>(
+                                                      context)
+                                                  .delete_survey(widget.survey);
+                                              BlocProvider.of<SurveyMineCubit>(
+                                                      context)
+                                                  .delete_survey(widget.survey);
+                                              // if (widget.is_saved) {
+                                              //   BlocProvider.of<LikeCubit>(context).delete_likes(
+                                              //       widget.survey,
+                                              //       BlocProvider.of<AuthBloc>(context)
+                                              //           .state
+                                              //           .token);
+                                              // }
+                                            Navigator.of(context,
+                                                    rootNavigator: true)
+                                                .pop();
+                                            } catch (_) {
+                                              print("delete survey Error");
+                                            }
+                                          },
+                                          child:
+                                              const Center(child: Text("Yes")),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context,
+                                                    rootNavigator: true)
+                                                .pop();
+                                          },
+                                          child:
+                                              const Center(child: Text("No")),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                );
+                              });
                         },
                         icon: Icon(
                           Icons.delete,

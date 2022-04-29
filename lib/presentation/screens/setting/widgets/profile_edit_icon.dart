@@ -19,7 +19,7 @@ class ProfileEditIcon extends StatelessWidget {
         // alignment: Alignment.bottomRight,
         clipBehavior: Clip.hardEdge,
         children: [
-          image==null?
+          image==null||image.isEmpty?
           ProfileIcon(
             is_settings: true,
           ):

@@ -118,7 +118,7 @@ class _AdminScreenState extends State<AdminScreen> {
                           child: WillPopScope(
                             onWillPop: () async => false,
                             child: Scaffold(
-                              resizeToAvoidBottomInset: false,
+                              resizeToAvoidBottomInset: true,
                               appBar: AppBar(
                                 backgroundColor: Colors.transparent,
                                 elevation: 0,

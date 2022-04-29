@@ -38,7 +38,8 @@ class LoginScreen extends StatelessWidget {
                 BlocProvider.of<LikeCubit>(context).get_like(
                     token, BlocProvider.of<AuthBloc>(context).state.email);
                 BlocProvider.of<CategoriesCubit>(context).get_category(token);
-                BlocProvider.of<SurveyCubit>(context).fetch_surveys_stream(token);
+                BlocProvider.of<SurveyCubit>(context)
+                    .fetch_surveys_stream(token);
                 // BlocProvider.of<SurveyCubit>(context).fetch();
                 BlocProvider.of<SurveyMineCubit>(context).fetch(
                     BlocProvider.of<AuthBloc>(context).state.email, token);
