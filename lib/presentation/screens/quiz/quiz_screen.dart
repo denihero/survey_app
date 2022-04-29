@@ -166,10 +166,21 @@ class _questionState extends State<question> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Center(
-                  child: Text("That is it,Thank you for participation"),
+                Center(
+                  child: Text(
+                    "That is it,Thank you for participation!",
+                    style: Monsterats_600_24_FONT_SIZE_BLACK,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(
+                  height: 12,
                 ),
                 TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: ORANGE,
+                    padding: const EdgeInsets.all(10),
+                  ),
                   onPressed: () {
                     String email =
                         BlocProvider.of<AuthBloc>(context).state.email;
@@ -186,7 +197,11 @@ class _questionState extends State<question> {
                     Navigator.of(context)
                         .pushNamedAndRemoveUntil('/', (route) => false);
                   },
-                  child: const Text("Go back to Home Screen"),
+                  child: Text(
+                    "Go back to Home Screen",
+                    style: Monsterats_700_18_FONT_SIZE_WHITE.copyWith(
+                        fontWeight: FontWeight.normal, fontSize: 16),
+                  ),
                 ),
               ],
             ),

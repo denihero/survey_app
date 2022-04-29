@@ -57,7 +57,7 @@ class LikeCubit extends Cubit<LikeState> {
         // }
         ls[await get_survey_via_id(m['survey'], token)] = m['id'];
       }
-        print(ls);
+      print(ls);
       if (data.isEmpty)
         emit(LikeEmpty());
       else {
@@ -69,11 +69,14 @@ class LikeCubit extends Cubit<LikeState> {
   }
 
   delete_from_map(Surveys survey) {
-    emit(LikeLoading());
     Map<Surveys, int> ls = Map<Surveys, int>.from(state.favorites);
     if (ls.containsKey(survey)) {
+      emit(LikeLoading());
       ls.remove(survey);
-      emit(LikeSuccess(ls));
+      if (ls.isEmpty)
+        emit(LikeEmpty());
+      else
+        emit(LikeSuccess(ls));
     }
   }
 

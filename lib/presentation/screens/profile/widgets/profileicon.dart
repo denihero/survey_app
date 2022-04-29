@@ -53,9 +53,15 @@ class ProfileIcon extends StatelessWidget {
               )
             : Center(
                 child: CircleAvatar(
+                  backgroundColor: Colors.white10,
                   radius: 110,
                   child: ClipOval(
                     child: CachedNetworkImage(
+                      progressIndicatorBuilder: (context, url, progress) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
                       imageUrl: image,
                       fit: BoxFit.cover,
                       height: 300,

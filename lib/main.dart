@@ -55,7 +55,11 @@ class MyApp extends StatelessWidget {
           create: (context) => LikeCubit(),
         ),
         BlocProvider<PostCubit>(
-          create: (context) => PostCubit(),)
+          create: (context) => PostCubit(),
+        ),
+        BlocProvider<SurveyMineCubit>(
+          create: (context) => SurveyMineCubit(),
+        ),
       ],
       child: Sizer(
         builder: ((context, orientation, deviceType) {

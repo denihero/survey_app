@@ -16,7 +16,8 @@ class SurveyCubit extends Cubit<SurveyState> {
   delete_survey(Surveys survey) {
     List<Surveys> copy_survey = state.surveys.toList();
     copy_survey.remove(survey);
-    emit(
+    if (copy_survey.isEmpty) emit(SurveyEmpty());
+    else emit(
       SurveyCompleted(
         surveys: copy_survey,
       ),
@@ -82,10 +83,10 @@ class SurveyCubit extends Cubit<SurveyState> {
     }
   }
 
-  find(String title, String token) async{
+  find(String title, String token) async {
     emit(SurveyLoading());
     try {
-      await find_surveys_stream_fixed(title,token).fold(
+      await find_surveys_stream_fixed(title, token).fold(
         Surveys(id: -1, title: "Hello"),
         ((previous, element) {
           if (!state.surveys.contains(element)) {
@@ -102,6 +103,44 @@ class SurveyCubit extends Cubit<SurveyState> {
       emit(SurveyEmpty());
     } on UnimplementedError {
       emit(SurveyError());
+    }
+  }
+}
+
+class SurveyMineCubit extends Cubit<SurveyMine> {
+  SurveyMineCubit() : super(SurveyMineInitial());
+
+  delete_survey(Surveys survey) {
+    List<Surveys> copy_survey = state.surveys.toList();
+    copy_survey.remove(survey);
+    if (copy_survey.isEmpty) emit(SurveyMineEmpty());
+    else emit(
+      SurveyMineCompleted(
+        copy_survey,
+      ),
+    );
+  }
+
+  fetch(String email, String token) async {
+    emit(SurveyMineLoading());
+    try {
+      await get_surveys_Mine(token, email).fold(
+        Surveys(id: -1, title: "Hello"),
+        ((previous, element) {
+          if (!state.surveys.contains(element)) {
+            final new_state = SurveyMineCompleted([
+              ...state.surveys,
+              ...[element]
+            ]);
+            emit(new_state);
+          }
+          return;
+        }),
+      );
+    } on Empty {
+      emit(SurveyMineEmpty());
+    } on UnimplementedError {
+      emit(SurveyMineError());
     }
   }
 }

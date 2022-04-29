@@ -14,6 +14,7 @@ class FavouriteScreen extends StatelessWidget {
         child: Container(
       padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 0),
       child: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           //Title
           const Center(

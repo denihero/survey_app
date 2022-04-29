@@ -49,6 +49,7 @@ class _UserSurveyCardState extends State<UserSurveyCard> {
             leading: widget.survey.image == null
                 ? const FittedBox(child: Placeholder())
                 : CachedNetworkImage(
+                  progressIndicatorBuilder: (context, url, progress) => const Center(child: CircularProgressIndicator()),
                     imageUrl: widget.survey.image ?? "",
                     fit: BoxFit.cover,
                     height: 60,
@@ -111,6 +112,8 @@ class _UserSurveyCardState extends State<UserSurveyCard> {
                             BlocProvider.of<LikeCubit>(context)
                                 .delete_from_map(widget.survey);
                             BlocProvider.of<SurveyCubit>(context)
+                                .delete_survey(widget.survey);
+                            BlocProvider.of<SurveyMineCubit>(context)
                                 .delete_survey(widget.survey);
                             // if (widget.is_saved) {
                             //   BlocProvider.of<LikeCubit>(context).delete_likes(

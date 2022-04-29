@@ -80,7 +80,7 @@ class ProfileScreen extends StatelessWidget {
                 const SizedBox(
                   height: 39,
                 ),
-                BlocBuilder<SurveyCubit, SurveyState>(
+                BlocBuilder<SurveyMineCubit, SurveyMine>(
                   // buildWhen: (previous, current) {
                   //   bool x = BlocProvider.of<LikeCubit>(context)
                   //       .state
@@ -89,28 +89,16 @@ class ProfileScreen extends StatelessWidget {
                   //   return x;
                   // },
                   builder: (context, state) {
-                    print("Profile:$state");
-                    if (state is SurveyEmpty) {
+                    if (state is SurveyMineEmpty) {
                       return const Center(
                         child: Text("Empty"),
                       );
-                    } else if (state is SurveyError) {
+                    } else if (state is SurveyMineError) {
                       return const Center(
                         child: Text("Error..."),
                       );
-                    } else if (state is SurveyCompleted) {
-                      final surveys = BlocProvider.of<SurveyCubit>(context)
-                          .state
-                          .surveys
-                          .where((element) =>
-                              element.author ==
-                              BlocProvider.of<AuthBloc>(context).state.email)
-                          .toList();
-                      if (surveys.isEmpty) {
-                        return const Center(
-                          child: Text("Empty"),
-                        );
-                      }
+                    } else if (state is SurveyMineCompleted) {
+                      final surveys = state.surveys;
                       return ListView.builder(
                           reverse: true,
                           keyboardDismissBehavior:
