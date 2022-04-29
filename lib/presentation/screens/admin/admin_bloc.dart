@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:survey/core/constants/style.dart';
 import 'package:survey/presentation/screens/quiz/quiz_screen.dart';
 
 class ListFieldFormBloc extends FormBloc<String, String> {
@@ -165,7 +166,9 @@ class LoadingDialog extends StatelessWidget {
             width: 80,
             height: 80,
             padding: const EdgeInsets.all(12.0),
-            child: const CircularProgressIndicator(color: Colors.black,),
+            child: const CircularProgressIndicator(
+              color: Colors.black,
+            ),
           ),
         ),
       ),
@@ -194,7 +197,7 @@ class MemberCard extends StatelessWidget {
       color: Colors.white,
       shadowColor: Colors.black,
       margin: const EdgeInsets.all(8.0),
-      elevation: 3,
+      elevation: 6,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -206,7 +209,8 @@ class MemberCard extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     'Question #${memberIndex + 1}',
-                    style: const TextStyle(fontSize: 20),
+                    style: Monsterats_500_18_FONT_SIZE_BLACK.copyWith(
+                        fontSize: 20),
                   ),
                 ),
                 IconButton(

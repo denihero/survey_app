@@ -12,8 +12,9 @@ class PostCubit extends Cubit<PostState> {
   postSurvey(Surveys survey, String token, File? file) async {
     emit(PostLoading());
     try {
-      await post_survey(survey, token, file);
+      var result = await post_survey(survey, token, file);
       emit(PostFinished());
+      return result;
     } catch (_) {
       emit(PostError());
     }

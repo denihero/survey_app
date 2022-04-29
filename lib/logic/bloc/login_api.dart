@@ -331,9 +331,10 @@ delete_like(int like_index, String token) async {
 
 post_survey(Surveys survey, String token, File? image) async {
   try {
-    int id = await uploadImage(image, survey, token);
-    log("$id");
+    Surveys return_survey;
+    return_survey = Surveys.fromJson(await uploadImage(image, survey, token));
     for (Questions i in survey.questions ?? []) {
+      Questions  question;
       var response_questions = await http.post(
         Uri.parse(
           "${Api.surveyApi}/questions/",
@@ -343,7 +344,7 @@ post_survey(Surveys survey, String token, File? image) async {
           "Authorization": "Token $token",
         },
         body: {
-          "survey": id.toString(),
+          "survey": return_survey.id.toString(),
           "text": i.text,
         },
       );
@@ -382,7 +383,7 @@ getNameSurname(String email) async {
   print(response.body);
   for (var item in jsonDecode(utf8.decode(response.bodyBytes))) {
     if (item["author"] == email) {
-      return [item["name"], item["surname"], item["image"]];
+      return [item["name"], item["surname"], item["image"],item["id"]];
     }
   }
 }
@@ -427,7 +428,7 @@ void main(List<String> args) async {
   // }
 }
 
-Future<int> uploadImage(File? file, Surveys survey, String token) async {
+Future uploadImage(File? file, Surveys survey, String token) async {
   FormData formData = FormData.fromMap({
     if (file != null) "image": await MultipartFile.fromFile(file.path),
     "title": survey.title,
@@ -442,5 +443,5 @@ Future<int> uploadImage(File? file, Surveys survey, String token) async {
   if (response.statusCode! >= 400) {
     throw UnimplementedError();
   }
-  return response.data['id'];
+  return response.data;
 }

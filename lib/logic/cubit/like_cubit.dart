@@ -43,19 +43,20 @@ class LikeCubit extends Cubit<LikeState> {
     }
   }
 
-  get_like(String token) async {
+  get_like(String token, String email) async {
     emit(LikeLoading());
     // Map<Surveys, int> ls = Map<Surveys,int>.from(state.favorites);
     Map<Surveys, int> ls = {};
     try {
       var data = await get_likes(token);
       log("data:$data");
-
       for (var m in data) {
         // if (!state.favorites.containsKey(m['survey'])) {
         //   ls[await get_survey_via_id(m['survey'], token)] = m['id'];
         // }
-        ls[await get_survey_via_id(m['survey'], token)] = m['id'];
+        if (data["author"] == email) {
+          ls[await get_survey_via_id(m['survey'], token)] = m['id'];
+        }
       }
       print(ls);
       if (data.isEmpty)
