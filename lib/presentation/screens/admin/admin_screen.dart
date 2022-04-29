@@ -71,13 +71,13 @@ class _AdminScreenState extends State<AdminScreen> {
           }),
           builder: (context, state) {
             return state is PostLoading
-                ? const Scaffold(
+                ? WillPopScope(  onWillPop:()async=>false,  child:Scaffold(
                     body: Center(
                       child: CircularProgressIndicator(
                         color: Colors.black,
                       ),
                     ),
-                  )
+                  ),)
                 : Builder(
                     builder: ((context) {
                       final formBloc = context.read<ListFieldFormBloc>();
@@ -104,7 +104,7 @@ class _AdminScreenState extends State<AdminScreen> {
                             ),
                           ),
                         ),
-                        child: Scaffold(
+                        child: WillPopScope(  onWillPop:()async=>false,  child:Scaffold(
                           resizeToAvoidBottomInset: false,
                           appBar: AppBar(
                             backgroundColor: Colors.transparent,
@@ -312,7 +312,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                       //         BlocProvider.of<AuthBloc>(context)
                                       //             .state
                                       //             .token);
-                                      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                      // WillPopScope(  onWillPop:()async=>false,  child:ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                       //   content: SingleChildScrollView(
                                       //       child: Text(state.successResponse!)),
                                       //   duration: const Duration(milliseconds: 1500),
@@ -396,7 +396,7 @@ class _AdminScreenState extends State<AdminScreen> {
                             ),
                           ),
                         ),
-                      );
+                      ));
                     }),
                   );
           },

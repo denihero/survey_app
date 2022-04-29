@@ -9,7 +9,7 @@ class UserResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+      child: WillPopScope(  onWillPop:()async=>false,  child:Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -53,6 +53,6 @@ class UserResultScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ));
   }
 }

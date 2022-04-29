@@ -9,19 +9,24 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-          appBar: const CustomAppbarWidget(),
-          body: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                Padding(
-                    padding: EdgeInsets.only(left: 15, top: 10, bottom: 40),
-                    child: CategoryChooseWidget()),
-                UserSurveyWidget(),
-              ],
-            ),
-          )),
-    );
+        child: WillPopScope(
+      onWillPop: () async => false,
+      child: WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+            appBar: const CustomAppbarWidget(),
+            body: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Padding(
+                      padding: EdgeInsets.only(left: 15, top: 10, bottom: 40),
+                      child: CategoryChooseWidget()),
+                  UserSurveyWidget(),
+                ],
+              ),
+            )),
+      ),
+    ));
   }
 }

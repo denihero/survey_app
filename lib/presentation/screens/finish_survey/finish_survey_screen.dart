@@ -15,7 +15,7 @@ class _FinishSurveyScreenState extends State<FinishSurveyScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+      child: WillPopScope(  onWillPop:()async=>false,  child:Scaffold(
         body: Column(
           children: [
             const SizedBox(
@@ -57,6 +57,6 @@ class _FinishSurveyScreenState extends State<FinishSurveyScreen> {
           ],
         ),
       ),
-    );
+    ));
   }
 }

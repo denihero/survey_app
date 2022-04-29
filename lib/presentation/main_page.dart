@@ -63,7 +63,7 @@ class _HomeScreenState extends State<MainPage> {
         }
         return isFirstRouteInitialTab;
       },
-      child: Scaffold(
+      child: WillPopScope(  onWillPop:()async=>false,  child:Scaffold(
           body: Navigator(
             onGenerateRoute: (setting) {
               if (setting.name == '/') {
@@ -155,7 +155,7 @@ class _HomeScreenState extends State<MainPage> {
               ),
             ),
           )),
-    );
+    ));
   }
 
   Widget _buildOffstageStateNavigator(String tabItem) {

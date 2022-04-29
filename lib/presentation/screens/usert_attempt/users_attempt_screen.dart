@@ -7,7 +7,7 @@ class UserAttemptScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(  onWillPop:()async=>false,  child:Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -47,6 +47,6 @@ class UserAttemptScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 }

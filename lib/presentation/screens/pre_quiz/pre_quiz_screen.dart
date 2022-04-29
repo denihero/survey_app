@@ -11,7 +11,7 @@ class PreQuizScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final survey = BlocProvider.of<SurveyCurrentCubit>(context).state;
-    return Scaffold(
+    return WillPopScope(  onWillPop:()async=>false,  child:Scaffold(
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 25),
@@ -86,6 +86,6 @@ class PreQuizScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ));
   }
 }

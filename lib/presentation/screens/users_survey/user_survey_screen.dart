@@ -14,7 +14,7 @@ class _UserSurveyScreenState extends State<UserSurveyScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
+        child: WillPopScope(  onWillPop:()async=>false,  child:Scaffold(
           appBar: const CustomAppbarWidget(),
           body: SingleChildScrollView(
             child: Column(
@@ -30,6 +30,6 @@ class _UserSurveyScreenState extends State<UserSurveyScreen> {
               ],
             ),
           ),
-        ));
+        )));
   }
 }

@@ -68,21 +68,18 @@ class _MyAppState extends State<MyApp> {
       ],
       child: Sizer(
         builder: ((context, orientation, deviceType) {
-          return WillPopScope(
-            onWillPop: ()async=>false,
-            child: MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: 'Flutter Demo',
-                theme: ThemeData(
-                  primarySwatch: Colors.blue,
-                  brightness: Brightness.light,
-                  buttonTheme: const ButtonThemeData(
-                    buttonColor: ORANGE,
-                  ),
+          return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                primarySwatch: Colors.blue,
+                brightness: Brightness.light,
+                buttonTheme: const ButtonThemeData(
+                  buttonColor: ORANGE,
                 ),
-                initialRoute: '/login',
-                routes: App.route),
-          );
+              ),
+              initialRoute: '/login',
+              routes: App.route);
         }),
       ),
     );

@@ -19,7 +19,7 @@ class LoginScreen extends StatelessWidget {
   var passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(  onWillPop:()async=>false,  child:Scaffold(
       resizeToAvoidBottomInset: false,
       body: BlocConsumer<AuthBloc, AuthState>(
         builder: (context, state) {
@@ -51,11 +51,10 @@ class LoginScreen extends StatelessWidget {
                   const SnackBar(
                     content: Text("Invalid email or password or Error"),
                   ),
-                )
-              : null;
+                ): null;
         },
       ),
-    );
+    ));
   }
 }
 

@@ -35,8 +35,7 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
             child: Text("Error..."),
           );
         } else if (state is SurveyCompleted) {
-
-    final surveys = BlocProvider.of<SurveyCubit>(context).state.surveys;
+          final surveys = BlocProvider.of<SurveyCubit>(context).state.surveys;
           return ListView.builder(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             // scrollDirection: Axis.vertical,

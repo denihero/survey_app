@@ -74,7 +74,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: ()async=>false,
-      child: Scaffold(
+      child: WillPopScope(  onWillPop:()async=>false,  child:Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -573,6 +573,6 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

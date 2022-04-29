@@ -16,7 +16,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final x = context.watch<LikeCubit>();
-    return Scaffold(
+    return WillPopScope(  onWillPop:()async=>false,  child:Scaffold(
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.only(top: 50, bottom: 0),
@@ -143,6 +143,6 @@ class ProfileScreen extends StatelessWidget {
           Navigator.of(context, rootNavigator: true).pushNamed('/admin');
         },
       ),
-    );
+    ));
   }
 }
