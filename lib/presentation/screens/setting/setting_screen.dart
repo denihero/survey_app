@@ -10,7 +10,7 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(  onWillPop:()async=>false,  child:Scaffold(
+    return Scaffold(
       backgroundColor: WHITE,
       appBar: AppBar(
         backgroundColor: WHITE,
@@ -109,6 +109,6 @@ class SettingScreen extends StatelessWidget {
           ),
         ),
       ),
-    ));
+    );
   }
 }
