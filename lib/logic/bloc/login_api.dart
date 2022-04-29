@@ -146,6 +146,7 @@ Stream<Surveys> get_surveys_via_category_stream_fixed(
     next_one = survey["next"];
     yield Surveys.fromJson(survey["results"][0]);
   }
+  yield Surveys(id: -100);
 }
 
 Stream<Surveys> get_surveys_Mine(String token, String email) async* {
@@ -178,6 +179,7 @@ Stream<Surveys> get_surveys_Mine(String token, String email) async* {
     next_one = survey["next"];
     yield Surveys.fromJson(survey["results"][0]);
   }
+  yield Surveys(id: -100);
 }
 
 Stream<Surveys> find_surveys_stream_fixed(String title, String token) async* {
@@ -211,6 +213,7 @@ Stream<Surveys> find_surveys_stream_fixed(String title, String token) async* {
     next_one = survey["next"];
     yield Surveys.fromJson(survey["results"][0]);
   }
+  yield Surveys(id: -100);
 }
 
 //not correct function
@@ -249,6 +252,7 @@ Stream<Surveys> get_surveys_stream_fixed(String token) async* {
     next_one = survey["next"];
     yield Surveys.fromJson(survey["results"][0]);
   }
+  yield Surveys(id: -100);
 }
 
 post_sumbissions(Submission sub, String token) async {
@@ -307,7 +311,6 @@ get_likes(String token, String email) async {
   );
   log("Likes:${response_surveys.body}");
   if (response_surveys.statusCode >= 400) throw UnimplementedError();
-  log(response_surveys.body);
   try {
     return jsonDecode(response_surveys.body);
   } catch (_) {
@@ -378,6 +381,17 @@ post_survey(Surveys survey, String token, File? image) async {
   }
 }
 
+getLastSurvey(String email, String token) async {
+  var response = await http.get(
+    Uri.parse("${Api.surveyApi}/surveys/?search=$email&ordering=-created_at"),
+    headers: {
+      "Authorization": "Token $token",
+    },
+  );
+  if (response.statusCode >= 400) return UnimplementedError();
+  return Surveys.fromJson(jsonDecode(utf8.decode(response.bodyBytes))["results"][0]);
+}
+
 getNameSurname(String email) async {
   var response = await http.get(Uri.parse("${Api.surveyApi}/info_users/"));
   print(response.body);
@@ -389,8 +403,7 @@ getNameSurname(String email) async {
 }
 
 void main(List<String> args) async {
-  print(await get_likes(
-      "c6041824a7c53fa5fa31f72ec9af92e626f62425", "ulukbekovbr@gmail.com"));
+  print(await getLastSurvey("ulukbekovbr@gmail.com","8e548b2896b3e1f73315792721575d83be6e800e"));
 }
 
 Future uploadImage(File? file, Surveys survey, String token) async {
@@ -409,4 +422,17 @@ Future uploadImage(File? file, Surveys survey, String token) async {
     throw UnimplementedError();
   }
   return response.data;
+}
+
+get_surveys(int begin) async {
+  List<Surveys> surveys = [];
+  for (var i = begin; i < begin + 5; i++) {
+    var response = await http.get(
+      Uri.parse("${Api.surveyApi}/surveys/?page=$i"),
+    );
+    // print(response.body);
+    surveys.add(Surveys.fromJson(
+        jsonDecode(utf8.decode(response.bodyBytes))["results"][0]));
+  }
+  return surveys;
 }

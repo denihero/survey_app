@@ -54,7 +54,6 @@ class LikeCubit extends Cubit<LikeState> {
         print("Yes:$i");
       }
       for (var m in data) {
-
         if (m["author"] == email) {
           log("Before");
           ls[await get_survey_via_id(m['survey'], token)] = m['id'];

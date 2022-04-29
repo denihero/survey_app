@@ -47,19 +47,22 @@ class FavouriteScreen extends StatelessWidget {
                     itemCount: state.favorites.length,
                     // reverse: true,
                     itemBuilder: (context, index) {
-                      final surveysMine = BlocProvider.of<SurveyCubit>(context)
-                          .state
-                          .surveys
-                          .where((element) =>
-                              element.author ==
-                              BlocProvider.of<AuthBloc>(context).state.email)
-                          .toList();
-                      List keys = state.favorites.keys.toList();
-                      return UserSurveyCard(
-                        survey: keys[index],
-                        is_saved: true,
-                        isMine: surveysMine.contains(keys[index]),
-                      );
+                        final surveysMine =
+                            BlocProvider.of<SurveyCubit>(context)
+                                .state
+                                .surveys
+                                .where((element) =>
+                                    element.author ==
+                                    BlocProvider.of<AuthBloc>(context)
+                                        .state
+                                        .email)
+                                .toList();
+                        List keys = state.favorites.keys.toList();
+                        return UserSurveyCard(
+                          survey: keys[index],
+                          is_saved: true,
+                          isMine: surveysMine.contains(keys[index]),
+                        );
                     },
                   ),
                 );

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/logic/cubit/like_cubit.dart';
@@ -19,7 +21,6 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
   @override
   Widget build(BuildContext context) {
     final x = context.watch<LikeCubit>();
-
     return BlocBuilder<SurveyCubit, SurveyState>(
       // buildWhen: (previous, current) {
       //   print(x.state.favorites.isNotEmpty);
@@ -40,32 +41,42 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             // scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
-            reverse: true,
-            itemCount: surveys.length,
-            
+            // reverse: true,
+            itemCount:
+                state.hasReachedMax ? surveys.length : surveys.length + 1,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              final surveysMine = BlocProvider.of<SurveyCubit>(context)
-                  .state
-                  .surveys
-                  .where((element) =>
-                      element.author ==
-                      BlocProvider.of<AuthBloc>(context).state.email)
-                  .toList();
-              bool isSaved = BlocProvider.of<LikeCubit>(context)
-                  .state
-                  .favorites
-                  .containsKey(surveys[index]);
-              return UserSurveyCard(
-                survey: surveys[index],
-                // isMine: isMine,
-                is_saved: isSaved,
-                isMine: surveysMine.contains(surveys[index]),
+              if (index < surveys.length) {
+                final surveysMine = BlocProvider.of<SurveyCubit>(context)
+                    .state
+                    .surveys
+                    .where((element) =>
+                        element.author ==
+                        BlocProvider.of<AuthBloc>(context).state.email)
+                    .toList();
+                bool isSaved = BlocProvider.of<LikeCubit>(context)
+                    .state
+                    .favorites
+                    .containsKey(surveys[index]);
+                return UserSurveyCard(
+                  survey: surveys[index],
+                  // isMine: isMine,
+                  is_saved: isSaved,
+                  isMine: surveysMine.contains(surveys[index]),
+                );
+              }
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.black,
+                ),
               );
             },
           );
         }
-        return const Center(child: CircularProgressIndicator(color: Colors.black,));
+        return const Center(
+            child: CircularProgressIndicator(
+          color: Colors.black,
+        ));
       },
     );
   }

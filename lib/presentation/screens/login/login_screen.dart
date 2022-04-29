@@ -19,42 +19,51 @@ class LoginScreen extends StatelessWidget {
   var passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(  onWillPop:()async=>false,  child:Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: BlocConsumer<AuthBloc, AuthState>(
-        builder: (context, state) {
-          print(state);
-          if (state is AuthInitial ||
-              state is AuthError ||
-              state is AuthRegisterSuccess) {
-            return LoginInitialWidget(
-              usernameController: usernameController,
-              passwordController: passwordController,
-            );
-          } else if (state is AuthSuccess || state.email != "") {
-            String token = BlocProvider.of<AuthBloc>(context).state.token;
-            BlocProvider.of<LikeCubit>(context).get_like(token,BlocProvider.of<AuthBloc>(context).state.email);
-            BlocProvider.of<CategoriesCubit>(context).get_category(token);
-            BlocProvider.of<SurveyCubit>(context).fetch_surveys_stream(token);
-            BlocProvider.of<SurveyMineCubit>(context).fetch(BlocProvider.of<AuthBloc>(context).state.email, token);
-            return const MainPage();
-          }
-          return const Center(child: CircularProgressIndicator(color: Colors.black,));
-        },
-        // buildWhen: (context, state) {
-        //   if (state is AuthSuccess) return true;
-        //   return state is AuthError ? false : true;
-        // },
-        listener: (context, state) {
-          state is AuthError
-              ? ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Invalid email or password or Error"),
-                  ),
-                ): null;
-        },
-      ),
-    ));
+    return WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: BlocConsumer<AuthBloc, AuthState>(
+            builder: (context, state) {
+              print(state);
+              if (state is AuthInitial ||
+                  state is AuthError ||
+                  state is AuthRegisterSuccess) {
+                return LoginInitialWidget(
+                  usernameController: usernameController,
+                  passwordController: passwordController,
+                );
+              } else if (state is AuthSuccess || state.email != "") {
+                String token = BlocProvider.of<AuthBloc>(context).state.token;
+                BlocProvider.of<LikeCubit>(context).get_like(
+                    token, BlocProvider.of<AuthBloc>(context).state.email);
+                BlocProvider.of<CategoriesCubit>(context).get_category(token);
+                BlocProvider.of<SurveyCubit>(context).fetch_surveys_stream(token);
+                // BlocProvider.of<SurveyCubit>(context).fetch();
+                BlocProvider.of<SurveyMineCubit>(context).fetch(
+                    BlocProvider.of<AuthBloc>(context).state.email, token);
+                return const MainPage();
+              }
+              return const Center(
+                  child: CircularProgressIndicator(
+                color: Colors.black,
+              ));
+            },
+            // buildWhen: (context, state) {
+            //   if (state is AuthSuccess) return true;
+            //   return state is AuthError ? false : true;
+            // },
+            listener: (context, state) {
+              state is AuthError
+                  ? ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Invalid email or password or Error"),
+                      ),
+                    )
+                  : null;
+            },
+          ),
+        ));
   }
 }
 

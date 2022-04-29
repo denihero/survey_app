@@ -9,11 +9,12 @@ part 'post_state.dart';
 
 class PostCubit extends Cubit<PostState> {
   PostCubit() : super(PostInitial());
-  postSurvey(Surveys survey, String token, File? file) async {
+  postSurvey(Surveys survey, String token, File? file,String email) async {
     emit(PostLoading());
     try {
       var result = await post_survey(survey, token, file);
-      emit(PostFinished());
+      Surveys last = await getLastSurvey(email, token);
+      emit(PostFinished(last));
     } catch (_) {
       emit(PostError());
     } finally {}

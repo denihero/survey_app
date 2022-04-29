@@ -10,11 +10,12 @@ abstract class PostState extends Equatable {
 class PostInitial extends PostState {}
 
 class PostLoading extends PostState {
-  PostLoading():super();
+  PostLoading() : super();
 }
 
 class PostFinished extends PostState {
-  PostFinished() : super();
+  Surveys last;
+  PostFinished(this.last) : super();
 }
 
 class PostError extends PostState {}

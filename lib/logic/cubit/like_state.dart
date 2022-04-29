@@ -1,15 +1,15 @@
 part of 'like_cubit.dart';
 
 abstract class LikeState extends Equatable {
+  final bool hasReachedMax;
   final Map<Surveys, int> favorites;
-  const LikeState(this.favorites);
-
+  const LikeState(this.favorites,{this.hasReachedMax=false});
   // factory LikeState.fromJson(List map) {
   //   return LikeSuccess(map.map((e) => Like.fromMap(e)).toList());
   // }
 
   @override
-  List<Object> get props => [favorites];
+  List<Object> get props => [favorites,hasReachedMax];
 }
 
 class LikeInitial extends LikeState {
@@ -25,7 +25,7 @@ class LikeError extends LikeState {
 }
 
 class LikeSuccess extends LikeState {
-  const LikeSuccess(Map<Surveys, int> favorites) : super(favorites);
+  const LikeSuccess(Map<Surveys, int> favorites,{has=false}) : super(favorites,hasReachedMax: has);
   @override
   String toString() {
     return "$favorites";

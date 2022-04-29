@@ -16,12 +16,14 @@ class SurveyCubit extends Cubit<SurveyState> {
   delete_survey(Surveys survey) {
     List<Surveys> copy_survey = state.surveys.toList();
     copy_survey.remove(survey);
-    if (copy_survey.isEmpty) emit(SurveyEmpty());
-    else emit(
-      SurveyCompleted(
-        surveys: copy_survey,
-      ),
-    );
+    if (copy_survey.isEmpty)
+      emit(SurveyEmpty());
+    else
+      emit(
+        SurveyCompleted(
+          surveys: copy_survey,
+        ),
+      );
   }
 
   change_chosen(String cat) {
@@ -37,13 +39,32 @@ class SurveyCubit extends Cubit<SurveyState> {
   //   );
   // }
 
+  add(Surveys survey){
+    List<Surveys> copy_survey = state.surveys.toList();
+    copy_survey.add(survey);
+    emit(SurveyCompleted(surveys: copy_survey,hasMax: true));
+  }
+
+  get_last(String email, String token) async {
+    if (state.surveys.contains(Surveys(id: 1))) {
+      state.surveys.removeLast();
+    }
+    var s = await getLastSurvey(email, token);
+    List<Surveys> copy_survey = state.surveys.toList();
+    copy_survey.add(s);
+    emit(SurveyCompleted(surveys: copy_survey,hasMax: true));
+  }
+
   fetch_surveys_stream(String token) async {
     emit(SurveyLoading());
     try {
       await get_surveys_stream_fixed(token).fold(
         Surveys(id: -1, title: "Hello"),
         ((previous, element) {
-          if (!state.surveys.contains(element) && !is_category_filter) {
+          if (element.id == -100) {
+            List<Surveys> copy_survey = state.surveys.toList();
+            emit(SurveyCompleted(surveys: copy_survey, hasMax: true));
+          } else if (!state.surveys.contains(element) && !is_category_filter) {
             final new_state = SurveyCompleted(surveys: [
               ...state.surveys,
               ...[element]
@@ -66,7 +87,10 @@ class SurveyCubit extends Cubit<SurveyState> {
       await get_surveys_via_category_stream_fixed(token, category).fold(
         Surveys(id: -1, title: "Hello"),
         ((previous, element) {
-          if (!state.surveys.contains(element)) {
+          if (element.id == -100) {
+            List<Surveys> copy_survey = state.surveys.toList();
+            emit(SurveyCompleted(surveys: copy_survey, hasMax: true));
+          } else if (!state.surveys.contains(element)) {
             final new_state = SurveyCompleted(surveys: [
               ...state.surveys,
               ...[element]
@@ -89,7 +113,10 @@ class SurveyCubit extends Cubit<SurveyState> {
       await find_surveys_stream_fixed(title, token).fold(
         Surveys(id: -1, title: "Hello"),
         ((previous, element) {
-          if (!state.surveys.contains(element)) {
+          if (element.id == -100) {
+            List<Surveys> copy_survey = state.surveys.toList();
+            emit(SurveyCompleted(surveys: copy_survey, hasMax: true));
+          } else if (!state.surveys.contains(element)) {
             final new_state = SurveyCompleted(surveys: [
               ...state.surveys,
               ...[element]
@@ -113,21 +140,32 @@ class SurveyMineCubit extends Cubit<SurveyMine> {
   delete_survey(Surveys survey) {
     List<Surveys> copy_survey = state.surveys.toList();
     copy_survey.remove(survey);
-    if (copy_survey.isEmpty) emit(SurveyMineEmpty());
-    else emit(
-      SurveyMineCompleted(
-        copy_survey,
-      ),
-    );
+    if (copy_survey.isEmpty)
+      emit(SurveyMineEmpty());
+    else
+      emit(
+        SurveyMineCompleted(
+          copy_survey,
+        ),
+      );
   }
 
+  add(Surveys survey){
+    List<Surveys> copy_survey = state.surveys.toList();
+    copy_survey.add(survey);
+    emit(SurveyMineCompleted(copy_survey,has: true));
+  }
+  
   fetch(String email, String token) async {
     emit(SurveyMineLoading());
     try {
       await get_surveys_Mine(token, email).fold(
         Surveys(id: -1, title: "Hello"),
         ((previous, element) {
-          if (!state.surveys.contains(element)) {
+          if (element.id == -100) {
+            List<Surveys> copy_survey = state.surveys.toList();
+            emit(SurveyMineCompleted(copy_survey, has: true));
+          } else if (!state.surveys.contains(element)) {
             final new_state = SurveyMineCompleted([
               ...state.surveys,
               ...[element]
