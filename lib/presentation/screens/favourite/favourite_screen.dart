@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:survey/core/constants/style.dart';
 import 'package:survey/logic/bloc/auth_bloc.dart';
 import 'package:survey/logic/cubit/like_cubit.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
@@ -17,14 +18,13 @@ class FavouriteScreen extends StatelessWidget {
         // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           //Title
-          const Center(
+          SizedBox(
+            height: 5,
+          ),
+          Center(
             child: Text(
               "Saved",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w600,
-                fontSize: 19,
-              ),
+              style: Monsterats_700_18_FONT_SIZE_BLACK,
             ),
           ),
           const SizedBox(
@@ -69,7 +69,9 @@ class FavouriteScreen extends StatelessWidget {
                 );
               }
               return const Center(
-                child: CircularProgressIndicator(color: Colors.black,),
+                child: CircularProgressIndicator(
+                  color: Colors.black,
+                ),
               );
             },
           ),

@@ -6,6 +6,7 @@ import '../../../core/constants/color.dart';
 import '../../../core/constants/style.dart';
 import '../../../logic/bloc/auth_bloc.dart';
 
+import '../../../logic/cubit/cubit/post_cubit.dart';
 import '../../../logic/cubit/like_cubit.dart';
 import 'widgets/profileicon.dart';
 
@@ -34,7 +35,8 @@ class ProfileScreen extends StatelessWidget {
                         width: 95,
                         child: Text(
                           "Profile",
-                          style: Monsterats_600_18_FONT_SIZE_BLACK,
+                          style: Monsterats_600_18_FONT_SIZE_BLACK.copyWith(
+                              fontSize: 20),
                           textAlign: TextAlign.right,
                         ),
                       ),
@@ -119,7 +121,10 @@ class ProfileScreen extends StatelessWidget {
                             );
                           });
                     }
-                    return const Center(child: CircularProgressIndicator(color: Colors.black,));
+                    return const Center(
+                        child: CircularProgressIndicator(
+                      color: Colors.black,
+                    ));
                   },
                 ),
               ],

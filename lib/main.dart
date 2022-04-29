@@ -27,9 +27,14 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -63,18 +68,21 @@ class MyApp extends StatelessWidget {
       ],
       child: Sizer(
         builder: ((context, orientation, deviceType) {
-          return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Flutter Demo',
-              theme: ThemeData(
-                primarySwatch: Colors.blue,
-                brightness: Brightness.light,
-                buttonTheme: const ButtonThemeData(
-                  buttonColor: ORANGE,
+          return WillPopScope(
+            onWillPop: ()async=>false,
+            child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Flutter Demo',
+                theme: ThemeData(
+                  primarySwatch: Colors.blue,
+                  brightness: Brightness.light,
+                  buttonTheme: const ButtonThemeData(
+                    buttonColor: ORANGE,
+                  ),
                 ),
-              ),
-              initialRoute: '/login',
-              routes: App.route);
+                initialRoute: '/login',
+                routes: App.route),
+          );
         }),
       ),
     );

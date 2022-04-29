@@ -14,10 +14,13 @@ class PostCubit extends Cubit<PostState> {
     try {
       var result = await post_survey(survey, token, file);
       emit(PostFinished());
-      return result;
     } catch (_) {
       emit(PostError());
-    }
+    } finally {}
+  }
+
+  changeToInitial() {
+    emit(PostInitial());
   }
 
   @override
