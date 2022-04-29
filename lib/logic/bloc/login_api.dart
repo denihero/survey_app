@@ -115,11 +115,10 @@ get_survey_via_id(int id, String token) async {
   );
 }
 
-
-
-Stream<Surveys> get_surveys_via_category_stream_fixed(String token,String category) async* {
-  var response =
-      await http.get(Uri.parse("${Api.surveyApi}/surveys/?category=$category"), headers: {
+Stream<Surveys> get_surveys_via_category_stream_fixed(
+    String token, String category) async* {
+  var response = await http
+      .get(Uri.parse("${Api.surveyApi}/surveys/?category=$category"), headers: {
     "Authorization": "Token $token",
   });
 
@@ -149,9 +148,9 @@ Stream<Surveys> get_surveys_via_category_stream_fixed(String token,String catego
   }
 }
 
-Stream<Surveys> get_surveys_Mine(String token,String email) async* {
-  var response =
-      await http.get(Uri.parse("${Api.surveyApi}/surveys/?search=$email"), headers: {
+Stream<Surveys> get_surveys_Mine(String token, String email) async* {
+  var response = await http
+      .get(Uri.parse("${Api.surveyApi}/surveys/?search=$email"), headers: {
     "Authorization": "Token $token",
   });
 
@@ -181,11 +180,9 @@ Stream<Surveys> get_surveys_Mine(String token,String email) async* {
   }
 }
 
-
-
-Stream<Surveys> find_surveys_stream_fixed(String title,String token) async* {
-  var response =
-      await http.get(Uri.parse("${Api.surveyApi}/surveys/?search=$title"), headers: {
+Stream<Surveys> find_surveys_stream_fixed(String title, String token) async* {
+  var response = await http
+      .get(Uri.parse("${Api.surveyApi}/surveys/?search=$title"), headers: {
     "Authorization": "Token $token",
   });
   print(response.body);
@@ -214,9 +211,7 @@ Stream<Surveys> find_surveys_stream_fixed(String title,String token) async* {
     next_one = survey["next"];
     yield Surveys.fromJson(survey["results"][0]);
   }
-  
 }
-
 
 //not correct function
 
@@ -254,7 +249,6 @@ Stream<Surveys> get_surveys_stream_fixed(String token) async* {
     next_one = survey["next"];
     yield Surveys.fromJson(survey["results"][0]);
   }
-  
 }
 
 post_sumbissions(Submission sub, String token) async {
@@ -394,7 +388,38 @@ getNameSurname(String email) async {
 }
 
 void main(List<String> args) async {
-  await get_likes("616de61914e2ee9c30cb3a2e779c9a31d6b6f2f3");
+  await post_survey(
+      Surveys(
+          id: -1,
+          title: "Baitur Survey",
+          description: "Yes",
+          category: "Sport",
+          questions: [
+            Questions(
+              text: "How to play football?",
+              choices: [
+                Choice(text: "Yes"),
+                Choice(text: "No"),
+              ],
+            ),
+            Questions(
+              text: "How to play football?",
+              choices: [
+                Choice(text: "Yes"),
+                Choice(text: "No"),
+              ],
+            ),
+            Questions(
+              text: "How to play football?",
+              choices: [
+                Choice(text: "Yes"),
+                Choice(text: "No"),
+              ],
+            ),
+          ]),
+      "8e548b2896b3e1f73315792721575d83be6e800e",
+      null);
+  // await get_likes("616de61914e2ee9c30cb3a2e779c9a31d6b6f2f3");
   // try {
   //   await uploadImage(null, Surveys(id: -1));
   // } catch (_) {

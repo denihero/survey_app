@@ -160,7 +160,9 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
             builder: (context, state) {
               if (state is AuthLoading) {
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    color: Colors.black,
+                  ),
                 );
               }
               return Column(

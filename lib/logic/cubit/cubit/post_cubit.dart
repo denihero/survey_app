@@ -9,10 +9,19 @@ part 'post_state.dart';
 
 class PostCubit extends Cubit<PostState> {
   PostCubit() : super(PostInitial());
-  postSurvey(Surveys survey, String token, File? file) {
+  postSurvey(Surveys survey, String token, File? file) async {
     emit(PostLoading());
-    sleep(Duration(seconds: 1));
-    post_survey(survey, token, file);
-    emit(PostFinished());
+    try {
+      await post_survey(survey, token, file);
+      emit(PostFinished());
+    } catch (_) {
+      emit(PostError());
+    }
+  }
+
+  @override
+  void onChange(Change<PostState> change) {
+    print(change);
+    super.onChange(change);
   }
 }

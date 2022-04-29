@@ -66,7 +66,7 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
             },
           );
         }
-        return const Center(child: CircularProgressIndicator());
+        return const Center(child: CircularProgressIndicator(color: Colors.black,));
       },
     );
   }

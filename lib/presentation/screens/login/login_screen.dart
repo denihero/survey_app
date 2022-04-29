@@ -39,7 +39,7 @@ class LoginScreen extends StatelessWidget {
             BlocProvider.of<SurveyMineCubit>(context).fetch(BlocProvider.of<AuthBloc>(context).state.email, token);
             return const MainPage();
           }
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator(color: Colors.black,));
         },
         // buildWhen: (context, state) {
         //   if (state is AuthSuccess) return true;

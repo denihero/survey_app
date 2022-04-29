@@ -59,7 +59,7 @@ class ProfileIcon extends StatelessWidget {
                     child: CachedNetworkImage(
                       progressIndicatorBuilder: (context, url, progress) {
                         return const Center(
-                          child: CircularProgressIndicator(),
+                          child: CircularProgressIndicator(color: Colors.black,),
                         );
                       },
                       imageUrl: image,

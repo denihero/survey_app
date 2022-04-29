@@ -12,6 +12,7 @@ import 'package:survey/logic/bloc/login_api.dart';
 import 'package:survey/logic/cubit/categories_cubit.dart';
 import 'package:survey/logic/cubit/cubit/post_cubit.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
+import 'package:survey/presentation/main_page.dart';
 import 'package:survey/presentation/screens/admin/admin_bloc.dart';
 import 'package:survey/presentation/screens/home/home_screen.dart';
 
@@ -59,86 +60,58 @@ class _AdminScreenState extends State<AdminScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ListFieldFormBloc(),
-      child: BlocBuilder<PostCubit, PostState>(
-        builder: (context, state) {
-          return state is PostLoading
-              ? const Scaffold(
-                  body: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                )
-              : Builder(
-                  builder: ((context) {
-                    final formBloc = context.read<ListFieldFormBloc>();
-                    final categoriesMenuItems = context
-                        .read<CategoriesCubit>()
-                        .state
-                        .categories
-                        .keys
-                        .toList();
-                    final _dropDownMenuItems = categoriesMenuItems.map(
-                      (String e) => DropdownMenuItem<String>(
-                        child: Text(e),
-                        value: e,
+        create: (context) => ListFieldFormBloc(),
+        child: BlocBuilder<PostCubit, PostState>(
+          builder: (context, state) {
+            return state is PostLoading
+                ? const Scaffold(
+                    body: Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.black,
                       ),
-                    );
-                    return Theme(
-                      data: Theme.of(context).copyWith(
-                        buttonTheme: const ButtonThemeData(
-                          buttonColor: ORANGE,
+                    ),
+                  )
+                : state is PostFinished? const MainPage():Builder(
+                    builder: ((context) {
+                      final formBloc = context.read<ListFieldFormBloc>();
+                      final categoriesMenuItems = context
+                          .read<CategoriesCubit>()
+                          .state
+                          .categories
+                          .keys
+                          .toList();
+                      final _dropDownMenuItems = categoriesMenuItems.map(
+                        (String e) => DropdownMenuItem<String>(
+                          child: Text(e),
+                          value: e,
                         ),
-                        inputDecorationTheme: InputDecorationTheme(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
+                      );
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          buttonTheme: const ButtonThemeData(
+                            buttonColor: ORANGE,
                           ),
-                        ),
-                      ),
-                      child: Scaffold(
-                        resizeToAvoidBottomInset: false,
-                        appBar: AppBar(
-                          backgroundColor: Colors.transparent,
-                          elevation: 0,
-                          leading: Padding(
-                            padding: const EdgeInsets.only(top: 10, left: 10),
-                            child: BackButton(
-                              color: BLACK,
-                              onPressed: () => Navigator.pop(context),
+                          inputDecorationTheme: InputDecorationTheme(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
                             ),
                           ),
                         ),
-                        body: SafeArea(
-                          child: SingleChildScrollView(
-                            child: BlocListener<PostCubit, PostState>(
-                              listener: (context, state) {
-                                print(state);
-                                if (state is PostFinished) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      title: const Text("Your survey is added"),
-                                      content:
-                                          const Text("Return to home screen"),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context)
-                                                .pushNamedAndRemoveUntil(
-                                                    "/", (route) => false);
-                                          },
-                                          child: const Text(
-                                            "OK",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }
-                              },
+                        child: Scaffold(
+                          resizeToAvoidBottomInset: false,
+                          appBar: AppBar(
+                            backgroundColor: Colors.transparent,
+                            elevation: 0,
+                            leading: Padding(
+                              padding: const EdgeInsets.only(top: 10, left: 10),
+                              child: BackButton(
+                                color: BLACK,
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            ),
+                          ),
+                          body: SafeArea(
+                            child: SingleChildScrollView(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -277,6 +250,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                   FormBlocListener<ListFieldFormBloc, String,
                                       String>(
                                     onSubmitting: (context, state) {
+                                      print(state);
                                       LoadingDialog.show(context);
                                     },
                                     onSuccess: (context, state) async {
@@ -304,7 +278,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                         category: categorySelectedVal,
                                         questions: questions,
                                       );
-                                      BlocProvider.of<PostCubit>(context)
+                                      await BlocProvider.of<PostCubit>(context)
                                           .postSurvey(
                                               survey,
                                               BlocProvider.of<AuthBloc>(context)
@@ -323,7 +297,14 @@ class _AdminScreenState extends State<AdminScreen> {
                                               BlocProvider.of<AuthBloc>(context)
                                                   .state
                                                   .token);
-
+                                      BlocProvider.of<SurveyMineCubit>(context)
+                                          .fetch(
+                                              BlocProvider.of<AuthBloc>(context)
+                                                  .state
+                                                  .email,
+                                              BlocProvider.of<AuthBloc>(context)
+                                                  .state
+                                                  .token);
                                       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                       //   content: SingleChildScrollView(
                                       //       child: Text(state.successResponse!)),
@@ -390,30 +371,28 @@ class _AdminScreenState extends State<AdminScreen> {
                               ),
                             ),
                           ),
-                        ),
-                        floatingActionButton: FloatingActionButton.extended(
-                          backgroundColor: ORANGE,
-                          heroTag: 'admin',
-                          // onPressed: () => Navigator.pushNamed(context, '/create_question'),
-                          onPressed: () {
-                            formBloc.submit();
-                          },
-                          label: Row(
-                            children: const [
-                              Icon(Icons.done),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text('Submit'),
-                            ],
+                          floatingActionButton: FloatingActionButton.extended(
+                            backgroundColor: ORANGE,
+                            heroTag: 'admin',
+                            // onPressed: () => Navigator.pushNamed(context, '/create_question'),
+                            onPressed: () {
+                              formBloc.submit();
+                            },
+                            label: Row(
+                              children: const [
+                                Icon(Icons.done),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text('Submit'),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  }),
-                );
-        },
-      ),
-    );
+                      );
+                    }),
+                  );
+          },
+        ));
   }
 }

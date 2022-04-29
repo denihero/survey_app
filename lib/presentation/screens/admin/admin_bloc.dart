@@ -165,7 +165,7 @@ class LoadingDialog extends StatelessWidget {
             width: 80,
             height: 80,
             padding: const EdgeInsets.all(12.0),
-            child: const CircularProgressIndicator(),
+            child: const CircularProgressIndicator(color: Colors.black,),
           ),
         ),
       ),

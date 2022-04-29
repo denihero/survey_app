@@ -8,5 +8,13 @@ abstract class PostState extends Equatable {
 }
 
 class PostInitial extends PostState {}
-class PostLoading extends PostState {}
-class PostFinished extends PostState {}
+
+class PostLoading extends PostState {
+  PostLoading():super();
+}
+
+class PostFinished extends PostState {
+  PostFinished() : super();
+}
+
+class PostError extends PostState {}

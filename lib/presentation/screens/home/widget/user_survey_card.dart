@@ -49,7 +49,7 @@ class _UserSurveyCardState extends State<UserSurveyCard> {
             leading: widget.survey.image == null
                 ? const FittedBox(child: Placeholder())
                 : CachedNetworkImage(
-                  progressIndicatorBuilder: (context, url, progress) => const Center(child: CircularProgressIndicator()),
+                  progressIndicatorBuilder: (context, url, progress) => const Center(child: CircularProgressIndicator(color: Colors.black,)),
                     imageUrl: widget.survey.image ?? "",
                     fit: BoxFit.cover,
                     height: 60,
