@@ -42,9 +42,12 @@ class _ProfileEditIconState extends State<ProfileEditIcon> {
             clipBehavior: Clip.hardEdge,
             children: [
               image == null || image.isEmpty
-                  ? ProfileIcon(
-                      is_settings: true,
-                    )
+                  ? GestureDetector(
+                    onTap: ()=>Navigator.of(context).pushNamed("/view_change_image"),
+                    child: ProfileIcon(
+                        is_settings: true,
+                      ),
+                  )
                   : GestureDetector(
                       onTap: () {
                         Navigator.of(context).pushNamed("/view_change_image");
@@ -158,9 +161,6 @@ class _ChangeImageState extends State<ChangeImage> {
                       ),
                       onPressed: () async {
                         var val = BlocProvider.of<AuthBloc>(context).state;
-                        setState(() {
-                          is_loading = true;
-                        });
                         if (imageFile != null) {
                           BlocProvider.of<AuthBloc>(context)
                               .add(AuthChangeInfo(imageFile));
@@ -174,13 +174,12 @@ class _ChangeImageState extends State<ChangeImage> {
                     ),
                     elevation: 0,
                   ),
-                  body: !is_loading
-                      ? Center(
+                  body: image==null||image.isEmpty&&imageFile==null?Center(child: Text("None",style: Monsterats_600_24_FONT_SIZE_BLACK,),):Center(
                           child: imageFile == null
-                              ? Padding(
+                              ? image==null||image.isEmpty?Center(child:Text("None",style:Monsterats_600_24_FONT_SIZE_BLACK)):Padding(
                                   padding: const EdgeInsets.only(bottom: 60),
                                   child: CachedNetworkImage(
-                                    imageUrl: image ?? "",
+                                    imageUrl: image ??"",
                                     width: double.infinity,
                                     fit: BoxFit.fitWidth,
                                   ),
@@ -194,9 +193,6 @@ class _ChangeImageState extends State<ChangeImage> {
                                   ),
                                 ),
                         )
-                      : const Center(
-                          child: CircularProgressIndicator(),
-                        ),
                 ));
       },
     );

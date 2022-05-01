@@ -200,6 +200,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                                   textCapitalization: TextCapitalization.none,
                                   keyboardType: TextInputType.emailAddress,
                                   textAlignVertical: TextAlignVertical.bottom,
+                                  autocorrect: false,
                                   cursorHeight: 18,
                                   style: TextStyle(fontSize: 14.sp),
                                   controller: widget.usernameController,
