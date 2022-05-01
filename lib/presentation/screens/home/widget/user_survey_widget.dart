@@ -2,10 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:survey/logic/cubit/like_cubit.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
+import 'package:survey/presentation/screens/home/widget/shimmer_user_card.dart';
 import 'package:survey/presentation/screens/home/widget/user_survey_card.dart';
-
 import '../../../../logic/bloc/auth_bloc.dart';
 
 class UserSurveyWidget extends StatefulWidget {
@@ -65,19 +66,24 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
                   isMine: surveysMine.contains(surveys[index]),
                 );
               }
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.black,
-                ),
-              );
+              return ListView.builder(
+                  itemCount: state.hasReachedMax ? surveys.length : surveys.length - 1,
+                  shrinkWrap: true,
+                  itemBuilder: (context,index){
+                    return const ShimmerUserCard();
+                  });
             },
           );
         }
-        return const Center(
-            child: CircularProgressIndicator(
-          color: Colors.black,
-        ));
+        final surveys = BlocProvider.of<SurveyCubit>(context).state.surveys;
+        return ListView.builder(
+            itemCount: state.hasReachedMax ? surveys.length : surveys.length,
+            shrinkWrap: true,
+            itemBuilder: (context,index){
+              return const ShimmerUserCard();
+            });
       },
     );
   }
+
 }
