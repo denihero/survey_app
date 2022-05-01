@@ -8,15 +8,12 @@ import 'package:survey/core/constants/color.dart';
 import 'package:survey/core/constants/style.dart';
 import 'package:survey/core/models/survey.dart';
 import 'package:survey/logic/bloc/auth_bloc.dart';
-import 'package:survey/logic/bloc/login_api.dart';
 import 'package:survey/logic/cubit/categories_cubit.dart';
 import 'package:survey/logic/cubit/cubit/post_cubit.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
-import 'package:survey/main.dart';
-import 'package:survey/presentation/main_page.dart';
 import 'package:survey/presentation/screens/admin/admin_bloc.dart';
-import 'package:survey/presentation/screens/home/home_screen.dart';
-import 'package:survey/presentation/screens/login/login_screen.dart';
+import 'package:dotted_border/dotted_border.dart';
+
 
 class AdminScreen extends StatefulWidget {
   const AdminScreen({Key? key}) : super(key: key);
@@ -72,7 +69,6 @@ class _AdminScreenState extends State<AdminScreen> {
               // );
               BlocProvider.of<SurveyCubit>(context).add(state.last);
               BlocProvider.of<SurveyMineCubit>(context).add(state.last);
-              
 
               Navigator.of(context).pop();
             }
@@ -161,37 +157,31 @@ class _AdminScreenState extends State<AdminScreen> {
                                                       ),
                                                     ),
                                                   )
-                                                : Stack(
-                                                    children: [
-                                                      Container(
-                                                        margin: const EdgeInsets
-                                                            .only(left: 15),
-                                                        height: 100,
-                                                        width: 100,
-                                                        decoration:
-                                                            const BoxDecoration(
-                                                          color: BLUE,
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius
-                                                                      .circular(
-                                                                          12)),
-                                                        ),
-                                                      ),
-                                                      const Positioned(
-                                                          top: 40,
-                                                          left: 22,
+                                                : Padding(
+                                                  padding: const EdgeInsets.only(left: 15),
+                                                  child: DottedBorder(
+                                                      borderType: BorderType.RRect,
+                                                      radius: const Radius.circular(12),
+                                                      padding: const EdgeInsets.all(2),
+                                                    child: ClipRRect(
+                                                    borderRadius: const BorderRadius.all(Radius.circular(12),
+                                                    ),
+                                                    child: Container(
+                                                      width: 100,
+                                                      height: 100,
+                                                      color: Colors.white,
+                                                      child: const Center(
                                                           child: Text(
-                                                            'Upload Image',
-                                                            style: TextStyle(
-                                                                fontSize: 13,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: WHITE),
-                                                          ))
-                                                    ],
-                                                  ),
+                                                              'Upload Image',
+                                                              style: TextStyle(
+                                                                fontSize: 16
+                                                              ),
+                                                          )
+                                                      ),
+                                                    ),
+                                                  )
+                                            ),
+                                                )
                                           ),
                                           Expanded(
                                             child: Column(
