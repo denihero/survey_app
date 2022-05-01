@@ -64,7 +64,7 @@ class PreQuizScreen extends StatelessWidget {
                   //description of the course
                   Text(
                     survey?.description ?? "Description",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w400,
                       fontSize: 16,
@@ -77,7 +77,7 @@ class PreQuizScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => QuizScreen()),
+                        MaterialPageRoute(builder: (context) => const QuizScreen()),
                       );
                     },
                     child: Container(
@@ -98,7 +98,7 @@ class PreQuizScreen extends StatelessWidget {
                     ),
                   ),
                   const Expanded(
-                    child: const SizedBox(
+                    child: SizedBox(
                         // color: WHITE,
                         ),
                   ),
