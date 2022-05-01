@@ -1,10 +1,10 @@
 part of 'auth_bloc.dart';
 
 abstract class AuthState extends Equatable {
-  final email;
-  final token;
-  final name;
-  final surname;
+  final String email;
+  final String token;
+  final String name;
+  final String surname;
   final String? image;
   const AuthState( 
       {this.name = "", this.surname = "", this.email = "", this.token = "",this.image});
@@ -16,7 +16,7 @@ abstract class AuthState extends Equatable {
         map["token"] as String,
         map["name"] as String,
         map["surname"] as String,
-        map["image"]??"",
+        map["image"] as String,
       );
     }
     return AuthInitial(
@@ -33,7 +33,7 @@ abstract class AuthState extends Equatable {
 }
 
 class AuthInitial extends AuthState {
-  const AuthInitial({email = "", token = ""})
+  const AuthInitial({String email = "", String token = ""})
       : super(email: email, token: token);
 
   @override
@@ -44,7 +44,7 @@ class AuthInitial extends AuthState {
         map["token"] as String,
         map["name"] as String,
         map["surname"] as String,
-        map["image"] ??"",
+        map["image"] as String, 
       );
     }
     return AuthInitial(
@@ -54,7 +54,7 @@ class AuthInitial extends AuthState {
 }
 
 class AuthLoading extends AuthState {
-  const AuthLoading(e) : super(email: e);
+  const AuthLoading(String e) : super(email: e);
   @override
   fromMap(Map<String, dynamic> map) {
     return AuthLoading(
@@ -64,7 +64,7 @@ class AuthLoading extends AuthState {
 }
 
 class AuthSuccess extends AuthState {
-  const AuthSuccess(e, token, name, surname,String? image)
+  const AuthSuccess(String e, String token, String name, String surname,String? image)
       : super(email: e, token: token, name: name, surname: surname,image: image);
   @override
   fromMap(Map<String, dynamic> map) {
@@ -73,7 +73,7 @@ class AuthSuccess extends AuthState {
       map["token"] as String,
       map["name"] as String,
       map["surname"] as String,
-      map["image"]??"",
+      map["image"] as String,
     );
   }
 
@@ -84,7 +84,7 @@ class AuthSuccess extends AuthState {
 }
 
 class AuthRegisterSuccess extends AuthState {
-  const AuthRegisterSuccess({e = ""}) : super(email: e);
+  const AuthRegisterSuccess({String e = ""}) : super(email: e);
   @override
   fromMap(Map<String, dynamic> map) {
     return AuthRegisterSuccess(
@@ -94,7 +94,7 @@ class AuthRegisterSuccess extends AuthState {
 }
 
 class AuthError extends AuthState {
-  const AuthError({e = ""}) : super(email: e);
+  const AuthError({String e = ""}) : super(email: e);
   @override
   fromMap(Map<String, dynamic> map) {
     return AuthError(
@@ -104,7 +104,7 @@ class AuthError extends AuthState {
 }
 
 class AuthConfirmPasswordSucces extends AuthState {
-  const AuthConfirmPasswordSucces({e = ""}) : super(email: e);
+  const AuthConfirmPasswordSucces({String e = ""}) : super(email: e);
   @override
   fromMap(Map<String, dynamic> map) {
     return AuthError(

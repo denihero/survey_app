@@ -63,11 +63,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
       emit(const AuthLoading(""));
       print("Login");
       try {
-        var r = await login(event.username, event.password);
+        String r = await login(event.username, event.password);
         print(r);
         if (r.isNotEmpty) {
-          var email = event.username;
-          var nameSurname = await getNameSurname(event.username);
+          String email = event.username;
+          String nameSurname = await getNameSurname(event.username);
           print("NAme and surname:");
           print(nameSurname);
           emit(

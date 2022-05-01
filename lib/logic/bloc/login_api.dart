@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import '../../core/constants/api.dart';
 import '../../core/models/survey.dart';
 
+
 Future<String> login(String username, String password) async {
   var response = await http.post(
     Uri.parse("${Api.surveyApi}/account/login/"),
@@ -19,8 +20,7 @@ Future<String> login(String username, String password) async {
   );
 
   if (response.statusCode >= 400) throw UnimplementedError();
-  print(response.body.toString());
-  if (response.statusCode == 201 || response.statusCode == 200) {
+  else if (response.statusCode == 201 || response.statusCode == 200) {
     return jsonDecode(response.body.toString())["token"];
   }
   return "";
@@ -35,8 +35,6 @@ sendNameSurname(String name, String surname, String token, File? file) async {
   Dio dio = Dio();
   dio.options.headers['Authorization'] = "Token $token";
   var response = await dio.post("${Api.surveyApi}/info_users/", data: formData);
-  print("Send name username");
-  print(response.extra);
   if (response.statusCode! >= 400) {
     throw UnimplementedError();
   }
@@ -79,7 +77,6 @@ Future<bool> confirmPassword(String username, String code) async {
       "code": code,
     },
   );
-  print(response.body);
   if (response.statusCode >= 400) throw UnimplementedError();
   if (response.statusCode == 201 || response.statusCode == 200) {
     return true;
@@ -92,8 +89,6 @@ Future<Map<String, String>> get_categories(String token) async {
       await http.get(Uri.parse("${Api.surveyApi}/categories/"), headers: {
     "Authorization": "Token be4f6b0ae5a8b387b98a96ddb5a33ab0ba8b48b1",
   });
-  print("token:$token");
-  print("Response :${response.body}");
   if (response.statusCode >= 400) {
     throw UnimplementedError();
   }
@@ -107,7 +102,6 @@ get_survey_via_id(int id, String token) async {
       await http.get(Uri.parse("${Api.surveyApi}/surveys/$id/"), headers: {
     "Authorization": "Token $token",
   });
-  print(response.body);
   return Surveys.fromJson(
     jsonDecode(
       response.body.toString(),
@@ -389,10 +383,11 @@ getLastSurvey(String email, String token) async {
     },
   );
   if (response.statusCode >= 400) return UnimplementedError();
-  return Surveys.fromJson(jsonDecode(utf8.decode(response.bodyBytes))["results"][0]);
+  return Surveys.fromJson(
+      jsonDecode(utf8.decode(response.bodyBytes))["results"][0]);
 }
 
-getNameSurname(String email) async {
+ getNameSurname(String email) async {
   var response = await http.get(Uri.parse("${Api.surveyApi}/info_users/"));
   print(response.body);
   for (var item in jsonDecode(utf8.decode(response.bodyBytes))) {
@@ -403,7 +398,8 @@ getNameSurname(String email) async {
 }
 
 void main(List<String> args) async {
-  print(await getLastSurvey("ulukbekovbr@gmail.com","8e548b2896b3e1f73315792721575d83be6e800e"));
+  print(await getLastSurvey(
+      "ulukbekovbr@gmail.com", "8e548b2896b3e1f73315792721575d83be6e800e"));
 }
 
 Future uploadImage(File? file, Surveys survey, String token) async {
