@@ -18,11 +18,11 @@ class Categoriess extends Cat {
 class CategoriesInitial extends Cat {
   @override
   // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }
 
 class CategoriesError extends Cat {
   @override
   // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }

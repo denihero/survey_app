@@ -9,12 +9,10 @@ part 'categories_state.dart';
 class CategoriesCubit extends Cubit<Cat> {
   CategoriesCubit() : super(CategoriesInitial());
   get_category(String token) async {
-    print("Get categories");
+    log("Category:${state.categories}");
     try {
       var v = await get_categories(token);
-      print("Categories");
-      print(v);
-      log("$v");
+      log("Category 1:$v");
       emit(Categoriess(v));
     } catch (e) {
       print(e);

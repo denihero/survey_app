@@ -1,5 +1,7 @@
 
-class Categories {
+import 'package:equatable/equatable.dart';
+
+class Categories extends Equatable {
   final Map<String,String> categories;
 
   factory Categories.fromJson(List<dynamic> json) {
@@ -11,4 +13,8 @@ class Categories {
     return Categories(x);
   }
   Categories(this.categories);
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [categories];
 }
