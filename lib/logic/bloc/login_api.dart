@@ -221,7 +221,6 @@ Stream<Surveys> get_surveys_stream_fixed(String token) async* {
       await http.get(Uri.parse("${Api.surveyApi}/surveys/"), headers: {
     "Authorization": "Token $token",
   });
-  print(response.body);
 
   if (jsonDecode(response.body.toString())["count"] == 0) throw Empty();
 

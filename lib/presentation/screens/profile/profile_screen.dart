@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
+import 'package:survey/presentation/screens/home/widget/shimmer_user_card.dart';
 import 'package:survey/presentation/screens/home/widget/user_survey_card.dart';
 import '../../../core/constants/color.dart';
 import '../../../core/constants/style.dart';
@@ -136,11 +137,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     is_saved: isSaved,
                                   );
                                 }
-                                return const Center(
-                                  child: CircularProgressIndicator(
-                                    color: Colors.black,
-                                  ),
-                                );
+                                return const ShimmerUserCard();
+                                // return const Center(
+                                //   child: CircularProgressIndicator(
+                                //     color: Colors.black,
+                                //   ),
+                                // );
                               });
                         }
                         return const Center(

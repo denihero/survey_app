@@ -28,8 +28,12 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
       //   return x.state.favorites.isNotEmpty;
       // },
       builder: (context, state) {
-        if(state is SurveyLoading){
-          return const Center(child: CircularProgressIndicator(color: Colors.black,),);
+        if (state is SurveyLoading) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.black,
+            ),
+          );
         }
         if (state is SurveyEmpty) {
           return const Center(
@@ -69,12 +73,14 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
                   isMine: surveysMine.contains(surveys[index]),
                 );
               }
-              return ListView.builder(
-                  itemCount: state.hasReachedMax ? surveys.length : surveys.length - 1,
-                  shrinkWrap: true,
-                  itemBuilder: (context,index){
-                    return const ShimmerUserCard();
-                  });
+              return const ShimmerUserCard();
+              // return ListView.builder(
+              //     itemCount:
+              //         state.hasReachedMax ? surveys.length : surveys.length - 1,
+              //     shrinkWrap: true,
+              //     itemBuilder: (context, index) {
+              //       return const ShimmerUserCard();
+              //     });
             },
           );
         }
@@ -82,11 +88,10 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
         return ListView.builder(
             itemCount: state.hasReachedMax ? surveys.length : surveys.length,
             shrinkWrap: true,
-            itemBuilder: (context,index){
+            itemBuilder: (context, index) {
               return const ShimmerUserCard();
             });
       },
     );
   }
-
 }
