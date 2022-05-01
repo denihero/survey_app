@@ -9,7 +9,6 @@ import 'package:http/http.dart' as http;
 import '../../core/constants/api.dart';
 import '../../core/models/survey.dart';
 
-
 Future<String> login(String username, String password) async {
   var response = await http.post(
     Uri.parse("${Api.surveyApi}/account/login/"),
@@ -18,8 +17,10 @@ Future<String> login(String username, String password) async {
       "password": password,
     },
   );
-
-  if (response.statusCode >= 400) throw UnimplementedError();
+  print("${response.body}");
+  print(response.statusCode);
+  if (response.statusCode >= 400)
+    throw UnimplementedError();
   else if (response.statusCode == 201 || response.statusCode == 200) {
     return jsonDecode(response.body.toString())["token"];
   }
@@ -303,7 +304,6 @@ get_likes(String token, String email) async {
       "Authorization": "Token $token",
     },
   );
-  log("Likes:${response_surveys.body}");
   if (response_surveys.statusCode >= 400) throw UnimplementedError();
   try {
     return jsonDecode(response_surveys.body);
@@ -387,19 +387,20 @@ getLastSurvey(String email, String token) async {
       jsonDecode(utf8.decode(response.bodyBytes))["results"][0]);
 }
 
- getNameSurname(String email) async {
+Future<List<dynamic>> getNameSurname(String email) async {
   var response = await http.get(Uri.parse("${Api.surveyApi}/info_users/"));
-  print(response.body);
+  if (response.statusCode >= 400) throw UnimplementedError();
   for (var item in jsonDecode(utf8.decode(response.bodyBytes))) {
     if (item["author"] == email) {
       return [item["name"], item["surname"], item["image"], item["id"]];
     }
   }
+  return [];
 }
 
 void main(List<String> args) async {
-  print(await getLastSurvey(
-      "ulukbekovbr@gmail.com", "8e548b2896b3e1f73315792721575d83be6e800e"));
+  print(await putImage(null, 21, "2581cab8685414b7b05a0b125f1ebf4c91fb94ff",
+      "Baitur", "ulukbekov"));
 }
 
 Future uploadImage(File? file, Surveys survey, String token) async {
@@ -412,8 +413,6 @@ Future uploadImage(File? file, Surveys survey, String token) async {
   Dio dio = Dio();
   dio.options.headers['Authorization'] = "Token $token";
   var response = await dio.post("${Api.surveyApi}/surveys/", data: formData);
-  print(response.extra);
-  print(response);
   if (response.statusCode! >= 400) {
     throw UnimplementedError();
   }
@@ -431,4 +430,42 @@ get_surveys(int begin) async {
         jsonDecode(utf8.decode(response.bodyBytes))["results"][0]));
   }
   return surveys;
+}
+
+putImage(File? file, int id, String token, String name, String surname) async {
+  // print(file!.path);
+  // print(name); print(surname);
+  // print(file!.path);
+  FormData formData = FormData.fromMap({
+    if (file != null) "image": await MultipartFile.fromFile(file.path),
+    "name": name,
+    "surname": surname,
+  });
+
+  Dio dio = Dio();
+  dio.options.headers['Authorization'] = "Token $token";
+  dio.options.headers['Content-Type'] = "multipart/form-data";
+  // dio.options.contentType = Headers.formUrlEncodedContentType;
+  var response =
+      await dio.put("${Api.surveyApi}/info_users/$id/", data: formData);
+  // if (response.statusCode! >= 400) {
+  //   throw UnimplementedError();
+  // }
+  print(response.data);
+  return response.data["image"];
+  // return jsonDecode(response.data)["image"];
+}
+
+change() async {
+  var resp =
+      await http.put(Uri.parse("${Api.surveyApi}/info_users/21/"), headers: {
+    "Authorization": "Token 2581cab8685414b7b05a0b125f1ebf4c91fb94ff",
+    "Content-Type": "image/jpeg"
+  }, body: {
+    "name": "Amantur",
+    "surname": "Ulukbekov",
+    "image":
+        await MultipartFile.fromFile("/Users/ulukbekovbr/Downloads/alatoo.jpg")
+  });
+  print(resp.body);
 }

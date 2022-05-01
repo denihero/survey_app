@@ -8,11 +8,17 @@ import '../../../logic/bloc/auth_bloc.dart';
 
 import '../../../logic/cubit/cubit/post_cubit.dart';
 import '../../../logic/cubit/like_cubit.dart';
+import '../setting/widgets/profile_edit_icon.dart';
 import 'widgets/profileicon.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final x = context.watch<LikeCubit>();
@@ -60,7 +66,11 @@ class ProfileScreen extends StatelessWidget {
                     const SizedBox(
                       height: 27,
                     ),
-                    ProfileIcon(),
+                    BlocBuilder<AuthBloc, AuthState>(
+                      builder: (context, state) {
+                        return ProfileIcon();
+                      },
+                    ),
                     const SizedBox(
                       height: 44,
                     ),

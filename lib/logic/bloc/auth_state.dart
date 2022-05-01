@@ -6,8 +6,13 @@ abstract class AuthState extends Equatable {
   final String name;
   final String surname;
   final String? image;
-  const AuthState( 
-      {this.name = "", this.surname = "", this.email = "", this.token = "",this.image});
+  final int id_info;
+  const AuthState(
+      {this.name = "",
+      this.surname = "",
+      this.email = "",
+      this.token = "",
+      this.image,this.id_info=-1});
 
   fromMap(Map<String, dynamic> map) {
     if (map["email"] != "") {
@@ -17,6 +22,7 @@ abstract class AuthState extends Equatable {
         map["name"] as String,
         map["surname"] as String,
         map["image"] as String,
+        map["id_info"] as int,
       );
     }
     return AuthInitial(
@@ -25,11 +31,18 @@ abstract class AuthState extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
-    return {"email": email, "token": token, "name": name, "surname": surname,"image":image??""};
+    return {
+      "email": email,
+      "token": token,
+      "name": name,
+      "surname": surname,
+      "image": image ?? "",
+      "id_info":id_info
+    };
   }
 
   @override
-  List<Object> get props => [email];
+  List<Object> get props => [email,image??"",id_info,name,surname];
 }
 
 class AuthInitial extends AuthState {
@@ -44,7 +57,8 @@ class AuthInitial extends AuthState {
         map["token"] as String,
         map["name"] as String,
         map["surname"] as String,
-        map["image"] as String, 
+        map["image"] as String,
+        map["id_info"] as int,
       );
     }
     return AuthInitial(
@@ -64,8 +78,10 @@ class AuthLoading extends AuthState {
 }
 
 class AuthSuccess extends AuthState {
-  const AuthSuccess(String e, String token, String name, String surname,String? image)
-      : super(email: e, token: token, name: name, surname: surname,image: image);
+  const AuthSuccess(
+      String e, String token, String name, String surname, String? image,int id_info)
+      : super(
+            email: e, token: token, name: name, surname: surname, image: image,id_info: id_info);
   @override
   fromMap(Map<String, dynamic> map) {
     return AuthSuccess(
@@ -74,12 +90,13 @@ class AuthSuccess extends AuthState {
       map["name"] as String,
       map["surname"] as String,
       map["image"] as String,
+      map["id_info"] as int,
     );
   }
 
   @override
   String toString() {
-    return "$name $surname $email $image";
+    return "$name $surname $email $image $id_info";
   }
 }
 

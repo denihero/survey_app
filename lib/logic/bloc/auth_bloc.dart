@@ -33,6 +33,11 @@ class AuthRegister extends AuthEvent {
   AuthRegister(String username, String password) : super(username, password);
 }
 
+class AuthChangeInfo extends AuthEvent {
+  File? file;
+  AuthChangeInfo(this.file) : super("", "");
+}
+
 class AuthRegisterSendNameSurname extends AuthEvent {
   final File? file;
   final name;
@@ -61,31 +66,28 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
       //   );
       // }
       emit(const AuthLoading(""));
-      print("Login");
       try {
         String r = await login(event.username, event.password);
-        print(r);
+        log("Debug:");
+        log(r);
         if (r.isNotEmpty) {
           String email = event.username;
-          String nameSurname = await getNameSurname(event.username);
+          List<dynamic> nameSurname = await getNameSurname(event.username);
           print("NAme and surname:");
           print(nameSurname);
           emit(
-            AuthSuccess(
-              email,
-              r,
-              nameSurname[0],
-              nameSurname[1],
-              nameSurname[2]
-            ),
+            AuthSuccess(email, r, nameSurname[0], nameSurname[1],
+                nameSurname[2], nameSurname[3]),
           );
         } else if (r.isEmpty) {
           emit(const AuthError());
         }
-      } catch (_) {
+      } catch (e) {
+        print(e);
         emit(const AuthError());
       }
     });
+
     on<AuthRegister>((event, emit) async {
       try {
         emit(const AuthLoading(""));
@@ -132,6 +134,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
         const AuthInitial(),
       );
     });
+    on<AuthChangeInfo>(
+      (event, emit) async {
+        String email = state.email;
+        String token = state.token;
+        String name = state.name;
+        String surname = state.surname;
+        int id = state.id_info;
+        emit(const AuthLoading(""));
+        try {
+          String imageLink =
+              await putImage(event.file, id, token, name, surname);
+          emit(AuthSuccess(email, token, name, surname, imageLink, id));
+        } catch (e) {
+          emit(const AuthError());
+        }
+      },
+    );
   }
 
   @override

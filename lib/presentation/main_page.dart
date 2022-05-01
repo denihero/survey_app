@@ -6,6 +6,7 @@ import 'package:survey/presentation/screens/login/login_screen.dart';
 import 'package:survey/presentation/screens/pre_quiz/pre_quiz_screen.dart';
 import 'package:survey/presentation/screens/profile/profile_screen.dart';
 import 'package:survey/presentation/screens/quiz/quiz_screen.dart';
+import 'package:survey/presentation/screens/setting/widgets/profile_edit_icon.dart';
 
 import 'package:survey/presentation/screens/user_result/users_result_screen.dart';
 import 'package:survey/presentation/screens/users_survey/user_survey_screen.dart';
@@ -101,6 +102,8 @@ class _HomeScreenState extends State<MainPage> {
                 return MaterialPageRoute(builder: (_) => LoginScreen());
               } else if (setting.name == "/quiz") {
                 return MaterialPageRoute(builder: (_) => const QuizScreen());
+              }else if(setting.name=="/view_change_image"){
+                return MaterialPageRoute(builder: (_) => const ChangeImage());
               }
               return null;
             },

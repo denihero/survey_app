@@ -53,7 +53,7 @@ class _UserSurveyCardState extends State<UserSurveyCard> {
                         const Center(
                             child: CircularProgressIndicator(
                       color: Colors.black,
-                    )),
+                    ),),
                     imageUrl: widget.survey.image ?? "",
                     fit: BoxFit.cover,
                     height: 60,

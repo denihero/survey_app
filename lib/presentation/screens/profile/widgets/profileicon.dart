@@ -57,38 +57,7 @@ class ProfileIcon extends StatelessWidget {
               )
             : GestureDetector(
                 onTap: () {
-                  // return Container()
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return WillPopScope(
-                          onWillPop: ()async=>false,
-                          child: Scaffold(
-                            backgroundColor: Colors.white,
-                            appBar: AppBar(
-                              title:  Text("View Image",style: Monsterats_500_18_FONT_SIZE_BLACK,),
-                              backgroundColor: Colors.white,
-                              leading: IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_back_ios,
-                                  color: Colors.black,
-                                  size: 30,
-                                ),
-                                onPressed: () => Navigator.of(context).pop(),
-                              ),
-                              elevation: 0,
-                            ),
-                            body: Center(
-                              child: CachedNetworkImage(
-                                imageUrl: image,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  );
+                    // Navigator.of(context).pushNamed("/view_change_image");
                 },
                 child: Center(
                   child: CircleAvatar(

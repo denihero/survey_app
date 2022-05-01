@@ -38,7 +38,11 @@ class SettingScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const ProfileEditIcon(),
+              BlocBuilder<AuthBloc, AuthState>(
+                builder: (context, state) {
+                  return ProfileEditIcon();
+                },
+              ),
               const SizedBox(
                 height: 40,
               ),

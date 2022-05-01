@@ -28,6 +28,9 @@ class _UserSurveyWidgetState extends State<UserSurveyWidget> {
       //   return x.state.favorites.isNotEmpty;
       // },
       builder: (context, state) {
+        if(state is SurveyLoading){
+          return const Center(child: CircularProgressIndicator(color: Colors.black,),);
+        }
         if (state is SurveyEmpty) {
           return const Center(
             child: Text("Nothing to show yet!"),
