@@ -170,8 +170,8 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                 }
                 return Column(
                   children: [
-                    const SizedBox(
-                      height: 100,
+                    SizedBox(
+                      height: 17.h,
                     ),
                     Align(
                       alignment: Alignment.topLeft,
@@ -205,10 +205,11 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                                   style: TextStyle(fontSize: 14.sp),
                                   controller: widget.usernameController,
                                   decoration: InputDecoration(
+                                    iconColor: Colors.grey,
                                     border: InputBorder.none,
                                     prefixIcon: Padding(
                                       padding: const EdgeInsets.only(top: 5),
-                                      child: Icon(Icons.email, size: 3.h),
+                                      child: Icon(Icons.email, size: 3.h,color: Colors.grey,),
                                     ),
                                     hintText: "email",
                                     hintStyle: TextStyle(fontSize: 14.sp),
@@ -233,17 +234,17 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                                     hintStyle: TextStyle(fontSize: 14.sp),
                                     prefixIcon: Padding(
                                       padding: const EdgeInsets.only(top: 5),
-                                      child: Icon(Icons.lock, size: 3.h),
+                                      child: Icon(Icons.lock, size: 3.h,color: Colors.grey,),
                                     ),
                                     suffixIcon: IconButton(
                                       icon: isShowed
                                           ? const Padding(
                                               padding: EdgeInsets.only(top: 5),
-                                              child: Icon(Icons.visibility_off),
+                                              child: Icon(Icons.visibility_off,color: Colors.grey,),
                                             )
                                           : const Padding(
                                               padding: EdgeInsets.only(top: 5),
-                                              child: Icon(Icons.visibility),
+                                              child: Icon(Icons.visibility,color: Colors.grey,),
                                             ),
                                       onPressed: () {
                                         setState(() {
@@ -273,7 +274,7 @@ class _RegisterInitialWidgetState extends State<RegisterInitialWidget> {
                                     hintStyle: TextStyle(fontSize: 14.sp),
                                     prefixIcon: Padding(
                                       padding: const EdgeInsets.only(top: 5),
-                                      child: Icon(Icons.lock, size: 3.h),
+                                      child: Icon(Icons.lock, size: 3.h,color: Colors.grey,),
                                     ),
                                     suffixIcon: IconButton(
                                       icon: confirmIsShowed

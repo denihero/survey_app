@@ -1,11 +1,8 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey/core/constants/color.dart';
-import 'package:survey/core/models/survey.dart';
 import 'package:survey/logic/bloc/auth_bloc.dart';
-import 'package:survey/logic/bloc/login_api.dart';
 import 'package:survey/logic/cubit/survey_cubit.dart';
 
 class SearchWidget extends StatefulWidget {

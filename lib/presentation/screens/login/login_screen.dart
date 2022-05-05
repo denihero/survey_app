@@ -133,7 +133,7 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
                     border: InputBorder.none,
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(top: 5),
-                      child: Icon(Icons.email, size: 3.h),
+                      child: Icon(Icons.email, size: 3.h,color: Colors.grey,),
                     ),
                     hintText: "Username or email",
                     hintStyle: TextStyle(fontSize: 14.sp),
@@ -157,7 +157,7 @@ class _LoginInitialWidgetState extends State<LoginInitialWidget> {
                     hintStyle: TextStyle(fontSize: 18),
                     prefixIcon: Padding(
                       padding: EdgeInsets.only(top: 5),
-                      child: Icon(Icons.lock, size: 3.h),
+                      child: Icon(Icons.lock, size: 3.h,color: Colors.grey,),
                     ),
                     suffixIcon: IconButton(
                       icon: isShowed
