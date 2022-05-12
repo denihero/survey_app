@@ -6,13 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:survey/logic/bloc/login_api.dart';
+import 'package:survey/logic/cubit/survey_cubit.dart';
 import 'package:survey/presentation/screens/profile/widgets/profileicon.dart';
 
 import '../../../../core/constants/style.dart';
 import '../../../../logic/bloc/auth_bloc.dart';
 
 class ProfileEditIcon extends StatefulWidget {
-  ProfileEditIcon({
+  const ProfileEditIcon({
     Key? key,
   }) : super(key: key);
 
@@ -33,7 +34,9 @@ class _ProfileEditIconState extends State<ProfileEditIcon> {
           // ignore: curly_braces_in_flow_control_structures
           return const Align(
             alignment: Alignment.centerLeft,
-            child: CircularProgressIndicator(color: Colors.black,),
+            child: CircularProgressIndicator(
+              color: Colors.black,
+            ),
           );
         return SizedBox(
           width: 150,
@@ -43,11 +46,12 @@ class _ProfileEditIconState extends State<ProfileEditIcon> {
             children: [
               image == null || image.isEmpty
                   ? GestureDetector(
-                    onTap: ()=>Navigator.of(context).pushNamed("/view_change_image"),
-                    child: ProfileIcon(
+                      onTap: () =>
+                          Navigator.of(context).pushNamed("/view_change_image"),
+                      child: ProfileIcon(
                         is_settings: true,
                       ),
-                  )
+                    )
                   : GestureDetector(
                       onTap: () {
                         Navigator.of(context).pushNamed("/view_change_image");
@@ -137,63 +141,82 @@ class _ChangeImageState extends State<ChangeImage> {
             : WillPopScope(
                 onWillPop: () async => false,
                 child: Scaffold(
-                  backgroundColor: Colors.white,
-                  appBar: AppBar(
-                    title: Text(
-                      "View Image",
-                      style: Monsterats_500_18_FONT_SIZE_BLACK,
-                    ),
                     backgroundColor: Colors.white,
-                    actions: [
-                      IconButton(
-                        onPressed: pickImage,
-                        icon: const Icon(
-                          Icons.edit,
-                          color: Colors.black,
+                    appBar: AppBar(
+                      title: Text(
+                        "View Image",
+                        style: Monsterats_500_18_FONT_SIZE_BLACK,
+                      ),
+                      backgroundColor: Colors.white,
+                      actions: [
+                        IconButton(
+                          onPressed: pickImage,
+                          icon: const Icon(
+                            Icons.edit,
+                            color: Colors.black,
+                          ),
                         ),
+                      ],
+                      leading: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.black,
+                          size: 30,
+                        ),
+                        onPressed: () async {
+                          var val = BlocProvider.of<AuthBloc>(context).state;
+                          if (imageFile != null) {
+                            BlocProvider.of<AuthBloc>(context)
+                                .add(AuthChangeInfo(imageFile));
+                            BlocProvider.of<SurveyCubit>(context)
+                                .fetch_surveys_stream(
+                                    BlocProvider.of<AuthBloc>(context)
+                                        .state
+                                        .token);
+                            final nextState =
+                                await BlocProvider.of<AuthBloc>(context)
+                                    .stream
+                                    .firstWhere((element) =>
+                                        element is AuthSuccess ||
+                                        element is AuthError);
+                          }
+                          Navigator.of(context).pop();
+                        },
                       ),
-                    ],
-                    leading: IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.black,
-                        size: 30,
-                      ),
-                      onPressed: () async {
-                        var val = BlocProvider.of<AuthBloc>(context).state;
-                        if (imageFile != null) {
-                          BlocProvider.of<AuthBloc>(context)
-                              .add(AuthChangeInfo(imageFile));
-                          final nextState =
-                              await BlocProvider.of<AuthBloc>(context)
-                                  .state
-                                  .email;
-                        }
-                        Navigator.of(context).pop();
-                      },
+                      elevation: 0,
                     ),
-                    elevation: 0,
-                  ),
-                  body: image==null||image.isEmpty&&imageFile==null?Center(child: Text("None",style: Monsterats_600_24_FONT_SIZE_BLACK,),):Center(
-                          child: imageFile == null
-                              ? image==null||image.isEmpty?Center(child:Text("None",style:Monsterats_600_24_FONT_SIZE_BLACK)):Padding(
-                                  padding: const EdgeInsets.only(bottom: 60),
-                                  child: CachedNetworkImage(
-                                    imageUrl: image ??"",
-                                    width: double.infinity,
-                                    fit: BoxFit.fitWidth,
+                    body: image == null || image.isEmpty && imageFile == null
+                        ? Center(
+                            child: Text(
+                              "None",
+                              style: Monsterats_600_24_FONT_SIZE_BLACK,
+                            ),
+                          )
+                        : Center(
+                            child: imageFile == null
+                                ? image == null || image.isEmpty
+                                    ? Center(
+                                        child: Text("None",
+                                            style:
+                                                Monsterats_600_24_FONT_SIZE_BLACK))
+                                    : Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 60),
+                                        child: CachedNetworkImage(
+                                          imageUrl: image ?? "",
+                                          width: double.infinity,
+                                          fit: BoxFit.fitWidth,
+                                        ),
+                                      )
+                                : Padding(
+                                    padding: const EdgeInsets.only(bottom: 60),
+                                    child: Image.file(
+                                      imageFile!,
+                                      width: double.infinity,
+                                      fit: BoxFit.fitWidth,
+                                    ),
                                   ),
-                                )
-                              : Padding(
-                                  padding: const EdgeInsets.only(bottom: 60),
-                                  child: Image.file(
-                                    imageFile!,
-                                    width: double.infinity,
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                                ),
-                        )
-                ));
+                          )));
       },
     );
   }

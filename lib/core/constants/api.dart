@@ -1,4 +1,4 @@
 
 class Api{
-  static const surveyApi = 'http://137.184.230.26:8001';
+  static const surveyApi = 'http://leadev.club:8000';
 }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:survey/core/models/category.dart';
@@ -17,10 +16,9 @@ Future<String> login(String username, String password) async {
       "password": password,
     },
   );
-  print("${response.body}");
-  print(response.statusCode);
-  if (response.statusCode >= 400)
+  if (response.statusCode >= 400){
     throw UnimplementedError();
+  }
   else if (response.statusCode == 201 || response.statusCode == 200) {
     return jsonDecode(response.body.toString())["token"];
   }
