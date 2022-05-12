@@ -16,10 +16,9 @@ Future<String> login(String username, String password) async {
       "password": password,
     },
   );
-  if (response.statusCode >= 400){
+  if (response.statusCode >= 400) {
     throw UnimplementedError();
-  }
-  else if (response.statusCode == 201 || response.statusCode == 200) {
+  } else if (response.statusCode == 201 || response.statusCode == 200) {
     return jsonDecode(response.body.toString())["token"];
   }
   return "";
@@ -86,8 +85,11 @@ Future<bool> confirmPassword(String username, String code) async {
 Future<Map<String, String>> get_categories(String token) async {
   var response =
       await http.get(Uri.parse("${Api.surveyApi}/categories/"), headers: {
-    "Authorization": "Token be4f6b0ae5a8b387b98a96ddb5a33ab0ba8b48b1",
+    "Authorization": "Token 9db75e9c5ddc382ad6dbe14f6c13b1abd77e60d0",
   });
+  print("Token:");
+  print(token);
+  print(response.body);
   if (response.statusCode >= 400) {
     throw UnimplementedError();
   }
